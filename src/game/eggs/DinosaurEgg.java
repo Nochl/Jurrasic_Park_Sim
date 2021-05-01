@@ -17,7 +17,9 @@ public abstract class DinosaurEgg extends PortableItem {
 
     @Override
     public List<Action> getAllowableActions() {
-        return super.getAllowableActions();
+        List<Action> actions = super.getAllowableActions();
+//        actions.add(new EatMeatAction(this))
+        return actions;
     }
 
     @Override
