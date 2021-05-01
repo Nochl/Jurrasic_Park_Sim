@@ -1,6 +1,5 @@
 package game;
 
-import game.PortableItems.PortableItem;
 import game.enums.FoodCapabilities;
 
 public class VegetarianMealKit extends PortableItem {
