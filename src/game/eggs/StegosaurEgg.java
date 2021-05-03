@@ -5,8 +5,8 @@ import game.dinosaur.Stegosaur;
 
 public class StegosaurEgg extends DinosaurEgg{
 
-    public StegosaurEgg(String name, int lifespan) {
-        super(name, lifespan);
+    public StegosaurEgg(int lifespan) {
+        super("stegosaur egg", lifespan);
     }
 
     @Override

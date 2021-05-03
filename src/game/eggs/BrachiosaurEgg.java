@@ -5,8 +5,8 @@ import game.dinosaur.Dinosaur;
 
 public class BrachiosaurEgg extends DinosaurEgg{
 
-    public BrachiosaurEgg(String name, int lifespan) {
-        super(name, lifespan);
+    public BrachiosaurEgg(int lifespan) {
+        super("brachiosaur egg", lifespan);
     }
 
     @Override
