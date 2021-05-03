@@ -8,9 +8,9 @@ import game.dinosaur.Dinosaur;
 
 import java.util.List;
 
-public abstract class DinosaurEgg extends PortableItem {
+public abstract class Egg extends PortableItem {
     Counter lifespan;
-    public DinosaurEgg(String name, int lifespan) {
+    public Egg(String name, int lifespan) {
         super(name, 'e');
         this.lifespan = new Counter(lifespan);
     }
