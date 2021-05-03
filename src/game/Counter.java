@@ -10,7 +10,9 @@ public class Counter {
     }
 
     public void dec() {
-        value -= 1;
+        if (value > 1) {
+            value -= 1;
+        }
     }
 
     public int getValue() {
