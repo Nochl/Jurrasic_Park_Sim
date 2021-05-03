@@ -1,16 +1,16 @@
 package game;
 
 import edu.monash.fit2099.engine.Item;
+import game.eggs.AllosaurEgg;
+import game.eggs.BrachiosaurEgg;
+import game.eggs.StegosaurEgg;
 
 public class VendingItemFactory {
     public VendingItemFactory() {
     }
 
-    // wait for implementation of fruit
     public Item createFruit() {
-
-//        return new Fruit();
-        return null;
+        return new Fruit();
     }
 
     public Item createVegetarianMealKit() {
@@ -29,6 +29,15 @@ public class VendingItemFactory {
         return new LaserGun();
     }
 
-//    public Item createEgg() {
-//    }
+    public Item createAllosaurEgg() {
+        return new AllosaurEgg(10);
+    }
+
+    public Item createBrachiosaurEgg() {
+        return new BrachiosaurEgg(15);
+    }
+
+    public Item createStegosaurEgg() {
+        return new StegosaurEgg(6);
+    }
 }
