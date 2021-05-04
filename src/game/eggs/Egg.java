@@ -1,13 +1,12 @@
 package game.eggs;
 
-import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Location;
 import game.Counter;
 import game.PortableItem;
+import game.actions.EatMeatAction;
 import game.dinosaur.Dinosaur;
 import game.enums.DietCapabilities;
 
-import java.util.List;
 
 public abstract class Egg extends PortableItem {
     Counter lifespan;
@@ -16,13 +15,7 @@ public abstract class Egg extends PortableItem {
         super(name, 'e');
         this.lifespan = new Counter(lifespan);
         addCapability(DietCapabilities.MEAT);
-    }
-
-    @Override
-    public List<Action> getAllowableActions() {
-        List<Action> actions = super.getAllowableActions();
-//        actions.add(new EatMeatAction(this))
-        return actions;
+        allowableActions.add(new EatMeatAction(this));
     }
 
     @Override
