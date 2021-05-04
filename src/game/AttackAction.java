@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
+import game.dinosaur.Allosaur;
 
 /**
  * Special Action for attacking other Actors.
@@ -43,6 +44,10 @@ public class AttackAction extends Action {
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
+
+		if (actor instanceof Allosaur) {
+			actor.heal(20);
+		}
 
 		target.hurt(damage);
 		if (!target.isConscious()) {
