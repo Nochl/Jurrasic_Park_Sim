@@ -18,7 +18,6 @@ import java.util.List;
 
 public abstract class Dinosaur extends Actor {
     protected ArrayList<Behaviour> behaviour = new ArrayList<Behaviour>();
-    protected Counter attackTimeout;
     protected int hungryhealth;
     protected int breedinghealth;
     protected HashMap<Dinosaur, Counter> dinosaurAttackers;
@@ -58,8 +57,7 @@ public abstract class Dinosaur extends Actor {
         return new DoNothingAction();
     }
 
-    public void addAttacker(Dinosaur dinosaur) {
-        dinosaurAttackers.put(dinosaur, createTimeoutCounter());
+    public void addAttacker(Dinosaur dinosaur) {dinosaurAttackers.put(dinosaur, createTimeoutCounter());
     }
 
     abstract Counter createTimeoutCounter();
