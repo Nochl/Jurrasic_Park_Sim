@@ -14,4 +14,8 @@ public class Ecopoints {
     public int getPoints() {
         return this.points;
     }
+
+    public void removePoints(int points) {
+        this.points -= points;
+    }
 }
