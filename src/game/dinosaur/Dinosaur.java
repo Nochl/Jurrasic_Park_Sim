@@ -60,6 +60,11 @@ public abstract class Dinosaur extends Actor {
     public void addAttacker(Dinosaur dinosaur) {dinosaurAttackers.put(dinosaur, createTimeoutCounter());
     }
 
+    public boolean isCurrentlyTimedOut(Actor dinosaur) {
+        Counter attackTimeout = dinosaurAttackers.get(dinosaur);
+        return attackTimeout != null;
+    }
+
     abstract Counter createTimeoutCounter();
 }
 
