@@ -1,5 +1,7 @@
 package game.dinosaur;
 
+import game.Counter;
+
 public class Brachiosaur extends Dinosaur{
     /**
      * Constructor.
@@ -11,5 +13,10 @@ public class Brachiosaur extends Dinosaur{
         maxHitPoints = 160;
         hungryhealth = 140;
         breedinghealth = 70;
+    }
+
+    @Override
+    Counter createTimeoutCounter() {
+        return new Counter(50);
     }
 }

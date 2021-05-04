@@ -1,8 +1,10 @@
 package game.dinosaur;
 
 import edu.monash.fit2099.engine.IntrinsicWeapon;
+import game.Counter;
 
 public class Allosaur extends Dinosaur{
+
     /**
      * Constructor.
      *
@@ -17,5 +19,10 @@ public class Allosaur extends Dinosaur{
     @Override
     protected IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(20, "gouges");
+    }
+
+    @Override
+    Counter createTimeoutCounter() {
+        return new Counter(20);
     }
 }
