@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import game.Corpse;
 import game.dinosaur.Allosaur;
-import game.eggs.DinosaurEgg;
+import game.eggs.Egg;
 
 public class EatMeatAction extends EatingAction{
 
@@ -18,9 +18,11 @@ public class EatMeatAction extends EatingAction{
         if (dinosaur instanceof Allosaur) {
             if (food instanceof Corpse) {
                 dinosaur.heal(20);
-            } else if (food instanceof DinosaurEgg) {
+            } else if (food instanceof Egg) {
                 map.locationOf(dinosaur).removeItem(food);
                 dinosaur.heal(10);
+            } else {
+                dinosaur.heal(5);
             }
         }
     }
