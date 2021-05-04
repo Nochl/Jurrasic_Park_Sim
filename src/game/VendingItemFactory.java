@@ -4,40 +4,83 @@ import edu.monash.fit2099.engine.Item;
 import game.eggs.AllosaurEgg;
 import game.eggs.BrachiosaurEgg;
 import game.eggs.StegosaurEgg;
+import game.enums.VendingMachineItems;
 
+import java.util.ArrayList;
+
+/**
+ * A factory class that creates instances of each vending machine item.
+ * Uses VendingMachineItems enum class to determine which item to create.
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 2.0.0
+ */
 public class VendingItemFactory {
+
     public VendingItemFactory() {
     }
 
-    public Item createFruit() {
+    public ArrayList<VendingMachineItems> getPossibleVendingItems() {
+        ArrayList<VendingMachineItems> possibleVendingItems = new ArrayList<>();
+        for (VendingMachineItems item : VendingMachineItems.values()) {
+            possibleVendingItems.add(item);
+        }
+        return possibleVendingItems;
+    }
+
+    public Item createVendingItem(VendingMachineItems vendingMachineItem) {
+        Item item = null;
+        switch (vendingMachineItem) {
+            case FRUIT:
+                item = createFruit();
+                break;
+            case VEGETARIAN_MEAL_KIT:
+                item = createVegetarianMealKit();
+                break;
+            case CARNIVORE_MEAL_KIT:
+                item = createCarnivoreMealKit();
+                break;
+            case STEGOSAUR_EGG:
+                item = createStegosaurEgg();
+                break;
+            case BRACHIOSAUR_EGG:
+                item = createBrachiosaurEgg();
+                break;
+            case ALLOSAUR_EGG:
+                item = createAllosaurEgg();
+                break;
+            case LASER_GUN:
+                item = createLaserGun();
+                break;
+        }
+        return item;
+    }
+
+    private Item createFruit() {
         return new Fruit();
     }
 
-    public Item createVegetarianMealKit() {
+    private Item createVegetarianMealKit() {
         return new VegetarianMealKit();
     }
 
-    public Item createCarnivoreMealKit() {
+    private Item createCarnivoreMealKit() {
         return new CarnivoreMealKit();
     }
 
-    public Item createCorpse(String name) {
-        return new Corpse(name);
-    }
-
-    public Item createLaserGun() {
+    private Item createLaserGun() {
         return new LaserGun();
     }
 
-    public Item createAllosaurEgg() {
+    private Item createAllosaurEgg() {
         return new AllosaurEgg(10);
     }
 
-    public Item createBrachiosaurEgg() {
+    private Item createBrachiosaurEgg() {
         return new BrachiosaurEgg(15);
     }
 
-    public Item createStegosaurEgg() {
+    private Item createStegosaurEgg() {
         return new StegosaurEgg(6);
     }
 }
