@@ -4,18 +4,19 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Location;
 import game.Counter;
 import game.PortableItem;
+import game.consumable.Consumable;
 import game.dinosaur.Dinosaur;
-import game.enums.DietCapabilities;
+import game.enums.FoodTypeCapabilities;
 
 import java.util.List;
 
-public abstract class Egg extends PortableItem {
+public abstract class Egg extends Consumable {
     Counter lifespan;
 
     public Egg(String name, int lifespan) {
-        super(name, 'e');
+        super(name, 'e', 10, 0, 0, 10);
         this.lifespan = new Counter(lifespan);
-        addCapability(DietCapabilities.MEAT);
+        addCapability(FoodTypeCapabilities.MEAT);
     }
 
     @Override

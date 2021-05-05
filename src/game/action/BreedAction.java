@@ -44,10 +44,10 @@ public class BreedAction extends Action {
             return new AllosaurEgg(10);
         }
         else if (dinosaur instanceof Brachiosaur) {
-            return new BrachiosaurEgg(10);
+            return new BrachiosaurEgg(15);
         }
         else {
-            return new StegosaurEgg(10);
+            return new StegosaurEgg(6);
         }
     }
 

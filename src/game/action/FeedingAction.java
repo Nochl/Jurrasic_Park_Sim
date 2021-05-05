@@ -1,12 +1,17 @@
 package game.action;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.*;
+import game.Player;
+import game.PortableItem;
 import game.dinosaur.Dinosaur;
+import game.enums.DietCapabilities;
+import game.enums.FoodTypeCapabilities;
+
+import java.util.ArrayList;
 
 public class FeedingAction extends Action {
     private Dinosaur target;
+    private ArrayList<Item> food = new ArrayList<>();
 
     public FeedingAction(Dinosaur target) {
         this.target = target;
@@ -21,6 +26,28 @@ public class FeedingAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
+        if (target.hasCapability(DietCapabilities.CARNIVORE)) {
+            for (Item item:actor.getInventory()){
+                if (item.hasCapability(FoodTypeCapabilities.MEAT)) {
+                    food.add(item);
+                }
+            }
+        }
+
+        else if (target.hasCapability(DietCapabilities.HERBIVORE)) {
+            for (Item item:actor.getInventory()){
+                if (item.hasCapability(FoodTypeCapabilities.VEGETABLE)) {
+                    food.add(item);
+                }
+            }
+        }
+
+        int selection = displayFeedingActionMenu();
+
+
+
+
+
 
         return null;
     }
@@ -35,4 +62,19 @@ public class FeedingAction extends Action {
     public String menuDescription(Actor actor) {
         return "Feed Dinosaur";
     }
+
+
+    private int displayFeedingActionMenu() {
+        Display display = new Display();
+        display.println("------------------------");
+        display.println("What Would You Like to Feed the Dinosaur?");
+        int counter = 1;
+        for (Item item:food) {
+            display.println(counter + ") " + item.toString());
+            counter++;
+        }
+        display.println("Selection: ");
+        return display.readChar();
+    }
 }
+

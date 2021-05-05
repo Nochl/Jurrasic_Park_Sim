@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import game.dinosaur.Allosaur;
+import game.dinosaur.Dinosaur;
 
 /**
  * Special Action for attacking other Actors.
@@ -32,6 +33,8 @@ public class AttackAction extends Action {
 	public AttackAction(Actor target) {
 		this.target = target;
 	}
+
+	public AttackAction(Dinosaur target) {this.target = target; }
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
