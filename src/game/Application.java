@@ -50,9 +50,10 @@ public class Application {
 		GameMap gameMap = new GameMap(groundFactory, map );
 		world.addGameMap(gameMap);
 		
-		Actor player = new Player("Player", '@', 100);
+		Player player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(9, 4));
-		
+		EcoHold.addPlayerEco(player.getEcopoints());
+
 		// Place a pair of stegosaurs in the middle of the map
 		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur"));
 		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur"));
