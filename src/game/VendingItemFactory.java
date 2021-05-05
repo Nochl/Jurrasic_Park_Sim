@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Uses VendingMachineItems enum class to determine which item to create.
  * @author Tim Jordan
  * @author Enoch Leow
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class VendingItemFactory {
 
@@ -28,7 +28,7 @@ public class VendingItemFactory {
         return possibleVendingItems;
     }
 
-    public Item createVendingItem(VendingMachineItems vendingMachineItem) {
+    public Item createVendingItem(VendingMachineItems vendingMachineItem, Ecopoints playerEcoPoints) {
         Item item = null;
         switch (vendingMachineItem) {
             case FRUIT:
@@ -41,13 +41,13 @@ public class VendingItemFactory {
                 item = createCarnivoreMealKit();
                 break;
             case STEGOSAUR_EGG:
-                item = createStegosaurEgg();
+                item = createStegosaurEgg(playerEcoPoints);
                 break;
             case BRACHIOSAUR_EGG:
-                item = createBrachiosaurEgg();
+                item = createBrachiosaurEgg(playerEcoPoints);
                 break;
             case ALLOSAUR_EGG:
-                item = createAllosaurEgg();
+                item = createAllosaurEgg(playerEcoPoints);
                 break;
             case LASER_GUN:
                 item = createLaserGun();
@@ -72,15 +72,15 @@ public class VendingItemFactory {
         return new LaserGun();
     }
 
-    private Item createAllosaurEgg() {
-        return new AllosaurEgg(10);
+    private Item createAllosaurEgg(Ecopoints playerEcoPoints) {
+        return new AllosaurEgg(10, playerEcoPoints);
     }
 
-    private Item createBrachiosaurEgg() {
-        return new BrachiosaurEgg(15);
+    private Item createBrachiosaurEgg(Ecopoints playerEcoPoints) {
+        return new BrachiosaurEgg(15, playerEcoPoints);
     }
 
-    private Item createStegosaurEgg() {
-        return new StegosaurEgg(6);
+    private Item createStegosaurEgg(Ecopoints playerEcoPoints) {
+        return new StegosaurEgg(6, playerEcoPoints);
     }
 }
