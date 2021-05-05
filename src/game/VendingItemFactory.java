@@ -1,6 +1,7 @@
 package game;
 
 import edu.monash.fit2099.engine.Item;
+import game.consumable.Fruit;
 import game.eggs.AllosaurEgg;
 import game.eggs.BrachiosaurEgg;
 import game.eggs.StegosaurEgg;

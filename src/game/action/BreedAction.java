@@ -3,6 +3,7 @@ package game.action;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
+import game.EcoHold;
 import game.eggs.AllosaurEgg;
 import game.eggs.BrachiosaurEgg;
 import game.eggs.Egg;
@@ -44,10 +45,10 @@ public class BreedAction extends Action {
             return new AllosaurEgg(10);
         }
         else if (dinosaur instanceof Brachiosaur) {
-            return new BrachiosaurEgg(10);
+            return new BrachiosaurEgg(15);
         }
         else {
-            return new StegosaurEgg(10);
+            return new StegosaurEgg(6);
         }
     }
 
