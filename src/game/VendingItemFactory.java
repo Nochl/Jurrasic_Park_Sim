@@ -5,40 +5,83 @@ import game.consumable.Fruit;
 import game.eggs.AllosaurEgg;
 import game.eggs.BrachiosaurEgg;
 import game.eggs.StegosaurEgg;
+import game.enums.VendingMachineItems;
 
+import java.util.ArrayList;
+
+/**
+ * A factory class that creates instances of each vending machine item.
+ * Uses VendingMachineItems enum class to determine which item to create.
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 3.0.0
+ */
 public class VendingItemFactory {
+
     public VendingItemFactory() {
     }
 
-    public Item createFruit() {
+    public ArrayList<VendingMachineItems> getPossibleVendingItems() {
+        ArrayList<VendingMachineItems> possibleVendingItems = new ArrayList<>();
+        for (VendingMachineItems item : VendingMachineItems.values()) {
+            possibleVendingItems.add(item);
+        }
+        return possibleVendingItems;
+    }
+
+    public Item createVendingItem(VendingMachineItems vendingMachineItem, Ecopoints playerEcoPoints) {
+        Item item = null;
+        switch (vendingMachineItem) {
+            case FRUIT:
+                item = createFruit();
+                break;
+            case VEGETARIAN_MEAL_KIT:
+                item = createVegetarianMealKit();
+                break;
+            case CARNIVORE_MEAL_KIT:
+                item = createCarnivoreMealKit();
+                break;
+            case STEGOSAUR_EGG:
+                item = createStegosaurEgg(playerEcoPoints);
+                break;
+            case BRACHIOSAUR_EGG:
+                item = createBrachiosaurEgg(playerEcoPoints);
+                break;
+            case ALLOSAUR_EGG:
+                item = createAllosaurEgg(playerEcoPoints);
+                break;
+            case LASER_GUN:
+                item = createLaserGun();
+                break;
+        }
+        return item;
+    }
+
+    private Item createFruit() {
         return new Fruit();
     }
 
-    public Item createVegetarianMealKit() {
+    private Item createVegetarianMealKit() {
         return new VegetarianMealKit();
     }
 
-    public Item createCarnivoreMealKit() {
+    private Item createCarnivoreMealKit() {
         return new CarnivoreMealKit();
     }
 
-    public Item createCorpse(String name) {
-        return new Corpse(name);
-    }
-
-    public Item createLaserGun() {
+    private Item createLaserGun() {
         return new LaserGun();
     }
 
-    public Item createAllosaurEgg() {
-        return new AllosaurEgg(10);
+    private Item createAllosaurEgg(Ecopoints playerEcoPoints) {
+        return new AllosaurEgg(10, playerEcoPoints);
     }
 
-    public Item createBrachiosaurEgg() {
-        return new BrachiosaurEgg(15);
+    private Item createBrachiosaurEgg(Ecopoints playerEcoPoints) {
+        return new BrachiosaurEgg(15, playerEcoPoints);
     }
 
-    public Item createStegosaurEgg() {
-        return new StegosaurEgg(6);
+    private Item createStegosaurEgg(Ecopoints playerEcoPoints) {
+        return new StegosaurEgg(6, playerEcoPoints);
     }
 }

@@ -1,6 +1,7 @@
 package game;
 
 import edu.monash.fit2099.engine.Location;
+import game.actions.EatMeatAction;
 import game.enums.FoodTypeCapabilities;
 
 public class Corpse extends PortableItem {
@@ -14,6 +15,7 @@ public class Corpse extends PortableItem {
         super("dead " + name, '%');
         lifespan = new Counter(20);
         addCapability(FoodTypeCapabilities.MEAT);
+        allowableActions.add(new EatMeatAction(this));
     }
 
     @Override

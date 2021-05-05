@@ -10,14 +10,13 @@ import edu.monash.fit2099.engine.GameMap;
 import game.Behaviour;
 import game.Counter;
 import game.WanderBehaviour;
+import game.interfaces.DinosaurInterface;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public abstract class Dinosaur extends Actor {
-    protected ArrayList<Behaviour> behaviour = new ArrayList<Behaviour>();
+    protected ArrayList<Behaviour> behaviours = new ArrayList<Behaviour>();
     protected int hungryhealth;
     protected int breedinghealth;
     protected HashMap<Dinosaur, Counter> dinosaurAttackers;
@@ -30,7 +29,7 @@ public abstract class Dinosaur extends Actor {
      */
     public Dinosaur(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        behaviour.add(new WanderBehaviour());
+        behaviours.add(new WanderBehaviour());
         dinosaurAttackers = new HashMap<>();
     }
 
@@ -49,7 +48,7 @@ public abstract class Dinosaur extends Actor {
 
         }
 
-        for (Behaviour thisbehaviour : behaviour) {
+        for (Behaviour thisbehaviour : behaviours) {
             Action action = thisbehaviour.getAction(this, map);
             if (action != null)
                 return action;
@@ -58,6 +57,11 @@ public abstract class Dinosaur extends Actor {
     }
 
     public void addAttacker(Dinosaur dinosaur) {dinosaurAttackers.put(dinosaur, createTimeoutCounter());
+    }
+
+    public boolean isCurrentlyTimedOut(Actor dinosaur) {
+        Counter attackTimeout = dinosaurAttackers.get(dinosaur);
+        return attackTimeout != null;
     }
 
     abstract Counter createTimeoutCounter();
