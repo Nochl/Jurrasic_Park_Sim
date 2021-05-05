@@ -66,5 +66,3 @@ public abstract class Dinosaur extends Actor {
 
     abstract Counter createTimeoutCounter();
 }
-
-
