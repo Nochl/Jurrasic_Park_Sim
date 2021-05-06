@@ -1,7 +1,9 @@
 package game.consumable;
 
+import edu.monash.fit2099.engine.Actor;
 import game.PortableItem;
 import game.dinosaur.Brachiosaur;
+import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
 
 import game.dinosaur.Dinosaur;
@@ -26,11 +28,11 @@ public class Consumable extends PortableItem {
         return fedHealth;
     }
 
-    public int getEatenHealth(Dinosaur dinosaur) {
-        if (dinosaur instanceof Stegosaur) {
+    public int getEatenHealth(Actor actor) {
+        if (actor.hasCapability(DinosaurCapabilities.STEGOSAUR)) {
             return eatenHealth.get(0);
         }
-        else if (dinosaur instanceof Brachiosaur) {
+        else if (actor.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
             return eatenHealth.get(1);
         }
         else {

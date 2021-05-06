@@ -1,5 +1,6 @@
 package game.eggs;
 
+import game.EcoHold;
 import game.Ecopoints;
 import game.dinosaur.Allosaur;
 import game.dinosaur.Dinosaur;
@@ -12,8 +13,8 @@ import game.dinosaur.Dinosaur;
  * @see Egg
  */
 public class AllosaurEgg extends Egg {
-    public AllosaurEgg(int lifespan, Ecopoints ecopoints) {
-        super("allosaur egg", lifespan, ecopoints);
+    public AllosaurEgg(int lifespan) {
+        super("allosaur egg", lifespan);
     }
 
     @Override
@@ -23,6 +24,6 @@ public class AllosaurEgg extends Egg {
 
     @Override
     void increaseEcoPoints() {
-        ecopoints.addPoints(1000);
+        EcoHold.addWorldEco(1000);
     }
 }

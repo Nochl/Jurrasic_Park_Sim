@@ -2,6 +2,8 @@ package game.dinosaur;
 
 import edu.monash.fit2099.engine.IntrinsicWeapon;
 import game.Counter;
+import game.enums.DietCapabilities;
+import game.enums.DinosaurCapabilities;
 
 public class Allosaur extends Dinosaur{
 
@@ -15,6 +17,8 @@ public class Allosaur extends Dinosaur{
         maxHitPoints = 100;
         hungryhealth = 140;
         breedinghealth = 50;
+        addCapability(DietCapabilities.CARNIVORE);
+        addCapability(DinosaurCapabilities.ALLOSAUR);
     }
     @Override
     protected IntrinsicWeapon getIntrinsicWeapon() {

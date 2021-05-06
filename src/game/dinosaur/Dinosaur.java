@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.GameMap;
 import game.Behaviour;
 import game.Counter;
 import game.WanderBehaviour;
-import game.interfaces.DinosaurInterface;
+import game.action.FeedingAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +31,15 @@ public abstract class Dinosaur extends Actor {
         super(name, displayChar, hitPoints);
         behaviours.add(new WanderBehaviour());
         dinosaurAttackers = new HashMap<>();
+
     }
 
-
+    @Override
+    public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+        Actions action = new Actions();
+        action.add(new FeedingAction(this));
+        return action;
+    }
 
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {

@@ -1,12 +1,13 @@
 package game.eggs;
 
+import game.EcoHold;
 import game.Ecopoints;
 import game.dinosaur.Dinosaur;
 import game.dinosaur.Stegosaur;
 
 public class StegosaurEgg extends Egg {
-    public StegosaurEgg(int lifespan, Ecopoints ecopoints) {
-        super("stegosaur egg", lifespan, ecopoints);
+    public StegosaurEgg(int lifespan) {
+        super("stegosaur egg", lifespan);
     }
 
     @Override
@@ -16,6 +17,6 @@ public class StegosaurEgg extends Egg {
 
     @Override
     void increaseEcoPoints() {
-        ecopoints.addPoints(100);
+        EcoHold.addWorldEco(100);
     }
 }

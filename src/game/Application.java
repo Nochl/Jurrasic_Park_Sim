@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.FancyGroundFactory;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.World;
+import game.consumable.Fruit;
 import game.dinosaur.Stegosaur;
 
 /**
@@ -53,11 +54,12 @@ public class Application {
 		Player player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(9, 4));
 		EcoHold.addPlayerEco(player.getEcopoints());
+		player.addItemToInventory(new Fruit());
 
 		// Place a pair of stegosaurs in the middle of the map
 		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur"));
 		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur"));
-		
+		gameMap.at(10, 4).addActor(new Stegosaur("Stegosaur"));
 			
 		world.run();
 	}

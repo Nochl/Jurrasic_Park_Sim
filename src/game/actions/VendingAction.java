@@ -42,7 +42,7 @@ public class VendingAction extends Action {
         displayVendingMachineMenu((Player)actor, display);
         int key = getActorMenuOption(actor, display);
         String description;
-        Ecopoints playerEcopoints = ((Player) actor).getEcopoints();
+        Ecopoints playerEcopoints = ((Player)actor).getEcopoints();
         int itemCost = menuOptions.get(key).getCost();
         if (itemCost > playerEcopoints.getPoints()) {
             description = actor + " does not have enough EcoPoints to purchase " + menuOptions.get(key).getName();

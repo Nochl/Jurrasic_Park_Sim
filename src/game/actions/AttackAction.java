@@ -10,7 +10,6 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import game.Corpse;
 import game.dinosaur.Dinosaur;
-import game.interfaces.DinosaurInterface;
 import game.dinosaur.Allosaur;
 import game.dinosaur.Dinosaur;
 
@@ -48,7 +47,7 @@ public class AttackAction extends Action {
 			return actor + " misses " + target + ".";
 		}
 
-		if (actor instanceof DinosaurInterface && target instanceof DinosaurInterface) {
+		if (actor instanceof Dinosaur && target instanceof Dinosaur) {
 			if (((Dinosaur) target).isCurrentlyTimedOut(actor)) {
 				return actor + " cannot attack " + target + " because they are timed out";
 			}
