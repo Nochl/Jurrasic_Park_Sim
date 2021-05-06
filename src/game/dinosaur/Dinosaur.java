@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.GameMap;
 import game.Behaviour;
 import game.Counter;
 import game.WanderBehaviour;
-import game.action.FeedingAction;
+import game.actions.FeedingAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
