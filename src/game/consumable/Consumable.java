@@ -1,7 +1,9 @@
 package game.consumable;
 
-import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.*;
 import game.PortableItem;
+import game.actions.FeedingAction;
+import game.actions.PickFruitAction;
 import game.dinosaur.Brachiosaur;
 import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
@@ -10,6 +12,7 @@ import game.dinosaur.Dinosaur;
 import game.dinosaur.Stegosaur;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Consumable extends PortableItem {
@@ -22,6 +25,7 @@ public class Consumable extends PortableItem {
         eatenHealth.add(steg);
         eatenHealth.add(brac);
         eatenHealth.add(allo);
+        allowableActions.add(new PickUpItemAction(this));
     }
 
     public int getFedHealth() {
@@ -39,6 +43,7 @@ public class Consumable extends PortableItem {
             return eatenHealth.get(2);
         }
     }
+
 }
 
 
