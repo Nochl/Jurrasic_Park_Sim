@@ -17,6 +17,15 @@ public class Bush extends Ground{
      */
     public Bush() {
         super('b');
+
+    }
+
+    public void tick(Location location) {
+        double prob = Math.random();
+        super.tick(location);
+        if (prob < 0.5) {
+            inBush.add(new Fruit());
+        }
     }
 
     @Override
