@@ -20,7 +20,7 @@ public class FollowBehaviour implements Behaviour {
 	}
 
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
+	public Action getAction(Actor actor, Actions actions, GameMap map) {
 		if(!map.contains(target) || !map.contains(actor))
 			return null;
 		
