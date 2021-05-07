@@ -18,7 +18,7 @@ public class SpitBehaviour extends Action implements Behaviour{
 	}
 	
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
+	public Action getAction(Actor actor, GameMap map, Actions actions) {
 		Location here = map.locationOf(actor);
 		Location there = map.locationOf(target);
 

@@ -1,7 +1,6 @@
-package game.eggs;
+package game.consumable.eggs;
 
 import game.EcoHold;
-import game.Ecopoints;
 import game.dinosaur.Allosaur;
 import game.dinosaur.Dinosaur;
 

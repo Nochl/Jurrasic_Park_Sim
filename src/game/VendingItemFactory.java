@@ -1,11 +1,12 @@
 package game;
 
 import edu.monash.fit2099.engine.Item;
+import game.consumable.CarnivoreMealKit;
 import game.consumable.Fruit;
 import game.consumable.VegetarianMealKit;
-import game.eggs.AllosaurEgg;
-import game.eggs.BrachiosaurEgg;
-import game.eggs.StegosaurEgg;
+import game.consumable.eggs.AllosaurEgg;
+import game.consumable.eggs.BrachiosaurEgg;
+import game.consumable.eggs.StegosaurEgg;
 import game.enums.VendingMachineItems;
 
 import java.util.ArrayList;

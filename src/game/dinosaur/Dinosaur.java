@@ -11,6 +11,7 @@ import game.Behaviour;
 import game.Counter;
 import game.WanderBehaviour;
 import game.actions.FeedingAction;
+import game.enums.Mateable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,9 @@ public abstract class Dinosaur extends Actor {
     protected int hungryhealth;
     protected int breedinghealth;
     protected HashMap<Dinosaur, Counter> dinosaurAttackers;
+    protected Counter canBreed;
+    protected int mateTime;
+
     /**
      * Constructor.
      *
@@ -31,6 +35,7 @@ public abstract class Dinosaur extends Actor {
         super(name, displayChar, hitPoints);
         behaviours.add(new WanderBehaviour());
         dinosaurAttackers = new HashMap<>();
+        canBreed = new Counter(mateTime);
 
     }
 
@@ -44,6 +49,11 @@ public abstract class Dinosaur extends Actor {
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         this.hurt(1);
+        canBreed.dec();
+        if (canBreed.getValue() < 1){
+            canBreed = null;
+            addCapability(Mateable.MATEABLE);
+        }
 
         for (Dinosaur dinosaur : dinosaurAttackers.keySet()) {
             Counter attackTimer = dinosaurAttackers.get(dinosaur);
@@ -51,11 +61,12 @@ public abstract class Dinosaur extends Actor {
             if (attackTimer.getValue() == 0) {
                 dinosaurAttackers.remove(dinosaur);
             }
-
         }
 
+
+
         for (Behaviour thisbehaviour : behaviours) {
-            Action action = thisbehaviour.getAction(this, map);
+            Action action = thisbehaviour.getAction(this, map, actions);
             if (action != null)
                 return action;
         }
@@ -71,4 +82,9 @@ public abstract class Dinosaur extends Actor {
     }
 
     abstract Counter createTimeoutCounter();
+
+    public void resetMateTime(){
+        canBreed = new Counter(mateTime);
+    }
 }
+

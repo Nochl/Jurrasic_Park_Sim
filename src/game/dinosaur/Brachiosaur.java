@@ -15,6 +15,7 @@ public class Brachiosaur extends Dinosaur{
         maxHitPoints = 160;
         hungryhealth = 140;
         breedinghealth = 70;
+        mateTime = 30;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
     }
