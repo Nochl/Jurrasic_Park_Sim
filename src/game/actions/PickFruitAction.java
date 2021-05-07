@@ -4,7 +4,10 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import game.consumable.Fruit;
+import game.dinosaur.Stegosaur;
 import game.enums.ActorTypeCapabilities;
+import game.enums.DietCapabilities;
+import game.enums.DinosaurCapabilities;
 
 import java.util.ArrayList;
 
@@ -24,23 +27,35 @@ public class PickFruitAction extends Action {
      */
 
 
-
     @Override
     public String execute(Actor actor, GameMap map) {
         Double random = Math.random();
         if (actor.hasCapability(ActorTypeCapabilities.PLAYER)){
             if (random < 0.6) {
-                actor.addItemToInventory(fruitList.remove(0));
+                Fruit added = fruitList.remove(0);
+                actor.addItemToInventory(added);
+                return ("You picked a "+added.toString()+"!");
             }
             else {
                 return ("You search the tree or bush for fruit, but you can’t find any ripe ones");
             }
         }
 
-        else {
+        else if (actor.hasCapability(DinosaurCapabilities.STEGOSAUR)){
+            Fruit added = fruitList.remove(0);
+            actor.heal(added.getEatenHealth(actor));
+            return (actor.toString()+" has eaten a "+added.toString()+"!");
 
         }
-        return null;
+
+        else {
+            int size = fruitList.size();
+            for (int i = 0; i < size; i++){
+                actor.heal(fruitList.remove(0).getEatenHealth(actor));
+            }
+            return (actor.toString()+" has eaten all fruits in the tree!");
+
+        }
     }
 
     /**
