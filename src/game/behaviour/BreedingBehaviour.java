@@ -3,6 +3,7 @@ package game.behaviour;
 import edu.monash.fit2099.engine.*;
 import game.FindNearestLocation;
 import game.actions.MatingAction;
+import game.dinosaur.Dinosaur;
 import game.enums.Gender;
 import game.enums.Mateable;
 
@@ -15,7 +16,7 @@ public class BreedingBehaviour implements Behaviour {
 
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
-        if (!actor.hasCapability(Mateable.MATEABLE)){
+        if (actor.hasCapability(Mateable.MATEABLE)){
             return null;
         }
 

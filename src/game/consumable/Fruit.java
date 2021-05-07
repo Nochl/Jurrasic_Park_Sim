@@ -18,7 +18,6 @@ public class Fruit extends Consumable {
         super("Fruit", 'f', 20, 10, 5, 0);
         addCapability(FoodTypeCapabilities.VEGETABLE);
         allowableActions.add(new EatFruitAction(this));
-
     }
 
 }

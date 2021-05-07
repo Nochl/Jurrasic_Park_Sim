@@ -1,9 +1,12 @@
 package game.consumable;
 
+import edu.monash.fit2099.engine.Action;
+import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Location;
 import game.Counter;
 import game.actions.EatMeatAction;
 import game.consumable.Consumable;
+import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
 
 public class Corpse extends Consumable {
@@ -13,9 +16,9 @@ public class Corpse extends Consumable {
      */
     private Counter lifespan;
 
-    public Corpse(String name) {
+    public Corpse(String name, Actor actor) {
         super("dead " + name, '%', 0, 0, 0, 20);
-        lifespan = new Counter(20);
+        corpseDespawn(actor);
         addCapability(FoodTypeCapabilities.MEAT);
         allowableActions.add(new EatMeatAction(this));
     }
@@ -28,5 +31,14 @@ public class Corpse extends Consumable {
             currentLocation.removeItem(this);
         }
 
+    }
+
+    public void corpseDespawn(Actor actor){
+        if (actor.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
+            lifespan = new Counter(40);
+        }
+        else {
+            lifespan = new Counter(20);
+        }
     }
 }

@@ -1,17 +1,18 @@
 package game.dinosaur;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actions;
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.DoNothingAction;
-import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.*;
 
+import game.actions.MatingAction;
 import game.behaviour.Behaviour;
 import game.Counter;
+import game.behaviour.BreedingBehaviour;
 import game.behaviour.WanderBehaviour;
 import game.actions.FeedingAction;
+import game.consumable.Corpse;
+import game.enums.DinosaurCapabilities;
+import game.enums.GroundTypeCapabilities;
 import game.enums.Mateable;
+import game.ground.Dirt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public abstract class Dinosaur extends Actor {
      */
     public Dinosaur(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
+        behaviours.add(new BreedingBehaviour());
         behaviours.add(new WanderBehaviour());
         dinosaurAttackers = new HashMap<>();
         canBreed = new Counter(mateTime);
@@ -51,6 +53,15 @@ public abstract class Dinosaur extends Actor {
 
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+        checkCanMate();
+        if (this.hasCapability(DinosaurCapabilities.BRACHIOSAUR)){
+            double random = Math.random();
+            if (random <0.5){
+                if (map.locationOf(this).getGround().hasCapability(GroundTypeCapabilities.BUSH)) {
+                    map.locationOf(this).setGround(new Dirt());
+                }
+            }
+        }
         if (isConscious()) {
             unconsciousTime = null;
             this.hurt(1);
@@ -68,23 +79,16 @@ public abstract class Dinosaur extends Actor {
                 }
             }
 
-
             for (Behaviour thisbehaviour : behaviours) {
                 Action action = thisbehaviour.getAction(this, map, actions);
                 if (action != null)
+                    if (action instanceof MatingAction){
+                        resetMateTime();
+                    }
                     return action;
             }
         }
-        if (unconsciousTime == null){
-            unconsciousTime = new Counter(maxunconsciousTime);
-        }
-        else{
-            unconsciousTime.dec();
-        }
-
-        if (unconsciousTime.getValue() <0) {
-            map.removeActor(this);
-        }
+        unconsciousCheck(map);
         return new DoNothingAction();
     }
 
@@ -101,5 +105,31 @@ public abstract class Dinosaur extends Actor {
     public void resetMateTime(){
         canBreed = new Counter(mateTime);
     }
+
+    public void checkCanMate(){
+        if (!hasCapability(Mateable.MATEABLE) && hitPoints > breedinghealth) {
+            addCapability(Mateable.MATEABLE);
+        }
+        else if (hasCapability(Mateable.MATEABLE) && hitPoints < breedinghealth) {
+            removeCapability(Mateable.MATEABLE);
+        }
+    }
+
+    public void unconsciousCheck(GameMap map){
+        if (unconsciousTime == null){
+            unconsciousTime = new Counter(maxunconsciousTime);
+        }
+        else{
+            unconsciousTime.dec();
+        }
+
+        if (unconsciousTime.getValue() <0) {
+            Location location = map.locationOf(this);
+            map.removeActor(this);
+            location.addItem(new Corpse((this.name+" Corpse"), this));
+
+        }
+    }
+
 }
 

@@ -46,7 +46,7 @@ public class FeedingAction extends Action {
         int selection = displayFeedingActionMenu();
         Item giveFood = food.get(selection-1);
         Consumable give = (Consumable)giveFood;
-        target.heal(give.getEatenHealth(target));
+        target.heal(give.getFedHealth());
         actor.removeItemFromInventory(giveFood);
         return (target.toString()+" has been fed a "+give.toString()+" and has gained "+give.getEatenHealth(target)+" health!");
     }
