@@ -3,25 +3,24 @@ package game.actions;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
-import game.EcoHold;
-import game.eggs.AllosaurEgg;
-import game.eggs.BrachiosaurEgg;
-import game.eggs.Egg;
-import game.eggs.StegosaurEgg;
+import game.consumable.eggs.AllosaurEgg;
+import game.consumable.eggs.BrachiosaurEgg;
+import game.consumable.eggs.Egg;
+import game.consumable.eggs.StegosaurEgg;
 import game.enums.Gender;
 import game.enums.Mateable;
 import game.dinosaur.Allosaur;
 import game.dinosaur.Brachiosaur;
 import game.dinosaur.Dinosaur;
 
-public class BreedAction extends Action {
+public class MatingAction extends Action {
     /**
      * The Dinosaur that is to be mated with
      */
     protected Dinosaur target;
 
 
-    public BreedAction(Dinosaur target) {
+    public MatingAction(Dinosaur target) {
         this.target =  target;
 
     }

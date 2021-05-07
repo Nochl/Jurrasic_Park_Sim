@@ -15,6 +15,7 @@ public class Stegosaur extends Dinosaur{
         maxHitPoints = 100;
         hungryhealth = 90;
         breedinghealth = 50;
+        mateTime = 10;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.STEGOSAUR);
     }

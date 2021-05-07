@@ -8,18 +8,8 @@ import game.dinosaur.Stegosaur;
 
 public class EatFruitAction extends EatingAction {
 
-    public EatFruitAction(Item food) {
-        super(food);
-    }
-
-    @Override
-    void healActor(Actor dinosaur, GameMap map) {
-        map.locationOf(dinosaur).removeItem(food);
-        if (dinosaur instanceof Brachiosaur) {
-            dinosaur.heal(10);
-        } else if (dinosaur instanceof Stegosaur) {
-            dinosaur.heal(5);
-        }
+    public EatFruitAction(Item newfood) {
+        super(newfood);
     }
 
     @Override

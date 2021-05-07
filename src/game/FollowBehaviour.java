@@ -20,7 +20,7 @@ public class FollowBehaviour implements Behaviour {
 	}
 
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
+	public Action getAction(Actor actor, GameMap map, Actions actions) {
 		if(!map.contains(target) || !map.contains(actor))
 			return null;
 		
@@ -40,6 +40,7 @@ public class FollowBehaviour implements Behaviour {
 
 		return null;
 	}
+
 
 	/**
 	 * Compute the Manhattan distance between two locations.

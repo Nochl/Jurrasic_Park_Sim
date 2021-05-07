@@ -3,11 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Random;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.Exit;
-import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.*;
 
 public class WanderBehaviour implements Behaviour {
 	
@@ -23,18 +19,18 @@ public class WanderBehaviour implements Behaviour {
 	 * @return an Action, or null if no MoveAction is possible
 	 */
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
-		ArrayList<Action> actions = new ArrayList<Action>();
+	public Action getAction(Actor actor, GameMap map, Actions actions) {
+		ArrayList<Action> actions2 = new ArrayList<Action>();
 		
 		for (Exit exit : map.locationOf(actor).getExits()) {
             Location destination = exit.getDestination();
             if (destination.canActorEnter(actor)) {
-            	actions.add(exit.getDestination().getMoveAction(actor, "around", exit.getHotKey()));
+            	actions2.add(exit.getDestination().getMoveAction(actor, "around", exit.getHotKey()));
             }
         }
 		
-		if (!actions.isEmpty()) {
-			return actions.get(random.nextInt(actions.size()));
+		if (!actions2.isEmpty()) {
+			return actions2.get(random.nextInt(actions2.size()));
 		}
 		else {
 			return null;
