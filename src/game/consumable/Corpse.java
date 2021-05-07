@@ -1,10 +1,12 @@
-package game;
+package game.consumable;
 
 import edu.monash.fit2099.engine.Location;
+import game.Counter;
 import game.actions.EatMeatAction;
+import game.consumable.Consumable;
 import game.enums.FoodTypeCapabilities;
 
-public class Corpse extends PortableItem {
+public class Corpse extends Consumable {
 
     /**
      * A counter class that represents the amount of turns left until item disappears
@@ -12,7 +14,7 @@ public class Corpse extends PortableItem {
     private Counter lifespan;
 
     public Corpse(String name) {
-        super("dead " + name, '%');
+        super("dead " + name, '%', 0, 0, 0, 20);
         lifespan = new Counter(20);
         addCapability(FoodTypeCapabilities.MEAT);
         allowableActions.add(new EatMeatAction(this));

@@ -22,7 +22,10 @@ public abstract class Dinosaur extends Actor {
     protected int breedinghealth;
     protected HashMap<Dinosaur, Counter> dinosaurAttackers;
     protected Counter canBreed;
+    protected Counter unconsciousTime;
     protected int mateTime;
+    protected int maxunconsciousTime = Integer.MAX_VALUE;
+
 
     /**
      * Constructor.
@@ -48,27 +51,39 @@ public abstract class Dinosaur extends Actor {
 
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-        this.hurt(1);
-        canBreed.dec();
-        if (canBreed.getValue() < 1){
-            canBreed = null;
-            addCapability(Mateable.MATEABLE);
-        }
+        if (isConscious()) {
+            unconsciousTime = null;
+            this.hurt(1);
+            canBreed.dec();
+            if (canBreed.getValue() < 1) {
+                canBreed = null;
+                addCapability(Mateable.MATEABLE);
+            }
 
-        for (Dinosaur dinosaur : dinosaurAttackers.keySet()) {
-            Counter attackTimer = dinosaurAttackers.get(dinosaur);
-            attackTimer.dec();
-            if (attackTimer.getValue() == 0) {
-                dinosaurAttackers.remove(dinosaur);
+            for (Dinosaur dinosaur : dinosaurAttackers.keySet()) {
+                Counter attackTimer = dinosaurAttackers.get(dinosaur);
+                attackTimer.dec();
+                if (attackTimer.getValue() == 0) {
+                    dinosaurAttackers.remove(dinosaur);
+                }
+            }
+
+
+            for (Behaviour thisbehaviour : behaviours) {
+                Action action = thisbehaviour.getAction(this, map, actions);
+                if (action != null)
+                    return action;
             }
         }
+        if (unconsciousTime == null){
+            unconsciousTime = new Counter(maxunconsciousTime);
+        }
+        else{
+            unconsciousTime.dec();
+        }
 
-
-
-        for (Behaviour thisbehaviour : behaviours) {
-            Action action = thisbehaviour.getAction(this, map, actions);
-            if (action != null)
-                return action;
+        if (unconsciousTime.getValue() <0) {
+            map.removeActor(this);
         }
         return new DoNothingAction();
     }

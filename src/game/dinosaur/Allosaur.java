@@ -18,6 +18,7 @@ public class Allosaur extends Dinosaur{
         hungryhealth = 140;
         breedinghealth = 50;
         mateTime = 20;
+        maxunconsciousTime = 20;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);
     }
