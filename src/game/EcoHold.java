@@ -1,19 +1,26 @@
 package game;
 
-import java.util.ArrayList;
+import edu.monash.fit2099.engine.Actor;
+
+import java.util.HashMap;
 
 public class EcoHold {
-    public static ArrayList<Ecopoints> ecopoints = new ArrayList<>();
+    public static HashMap<Actor, Ecopoints> ecopoints = new HashMap<>();
 
     public EcoHold(Ecopoints eco) {}
 
     public static void addWorldEco(int amount){
-        for (Ecopoints eco:ecopoints) {
+        for (Actor player : ecopoints.keySet()) {
+            Ecopoints eco = ecopoints.get(player);
             eco.addPoints(amount);
         }
     }
 
-    public static void addPlayerEco(Ecopoints eco){
-        ecopoints.add(eco);
+    public static void addPlayerEco(Player player){
+        ecopoints.put(player, player.getEcopoints());
+    }
+
+    public static Ecopoints getPlayerEco(Actor player) {
+        return ecopoints.get(player);
     }
 }
