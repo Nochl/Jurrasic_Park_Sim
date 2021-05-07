@@ -1,6 +1,7 @@
-package game;
+package game.behaviour;
 
 import edu.monash.fit2099.engine.*;
+import game.behaviour.Behaviour;
 
 public class LocationFollowBehaviour implements Behaviour {
 

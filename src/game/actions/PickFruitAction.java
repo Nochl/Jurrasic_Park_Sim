@@ -4,14 +4,15 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import game.consumable.Fruit;
+import game.enums.ActorTypeCapabilities;
 
 import java.util.ArrayList;
 
 public class PickFruitAction extends Action {
-    private ArrayList<Fruit> target;
+    private ArrayList<Fruit> fruitList;
 
-    public PickFruitAction(ArrayList<Fruit> fruit) {
-        this.target = fruit;
+    public PickFruitAction(ArrayList<Fruit> fruitList) {
+        this.fruitList = fruitList;
     }
 
     /**
@@ -26,7 +27,19 @@ public class PickFruitAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
+        Double random = Math.random();
+        if (actor.hasCapability(ActorTypeCapabilities.PLAYER)){
+            if (random < 0.6) {
+                actor.addItemToInventory(fruitList.remove(0));
+            }
+            else {
+                return ("You search the tree or bush for fruit, but you can’t find any ripe ones");
+            }
+        }
 
+        else {
+
+        }
         return null;
     }
 

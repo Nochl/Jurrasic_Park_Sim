@@ -7,9 +7,9 @@ import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 
-import game.Behaviour;
+import game.behaviour.Behaviour;
 import game.Counter;
-import game.WanderBehaviour;
+import game.behaviour.WanderBehaviour;
 import game.actions.FeedingAction;
 import game.enums.Mateable;
 

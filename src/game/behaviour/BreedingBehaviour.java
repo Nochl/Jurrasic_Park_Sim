@@ -1,8 +1,8 @@
-package game;
+package game.behaviour;
 
 import edu.monash.fit2099.engine.*;
+import game.FindNearestLocation;
 import game.actions.MatingAction;
-import game.dinosaur.Dinosaur;
 import game.enums.Gender;
 import game.enums.Mateable;
 
@@ -50,7 +50,7 @@ public class BreedingBehaviour implements Behaviour {
                 }
             }
 
-            Actor closest = FindNearestLocation.closetActor(actor, actors, map);
+            Actor closest = FindNearestLocation.closestActor(actor, actors, map);
 
             Behaviour behaviour = new FollowBehaviour(closest);
             return behaviour.getAction(actor, map, actions);

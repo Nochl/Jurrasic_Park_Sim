@@ -1,9 +1,10 @@
-package game;
+package game.behaviour;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.*;
+import game.behaviour.Behaviour;
 
 public class WanderBehaviour implements Behaviour {
 	

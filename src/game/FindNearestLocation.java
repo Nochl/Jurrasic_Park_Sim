@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class FindNearestLocation {
-    public static Actor closetActor(Actor thisActor, ArrayList<Actor> actorList, GameMap map) {
+    public static Actor closestActor(Actor thisActor, ArrayList<Actor> actorList, GameMap map) {
         Actor closeActor = null;
         int minDistance = Integer.MAX_VALUE;
         Location thisActorLocation = map.locationOf(thisActor);
@@ -23,7 +23,7 @@ public class FindNearestLocation {
         return closeActor;
     }
 
-    public static Location closetLocation(Actor thisActor, ArrayList<Location> locationList, GameMap map) {
+    public static Location closestLocation(Actor thisActor, ArrayList<Location> locationList, GameMap map) {
         Location closeLocation = null;
         int minDistance = Integer.MAX_VALUE;
         Location thisActorLocation = map.locationOf(thisActor);

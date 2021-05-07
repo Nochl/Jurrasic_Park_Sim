@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 import game.consumable.Consumable;
+import game.enums.ActorTypeCapabilities;
 import game.enums.FoodTypeCapabilities;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class Player extends Actor {
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
 		ecopoints = new Ecopoints();
+		addCapability(ActorTypeCapabilities.PLAYER);
 	}
 
 	@Override
