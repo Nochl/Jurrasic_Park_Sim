@@ -1,8 +1,9 @@
-package game.action;
+package game.actions;
 
 import edu.monash.fit2099.engine.*;
 import game.Player;
 import game.PortableItem;
+import game.consumable.Consumable;
 import game.dinosaur.Dinosaur;
 import game.enums.DietCapabilities;
 import game.enums.FoodTypeCapabilities;
@@ -43,13 +44,11 @@ public class FeedingAction extends Action {
         }
 
         int selection = displayFeedingActionMenu();
-
-
-
-
-
-
-        return null;
+        Item giveFood = food.get(selection-1);
+        Consumable give = (Consumable)giveFood;
+        target.heal(give.getEatenHealth(target));
+        actor.removeItemFromInventory(giveFood);
+        return (target.toString()+" has been fed a "+give.toString()+" and has gained "+give.getEatenHealth(target)+" health!");
     }
 
     /**
@@ -74,7 +73,7 @@ public class FeedingAction extends Action {
             counter++;
         }
         display.println("Selection: ");
-        return display.readChar();
+        return Character.getNumericValue(display.readChar());
     }
 }
 

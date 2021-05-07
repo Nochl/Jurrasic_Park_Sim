@@ -1,53 +1,42 @@
 package game;
 
 import edu.monash.fit2099.engine.Ground;
-import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
+import game.actions.PickFruitAction;
 import game.consumable.Fruit;
-import game.enums.FruitCapabilities;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Tree extends Ground {
 	private int age = 0;
-	private ArrayList<Item> fruits;
-
+	private ArrayList<Fruit> inTree = new ArrayList<>();
 	public Tree() {
 		super('+');
 	}
 
 	@Override
+	public Actions allowableActions(Actor actor, Location location, String direction){
+		return new Actions(new PickFruitAction(inTree));
+	}
+
+	@Override
 	public void tick(Location location) {
+		double prob = Math.random();
 		super.tick(location);
-		maybeGrowFruit(location);
-		maybeDropFruit();
+		if (prob < 0.5) {
+			inTree.add(new Fruit());
+		}
+		if (inTree.size() > 0) {
+			if (prob < 0.05) {
+				location.addItem(inTree.remove(0));
+			}
+		}
+
 
 		age++;
 		if (age == 10)
 			displayChar = 't';
 		if (age == 20)
 			displayChar = 'T';
-	}
-
-	private void maybeGrowFruit(Location location) {
-		double chance = Math.random();
-		if (chance <= 0.5) {
-			Fruit fruit = new Fruit();
-			fruits.add(fruit);
-			location.addItem(fruit);
-		}
-	}
-
-	private void maybeDropFruit() {
-		double chance = Math.random();
-		int fruitSize = fruits.size();
-		if (chance < 0.05 && fruitSize != 0) {
-			Random r = new Random();
-			int index =  r.nextInt(fruitSize);
-			Item fruit = fruits.get(index);
-			fruit.removeCapability(FruitCapabilities.ON_FLOOR);
-			fruits.remove(index);
-		}
 	}
 }

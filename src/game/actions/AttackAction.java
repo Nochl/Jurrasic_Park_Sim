@@ -10,7 +10,8 @@ import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import game.Corpse;
 import game.dinosaur.Dinosaur;
-import game.interfaces.DinosaurInterface;
+import game.dinosaur.Allosaur;
+import game.dinosaur.Dinosaur;
 
 /**
  * Special Action for attacking other Actors.
@@ -35,6 +36,8 @@ public class AttackAction extends Action {
 		this.target = target;
 	}
 
+	public AttackAction(Dinosaur target) {this.target = target; }
+
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
@@ -44,7 +47,7 @@ public class AttackAction extends Action {
 			return actor + " misses " + target + ".";
 		}
 
-		if (actor instanceof DinosaurInterface && target instanceof DinosaurInterface) {
+		if (actor instanceof Dinosaur && target instanceof Dinosaur) {
 			if (((Dinosaur) target).isCurrentlyTimedOut(actor)) {
 				return actor + " cannot attack " + target + " because they are timed out";
 			}
@@ -52,6 +55,10 @@ public class AttackAction extends Action {
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
+
+		if (actor instanceof Allosaur) {
+			actor.heal(20);
+		}
 
 		target.hurt(damage);
 		if (!target.isConscious()) {

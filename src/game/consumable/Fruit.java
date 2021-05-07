@@ -1,6 +1,7 @@
 package game.consumable;
 
 import game.PortableItem;
+import game.actions.PickFruitAction;
 import game.enums.FoodTypeCapabilities;
 
 import game.dinosaur.Dinosaur;

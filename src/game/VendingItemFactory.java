@@ -2,6 +2,7 @@ package game;
 
 import edu.monash.fit2099.engine.Item;
 import game.consumable.Fruit;
+import game.consumable.VegetarianMealKit;
 import game.eggs.AllosaurEgg;
 import game.eggs.BrachiosaurEgg;
 import game.eggs.StegosaurEgg;
@@ -29,7 +30,7 @@ public class VendingItemFactory {
         return possibleVendingItems;
     }
 
-    public Item createVendingItem(VendingMachineItems vendingMachineItem, Ecopoints playerEcoPoints) {
+    public Item createVendingItem(VendingMachineItems vendingMachineItem) {
         Item item = null;
         switch (vendingMachineItem) {
             case FRUIT:
@@ -42,13 +43,13 @@ public class VendingItemFactory {
                 item = createCarnivoreMealKit();
                 break;
             case STEGOSAUR_EGG:
-                item = createStegosaurEgg(playerEcoPoints);
+                item = createStegosaurEgg();
                 break;
             case BRACHIOSAUR_EGG:
-                item = createBrachiosaurEgg(playerEcoPoints);
+                item = createBrachiosaurEgg();
                 break;
             case ALLOSAUR_EGG:
-                item = createAllosaurEgg(playerEcoPoints);
+                item = createAllosaurEgg();
                 break;
             case LASER_GUN:
                 item = createLaserGun();
@@ -73,15 +74,15 @@ public class VendingItemFactory {
         return new LaserGun();
     }
 
-    private Item createAllosaurEgg(Ecopoints playerEcoPoints) {
-        return new AllosaurEgg(10, playerEcoPoints);
+    private Item createAllosaurEgg() {
+        return new AllosaurEgg(10);
     }
 
-    private Item createBrachiosaurEgg(Ecopoints playerEcoPoints) {
-        return new BrachiosaurEgg(15, playerEcoPoints);
+    private Item createBrachiosaurEgg() {
+        return new BrachiosaurEgg(15);
     }
 
-    private Item createStegosaurEgg(Ecopoints playerEcoPoints) {
-        return new StegosaurEgg(6, playerEcoPoints);
+    private Item createStegosaurEgg() {
+        return new StegosaurEgg(6);
     }
 }

@@ -1,6 +1,8 @@
 package game.dinosaur;
 
 import game.Counter;
+import game.enums.DietCapabilities;
+import game.enums.DinosaurCapabilities;
 
 public class Stegosaur extends Dinosaur{
     /**
@@ -13,6 +15,8 @@ public class Stegosaur extends Dinosaur{
         maxHitPoints = 100;
         hungryhealth = 90;
         breedinghealth = 50;
+        addCapability(DietCapabilities.HERBIVORE);
+        addCapability(DinosaurCapabilities.STEGOSAUR);
     }
 
     @Override
