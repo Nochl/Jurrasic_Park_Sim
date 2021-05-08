@@ -1,7 +1,6 @@
 package game.behaviour;
 
 import edu.monash.fit2099.engine.*;
-import game.behaviour.*;
 import game.FindNearestLocation;
 import game.actions.AttackAction;
 import game.actions.EatMeatAction;
@@ -10,8 +9,11 @@ import game.enums.FoodTypeCapabilities;
 
 import java.util.ArrayList;
 
-public class HuntingBehaviour extends HungryBehaviour {
-    protected Behaviour followBehaviour = null;
+public class HuntingBehaviour implements Behaviour {
+    protected Behaviour followBehaviour;
+    HuntingBehaviour() {
+        followBehaviour = null;
+    }
 
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
@@ -24,8 +26,8 @@ public class HuntingBehaviour extends HungryBehaviour {
         if (followBehaviour != null) {
             return followBehaviour.getAction(actor, map, actions);
         }
-        ArrayList<Actor> suitableActors = getSuitableDinosaurs(actor, map, DinosaurCapabilities.STEGOSAUR);
-        ArrayList<Location> suitableFoodLocations = getSuitableFoodLocations(map, FoodTypeCapabilities.MEAT);
+        ArrayList<Actor> suitableActors = HungryBehaviour.getSuitableDinosaurs(actor, map, DinosaurCapabilities.STEGOSAUR);
+        ArrayList<Location> suitableFoodLocations = HungryBehaviour.getSuitableMeatLocations(map, FoodTypeCapabilities.MEAT);
         if (suitableActors.size() == 0 && suitableFoodLocations.size() == 0) {
             return new DoNothingAction();
         }
