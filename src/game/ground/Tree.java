@@ -19,7 +19,10 @@ public class Tree extends Ground {
 
 	@Override
 	public Actions allowableActions(Actor actor, Location location, String direction){
-		return new Actions(new PickFruitAction(inTree));
+		if (!inTree.isEmpty()) {
+			return new Actions(new PickFruitAction(inTree));
+		}
+		return new Actions();
 	}
 
 	@Override
@@ -34,6 +37,7 @@ public class Tree extends Ground {
 				location.addItem(inTree.remove(0));
 			}
 		}
+
 
 
 		age++;

@@ -25,7 +25,6 @@ public class Consumable extends PortableItem {
         eatenHealth.add(steg);
         eatenHealth.add(brac);
         eatenHealth.add(allo);
-        allowableActions.add(new PickUpItemAction(this));
     }
 
     public int getFedHealth() {

@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 import game.actions.PickFruitAction;
 import game.consumable.Fruit;
+import game.enums.DinosaurCapabilities;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,13 @@ public class Bush extends Ground{
         super.tick(location);
         if (prob < 0.5) {
             inBush.add(new Fruit());
+        }
+
+        if (location.getActor().hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
+            double brachStepProb = Math.random();
+            if (brachStepProb <= 0.2) {
+                location.setGround(new Dirt());
+            }
         }
     }
 

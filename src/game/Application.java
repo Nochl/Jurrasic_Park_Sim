@@ -54,13 +54,12 @@ public class Application {
 		Player player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(9, 4));
 		EcoHold.addPlayerEco(player.getEcopoints());
-		gameMap.at(9,4).addItem(new Fruit());
+
 
 
 		// Place a pair of stegosaurs in the middle of the map
 		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur", 'm'));
 		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur", 'f'));
-		gameMap.at(10, 4).addActor(new Stegosaur("Stegosaur", 'm'));
 			
 		world.run();
 	}
