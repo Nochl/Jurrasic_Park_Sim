@@ -11,7 +11,6 @@ import game.Behaviour;
 import game.Counter;
 import game.behaviours.WanderBehaviour;
 import game.actions.FeedingAction;
-import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
 import game.enums.Mateable;
 
@@ -25,6 +24,7 @@ public abstract class Dinosaur extends Actor {
     protected HashMap<Actor, Counter> dinosaurAttackers;
     protected Counter canBreed;
     protected int mateTime;
+    protected Counter matureCounter = null;
 
     /**
      * Constructor.
@@ -73,6 +73,16 @@ public abstract class Dinosaur extends Actor {
             }
         }
 
+        if (hasCapability(DinosaurState.BABY)) {
+            matureCounter.dec();
+            if (matureCounter.getValue() == 0) {
+                matureCounter = null;
+                removeCapability(DinosaurState.BABY);
+                addCapability(DinosaurState.ADULT);
+                growUp();
+            }
+        }
+
         for (Behaviour thisbehaviour : behaviours) {
             Action action = thisbehaviour.getAction(this, actions, map);
             if (action != null)
@@ -81,7 +91,7 @@ public abstract class Dinosaur extends Actor {
         return new DoNothingAction();
     }
 
-    public void addAttacker(Dinosaur dinosaur) {dinosaurAttackers.put(dinosaur, createTimeoutCounter());
+    public void addAttacker(Dinosaur dinosaur) {dinosaurAttackers.put(dinosaur, getAttackTimeoutCounter());
     }
 
     public boolean isCurrentlyTimedOut(Actor dinosaur) {
@@ -89,10 +99,15 @@ public abstract class Dinosaur extends Actor {
         return attackTimeout != null;
     }
 
-    abstract Counter createTimeoutCounter();
+    abstract Counter getAttackTimeoutCounter();
 
     public void resetMateTime(){
         canBreed = new Counter(mateTime);
     }
+
+    abstract void growUp();
+
+    abstract void setBabyAttributes();
+
 }
 
