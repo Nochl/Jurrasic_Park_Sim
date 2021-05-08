@@ -1,9 +1,10 @@
 package game.dinosaur;
 
-import edu.monash.fit2099.engine.IntrinsicWeapon;
+import edu.monash.fit2099.engine.*;
 import game.Counter;
 import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
+import game.enums.DinosaurState;
 
 public class Allosaur extends Dinosaur{
 
@@ -15,8 +16,18 @@ public class Allosaur extends Dinosaur{
     public Allosaur(String name) {
         super(name, 'A', 100);
         maxHitPoints = 100;
-        hungryhealth = 140;
-        breedinghealth = 50;
+        hungryHealth = 140;
+        breedingHealth = 50;
+        mateTime = 20;
+        addCapability(DietCapabilities.CARNIVORE);
+        addCapability(DinosaurCapabilities.ALLOSAUR);
+    }
+
+    public Allosaur(String name, DinosaurState dinosaurState) {
+        super(name, 'A', 100, dinosaurState);
+        maxHitPoints = 100;
+        hungryHealth = 140;
+        breedingHealth = 50;
         mateTime = 20;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);

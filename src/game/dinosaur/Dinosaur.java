@@ -9,18 +9,20 @@ import edu.monash.fit2099.engine.GameMap;
 
 import game.Behaviour;
 import game.Counter;
-import game.WanderBehaviour;
+import game.behaviours.WanderBehaviour;
 import game.actions.FeedingAction;
+import game.enums.DinosaurCapabilities;
+import game.enums.DinosaurState;
 import game.enums.Mateable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Dinosaur extends Actor {
-    protected ArrayList<Behaviour> behaviours = new ArrayList<Behaviour>();
-    protected int hungryhealth;
-    protected int breedinghealth;
-    protected HashMap<Dinosaur, Counter> dinosaurAttackers;
+    protected ArrayList<Behaviour> behaviours = new ArrayList<>();
+    protected int hungryHealth;
+    protected int breedingHealth;
+    protected HashMap<Actor, Counter> dinosaurAttackers;
     protected Counter canBreed;
     protected int mateTime;
 
@@ -36,7 +38,15 @@ public abstract class Dinosaur extends Actor {
         behaviours.add(new WanderBehaviour());
         dinosaurAttackers = new HashMap<>();
         canBreed = new Counter(mateTime);
+        addCapability(DinosaurState.BABY);
+    }
 
+    public Dinosaur(String name, char displayChar, int hitPoints, DinosaurState dinosaurState) {
+        super(name, displayChar, hitPoints);
+        behaviours.add(new WanderBehaviour());
+        dinosaurAttackers = new HashMap<>();
+        canBreed = new Counter(mateTime);
+        addCapability(dinosaurState);
     }
 
     @Override
@@ -55,7 +65,7 @@ public abstract class Dinosaur extends Actor {
             addCapability(Mateable.MATEABLE);
         }
 
-        for (Dinosaur dinosaur : dinosaurAttackers.keySet()) {
+        for (Actor dinosaur : dinosaurAttackers.keySet()) {
             Counter attackTimer = dinosaurAttackers.get(dinosaur);
             attackTimer.dec();
             if (attackTimer.getValue() == 0) {
@@ -63,10 +73,8 @@ public abstract class Dinosaur extends Actor {
             }
         }
 
-
-
         for (Behaviour thisbehaviour : behaviours) {
-            Action action = thisbehaviour.getAction(this, map, actions);
+            Action action = thisbehaviour.getAction(this, actions, map);
             if (action != null)
                 return action;
         }
