@@ -10,11 +10,21 @@ import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
 
+/**
+ * Implements Allosaur that extends from Dinosaur Class, that is capable of attacking stegosaurs,
+ * hunting meat items mating
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 4.1.0
+ * @see Dinosaur
+ * @see Counter
+ */
 public class Brachiosaur extends Dinosaur{
     /**
-     * Constructor.
+     * Constructor method for Brachiosaur
      *
      * @param name the name of the Actor
+     * @param baby a boolean value that denotes if the brachiosaur being created starts as a baby
      */
     public Brachiosaur(String name, Boolean baby) {
         super(name, 'B', 100, baby);
@@ -25,6 +35,12 @@ public class Brachiosaur extends Dinosaur{
         else {growUp();}
     }
 
+    /**
+     * Constructor method for Brachiosaur
+     * @param name a string name of the dinosaur
+     * @param baby a boolean if the dinosaur is a baby
+     * @param gender a char to denote that it is 'm' male or 'f' female
+     */
     public Brachiosaur(String name, Boolean baby, char gender) {
         super(name, 'B', 100, baby, gender);
         maxunconsciousTime = 20;
@@ -34,8 +50,9 @@ public class Brachiosaur extends Dinosaur{
         else {growUp();}
     }
 
-
-
+    /**
+     * Changes the attributes of the dinosaur into those of a adult brachiosaur
+     */
     @Override
     void setBabyAttributes() {
         maxHitPoints = 80;
@@ -51,6 +68,9 @@ public class Brachiosaur extends Dinosaur{
         return new Counter(50);
     }
 
+    /**
+     * Sets the attributes of the dinosaur object to those of a child brachiosaur
+     */
     @Override
     void growUp() {
         maxHitPoints = 160;

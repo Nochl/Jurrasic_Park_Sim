@@ -20,6 +20,14 @@ import game.ground.Dirt;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Implements a Dinosaur class that extends from actor.
+ * @author  Tim Jordan
+ * @author  Enoch Leow
+ * @version 4.1.0
+ * @see Actor
+ * @see Counter
+ */
 public abstract class Dinosaur extends Actor {
     protected ArrayList<Behaviour> behaviours = new ArrayList<>();
     protected int hungryHealth;
