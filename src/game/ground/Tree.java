@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 import game.actions.PickFruitAction;
 import game.consumable.Fruit;
+import game.enums.FruitCapabilities;
 
 import java.util.ArrayList;
 
@@ -29,10 +30,13 @@ public class Tree extends Ground {
 		double prob = Math.random();
 		super.tick(location);
 		if (prob < 0.5) {
-			inTree.add(new Fruit());
+			inTree.add(new Fruit(FruitCapabilities.IN_TREE));
 		}
 		if (inTree.size() > 0) {
 			if (prob < 0.05) {
+				Fruit fruit = inTree.remove(0);
+				fruit.removeCapability(FruitCapabilities.IN_TREE);
+				fruit.addCapability(FruitCapabilities.ON_FLOOR);
 				location.addItem(inTree.remove(0));
 			}
 		}
