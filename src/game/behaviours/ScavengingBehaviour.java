@@ -22,55 +22,30 @@ import java.util.ArrayList;
  * @see EatFruitAction
  * @see Behaviour
  */
-public class ScavengingBehaviour implements Behaviour {
-    LocationFollowBehaviour followTarget = null;
+public class ScavengingBehaviour extends HungryBehaviour {
 
     @Override
     public Action getAction(Actor actor, Actions actions, GameMap map) {
         for (Action action : actions.getUnmodifiableActionList()) {
             if (action instanceof EatFruitAction) {
-                followTarget = null;
+                followBehaviour = null;
                 return action;
             }
         }
-        if (followTarget != null) {
-            return followTarget.getAction(actor, actions, map);
+        if (followBehaviour != null) {
+            return followBehaviour.getAction(actor, actions, map);
         }
-        NumberRange Xrange = map.getXRange();
-        NumberRange YRange = map.getYRange();
 
-        ArrayList<Location> foodLocations = new ArrayList<>();
-        for (int x : Xrange) {
-            for (int y : YRange) {
-                Location location = map.at(x, y);
-                if (containsSuitableItem(location)) {
-                    foodLocations.add(location);
-                }
-            }
-        }
+        ArrayList<Location> foodLocations = getSuitableFoodLocations(map, FoodTypeCapabilities.VEGETABLE);
         // Checks if there are no food items in the map
         if (foodLocations.size() == 0) {
             return new DoNothingAction();
         }
+
         // Determines the closest food location and creates a follow behaviour for
         // dinosaur to move to the item
         Location closestFoodLocation = FindNearestLocation.closestLocation(actor, foodLocations, map);
-        followTarget = new LocationFollowBehaviour(closestFoodLocation);
-        return followTarget.getAction(actor, actions, map);
-    }
-
-    /**
-     * Checks if the given location contains items that have VEGETABLE Food Type capability
-     *
-     * @param location A Location class object
-     * @return a boolean True if the location contains a VEGETABLE item, else False
-     */
-    private boolean containsSuitableItem(Location location) {
-        for (Item item : location.getItems()) {
-            if (item.hasCapability(FoodTypeCapabilities.VEGETABLE)) {
-                return true;
-            }
-        }
-        return false;
+        followBehaviour = new LocationFollowBehaviour(closestFoodLocation);
+        return followBehaviour.getAction(actor, actions, map);
     }
 }
