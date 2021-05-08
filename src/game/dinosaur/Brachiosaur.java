@@ -8,6 +8,7 @@ import game.actions.AttackAction;
 import game.actions.FeedingAction;
 import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
+import game.enums.DinosaurState;
 
 public class Brachiosaur extends Dinosaur{
     /**
@@ -15,31 +16,46 @@ public class Brachiosaur extends Dinosaur{
      *
      * @param name the name of the Actor
      */
-    public Brachiosaur(String name) {
-        super(name, 'B', 100);
-        maxHitPoints = 160;
-        hungryhealth = 140;
-        breedinghealth = 70;
-        mateTime = 30;
+    public Brachiosaur(String name, Boolean baby) {
+        super(name, 'B', 100, baby);
         maxunconsciousTime = 20;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
+        if (baby) {setBabyAttributes();}
+        else {growUp();}
     }
 
-    public Brachiosaur(String name, char gender) {
-        super(name, 'B', 100, gender);
-        maxHitPoints = 160;
-        hungryhealth = 140;
-        breedinghealth = 70;
-        mateTime = 30;
+    public Brachiosaur(String name, Boolean baby, char gender) {
+        super(name, 'B', 100, baby, gender);
         maxunconsciousTime = 20;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
+        if (baby) {setBabyAttributes();}
+        else {growUp();}
     }
+
 
 
     @Override
-    Counter createTimeoutCounter() {
+    void setBabyAttributes() {
+        maxHitPoints = 80;
+        hungryHealth = 40;
+        breedingHealth = Integer.MAX_VALUE;
+        mateTime = Integer.MAX_VALUE;
+        matureCounter = new Counter(50);
+        addCapability(DinosaurState.BABY);
+    }
+
+    @Override
+    Counter getAttackTimeoutCounter() {
         return new Counter(50);
+    }
+
+    @Override
+    void growUp() {
+        maxHitPoints = 160;
+        hungryHealth = 140;
+        breedingHealth = 70;
+        mateTime = 30;
     }
 }

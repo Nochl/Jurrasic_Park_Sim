@@ -7,12 +7,13 @@ import game.actions.MatingAction;
 import game.behaviour.Behaviour;
 import game.Counter;
 import game.behaviour.BreedingBehaviour;
-import game.behaviour.WanderBehaviour;
 import game.actions.FeedingAction;
+import game.behaviour.WanderBehaviour;
 import game.consumable.Corpse;
 import game.enums.DinosaurCapabilities;
 import game.enums.Gender;
 import game.enums.GroundTypeCapabilities;
+import game.enums.DinosaurState;
 import game.enums.Mateable;
 import game.ground.Dirt;
 
@@ -20,15 +21,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Dinosaur extends Actor {
-    protected ArrayList<Behaviour> behaviours = new ArrayList<Behaviour>();
-    protected int hungryhealth;
-    protected int breedinghealth;
-    protected HashMap<Dinosaur, Counter> dinosaurAttackers;
+    protected ArrayList<Behaviour> behaviours = new ArrayList<>();
+    protected int hungryHealth;
+    protected int breedingHealth;
+    protected HashMap<Actor, Counter> dinosaurAttackers;
     protected Counter canBreed;
     protected Counter unconsciousTime;
     protected int mateTime;
     protected int maxunconsciousTime = Integer.MAX_VALUE;
-
+    protected Counter matureCounter = null;
 
     /**
      * Constructor.
@@ -37,7 +38,8 @@ public abstract class Dinosaur extends Actor {
      * @param displayChar the character that will represent the Actor in the display
      * @param hitPoints   the Actor's starting hit points
      */
-    public Dinosaur(String name, char displayChar, int hitPoints) {
+
+    public Dinosaur(String name, char displayChar, int hitPoints, Boolean baby) {
         super(name, displayChar, hitPoints);
         behaviours.add(new BreedingBehaviour());
         behaviours.add(new WanderBehaviour());
@@ -53,7 +55,7 @@ public abstract class Dinosaur extends Actor {
 
     }
 
-    public Dinosaur(String name, char displayChar, int hitPoints, char gender) {
+    public Dinosaur(String name, char displayChar, int hitPoints, Boolean baby, char gender) {
         super(name, displayChar, hitPoints);
         behaviours.add(new BreedingBehaviour());
         behaviours.add(new WanderBehaviour());
@@ -65,16 +67,16 @@ public abstract class Dinosaur extends Actor {
         else {
             addCapability(Gender.FEMALE);
         }
-
     }
+
 
 
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         checkCanMate();
-        if (this.hasCapability(DinosaurCapabilities.BRACHIOSAUR)){
+        if (this.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
             double random = Math.random();
-            if (random <0.5){
+            if (random < 0.5) {
                 if (map.locationOf(this).getGround().hasCapability(GroundTypeCapabilities.BUSH)) {
                     map.locationOf(this).setGround(new Dirt());
                 }
@@ -92,7 +94,14 @@ public abstract class Dinosaur extends Actor {
             }
 
 
-            for (Dinosaur dinosaur : dinosaurAttackers.keySet()) {
+            for (Actor dinosaur : dinosaurAttackers.keySet()) {
+                Counter attackTimer = dinosaurAttackers.get(dinosaur);
+                attackTimer.dec();
+                if (attackTimer.getValue() == 0) {
+                    dinosaurAttackers.remove(dinosaur);
+                }
+            }
+            for (Actor dinosaur : dinosaurAttackers.keySet()) {
                 Counter attackTimer = dinosaurAttackers.get(dinosaur);
                 attackTimer.dec();
                 if (attackTimer.getValue() == 0) {
@@ -109,30 +118,46 @@ public abstract class Dinosaur extends Actor {
                     return action;
                 }
             }
-        }
-        unconsciousCheck(map);
-        return new DoNothingAction();
+            if (hasCapability(DinosaurState.BABY)) {
+                matureCounter.dec();
+                if (matureCounter.getValue() == 0) {
+                    matureCounter = null;
+                    removeCapability(DinosaurState.BABY);
+                    addCapability(DinosaurState.ADULT);
+                    growUp();
+                }
+            }
+
+            for (Behaviour thisbehaviour : behaviours) {
+                Action action = thisbehaviour.getAction(this, map, actions);
+                if (action != null)
+                    return action;
+            }
+            unconsciousCheck(map);
+
+        }   return new DoNothingAction();
     }
 
-    public void addAttacker(Dinosaur dinosaur) {dinosaurAttackers.put(dinosaur, createTimeoutCounter());
-    }
+    public void addAttacker(Dinosaur dinosaur) {
+            dinosaurAttackers.put(dinosaur, getAttackTimeoutCounter());
+        }
 
     public boolean isCurrentlyTimedOut(Actor dinosaur) {
         Counter attackTimeout = dinosaurAttackers.get(dinosaur);
         return attackTimeout != null;
     }
 
-    abstract Counter createTimeoutCounter();
+    abstract Counter getAttackTimeoutCounter();
 
     public void resetMateTime(){
         canBreed = new Counter(mateTime);
     }
 
     public void checkCanMate(){
-        if (!hasCapability(Mateable.MATEABLE) && hitPoints > breedinghealth) {
+        if (!hasCapability(Mateable.MATEABLE) && hitPoints > breedingHealth) {
             addCapability(Mateable.MATEABLE);
         }
-        else if (hasCapability(Mateable.MATEABLE) && hitPoints < breedinghealth) {
+        else if (hasCapability(Mateable.MATEABLE) && hitPoints < breedingHealth) {
             removeCapability(Mateable.MATEABLE);
         }
     }
@@ -162,6 +187,11 @@ public abstract class Dinosaur extends Actor {
         }
         return action;
     }
+
+
+    abstract void growUp();
+
+    abstract void setBabyAttributes();
 
 }
 

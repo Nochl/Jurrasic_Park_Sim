@@ -1,6 +1,5 @@
 package game.ground;
 
-import edu.monash.fit2099.demo.mars.WindowSmashAction;
 import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
@@ -37,7 +36,6 @@ public class Tree extends Ground {
 				location.addItem(inTree.remove(0));
 			}
 		}
-
 
 
 		age++;

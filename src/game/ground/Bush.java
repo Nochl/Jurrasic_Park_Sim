@@ -28,7 +28,7 @@ public class Bush extends Ground{
             inBush.add(new Fruit());
         }
 
-        if (location.getActor().hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
+        if (location.getActor() != null && location.getActor().hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
             double brachStepProb = Math.random();
             if (brachStepProb <= 0.2) {
                 location.setGround(new Dirt());

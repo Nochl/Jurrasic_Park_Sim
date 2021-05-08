@@ -41,13 +41,13 @@ public class MatingAction extends Action {
 
     public Egg eggFactory(Dinosaur dinosaur) {
         if (dinosaur instanceof Allosaur) {
-            return new AllosaurEgg(10);
+            return new AllosaurEgg();
         }
         else if (dinosaur instanceof Brachiosaur) {
-            return new BrachiosaurEgg(15);
+            return new BrachiosaurEgg();
         }
         else {
-            return new StegosaurEgg(6);
+            return new StegosaurEgg();
         }
     }
 

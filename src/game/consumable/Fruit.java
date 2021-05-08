@@ -7,12 +7,15 @@ import game.actions.EatMeatAction;
 import game.actions.PickFruitAction;
 import game.enums.FoodTypeCapabilities;
 
-import game.dinosaur.Dinosaur;
-import game.dinosaur.Stegosaur;
-
-import java.util.List;
+import game.enums.FruitCapabilities;
 
 public class Fruit extends Consumable {
+
+    public Fruit(FruitCapabilities fruitCapability) {
+        super("Fruit", 'f', 20, 10, 5, 0);
+        addCapability(fruitCapability);
+        addCapability(FoodTypeCapabilities.VEGETABLE);
+    }
 
     public Fruit() {
         super("Fruit", 'f', 20, 10, 5, 0);
