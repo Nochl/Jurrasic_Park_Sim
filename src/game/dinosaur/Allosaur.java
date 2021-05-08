@@ -22,6 +22,18 @@ public class Allosaur extends Dinosaur{
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);
     }
+
+    public Allosaur(String name, char gender) {
+        super(name, 'A', 100, gender);
+        maxHitPoints = 100;
+        hungryhealth = 140;
+        breedinghealth = 50;
+        mateTime = 20;
+        maxunconsciousTime = 20;
+        addCapability(DietCapabilities.CARNIVORE);
+        addCapability(DinosaurCapabilities.ALLOSAUR);
+    }
+
     @Override
     protected IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(20, "gouges");

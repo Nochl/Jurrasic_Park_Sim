@@ -42,11 +42,13 @@ public class BreedingBehaviour implements Behaviour {
             for (int xvalue : x) {
                 for (int yvalue : y) {
                     Actor potential = map.getActorAt(map.at(xvalue, yvalue));
-                    if (potential.hasCapability(Mateable.MATEABLE)) {
-                        if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
-                            actors.add(map.getActorAt(map.at(xvalue, yvalue)));
-                        else if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
-                            actors.add(map.getActorAt(map.at(xvalue, yvalue)));
+                    if (potential != null) {
+                        if (potential.hasCapability(Mateable.MATEABLE)) {
+                            if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
+                                actors.add(map.getActorAt(map.at(xvalue, yvalue)));
+                            else if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
+                                actors.add(map.getActorAt(map.at(xvalue, yvalue)));
+                        }
                     }
                 }
             }

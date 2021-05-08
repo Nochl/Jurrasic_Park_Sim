@@ -2,6 +2,7 @@ package game.dinosaur;
 
 import edu.monash.fit2099.engine.*;
 
+import game.actions.AttackAction;
 import game.actions.MatingAction;
 import game.behaviour.Behaviour;
 import game.Counter;
@@ -10,6 +11,7 @@ import game.behaviour.WanderBehaviour;
 import game.actions.FeedingAction;
 import game.consumable.Corpse;
 import game.enums.DinosaurCapabilities;
+import game.enums.Gender;
 import game.enums.GroundTypeCapabilities;
 import game.enums.Mateable;
 import game.ground.Dirt;
@@ -41,15 +43,31 @@ public abstract class Dinosaur extends Actor {
         behaviours.add(new WanderBehaviour());
         dinosaurAttackers = new HashMap<>();
         canBreed = new Counter(mateTime);
+        double random = Math.random();
+        if (random <0.5) {
+            addCapability(Gender.MALE);
+        }
+        else {
+            addCapability(Gender.FEMALE);
+        }
 
     }
 
-    @Override
-    public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
-        Actions action = new Actions();
-        action.add(new FeedingAction(this));
-        return action;
+    public Dinosaur(String name, char displayChar, int hitPoints, char gender) {
+        super(name, displayChar, hitPoints);
+        behaviours.add(new BreedingBehaviour());
+        behaviours.add(new WanderBehaviour());
+        dinosaurAttackers = new HashMap<>();
+        canBreed = new Counter(mateTime);
+        if (gender == 'm') {
+            addCapability(Gender.MALE);
+        }
+        else {
+            addCapability(Gender.FEMALE);
+        }
+
     }
+
 
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
@@ -65,11 +83,14 @@ public abstract class Dinosaur extends Actor {
         if (isConscious()) {
             unconsciousTime = null;
             this.hurt(1);
-            canBreed.dec();
-            if (canBreed.getValue() < 1) {
-                canBreed = null;
-                addCapability(Mateable.MATEABLE);
+            if (canBreed != null) {
+                canBreed.dec();
+                if (canBreed.getValue() < 1) {
+                    canBreed = null;
+                    addCapability(Mateable.MATEABLE);
+                }
             }
+
 
             for (Dinosaur dinosaur : dinosaurAttackers.keySet()) {
                 Counter attackTimer = dinosaurAttackers.get(dinosaur);
@@ -81,11 +102,12 @@ public abstract class Dinosaur extends Actor {
 
             for (Behaviour thisbehaviour : behaviours) {
                 Action action = thisbehaviour.getAction(this, map, actions);
-                if (action != null)
-                    if (action instanceof MatingAction){
+                if (action != null) {
+                    if (action instanceof MatingAction) {
                         resetMateTime();
                     }
                     return action;
+                }
             }
         }
         unconsciousCheck(map);
@@ -129,6 +151,16 @@ public abstract class Dinosaur extends Actor {
             location.addItem(new Corpse((this.name+" Corpse"), this));
 
         }
+    }
+
+    @Override
+    public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+        Actions action = new Actions();
+        action.add(new FeedingAction(this));
+        if (isConscious()) {
+            action.add(new AttackAction(this));
+        }
+        return action;
     }
 
 }

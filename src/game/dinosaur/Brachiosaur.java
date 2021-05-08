@@ -26,13 +26,17 @@ public class Brachiosaur extends Dinosaur{
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
     }
 
-    @Override
-    public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
-        Actions action = new Actions();
-        action.add(new FeedingAction(this));
-        action.add(new AttackAction(this));
-        return action;
+    public Brachiosaur(String name, char gender) {
+        super(name, 'B', 100, gender);
+        maxHitPoints = 160;
+        hungryhealth = 140;
+        breedinghealth = 70;
+        mateTime = 30;
+        maxunconsciousTime = 20;
+        addCapability(DietCapabilities.HERBIVORE);
+        addCapability(DinosaurCapabilities.BRACHIOSAUR);
     }
+
 
     @Override
     Counter createTimeoutCounter() {
