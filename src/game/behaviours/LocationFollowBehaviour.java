@@ -1,6 +1,7 @@
-package game;
+package game.behaviours;
 
 import edu.monash.fit2099.engine.*;
+import game.Behaviour;
 
 public class LocationFollowBehaviour implements Behaviour {
 
@@ -11,7 +12,7 @@ public class LocationFollowBehaviour implements Behaviour {
     }
 
     @Override
-    public Action getAction(Actor actor, GameMap map, Actions actions) {
+    public Action getAction(Actor actor, Actions actions, GameMap map) {
         if(!map.contains(actor))
             return null;
 
