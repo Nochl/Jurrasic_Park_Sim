@@ -1,8 +1,6 @@
-package game;
+package game.behaviour;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.*;
 
 public interface Behaviour {
 	
@@ -27,5 +25,5 @@ public interface Behaviour {
 	 * @return an Action that actor can perform, or null if actor can't do this.
 	 * @see Actor#playTurn(Actions, Action, GameMap, Display)
 	 */
-	Action getAction(Actor actor, GameMap map);
+	Action getAction(Actor actor, GameMap map, Actions actions);
 }

@@ -1,6 +1,7 @@
-package game;
+package game.behaviour;
 
 import edu.monash.fit2099.engine.*;
+import game.behaviour.Behaviour;
 
 /**
  * A class that figures out a MoveAction that will move the actor one step 
@@ -20,7 +21,7 @@ public class FollowBehaviour implements Behaviour {
 	}
 
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
+	public Action getAction(Actor actor, GameMap map, Actions actions) {
 		if(!map.contains(target) || !map.contains(actor))
 			return null;
 		
@@ -40,6 +41,7 @@ public class FollowBehaviour implements Behaviour {
 
 		return null;
 	}
+
 
 	/**
 	 * Compute the Manhattan distance between two locations.

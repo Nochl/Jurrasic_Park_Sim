@@ -1,4 +1,4 @@
-package game;
+package game.actions;
 
 import java.util.Random;
 
@@ -8,6 +8,9 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
+import game.consumable.Corpse;
+import game.dinosaur.Dinosaur;
+import game.dinosaur.Allosaur;
 
 /**
  * Special Action for attacking other Actors.
@@ -32,6 +35,8 @@ public class AttackAction extends Action {
 		this.target = target;
 	}
 
+	public AttackAction(Dinosaur target) {this.target = target; }
+
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
@@ -41,12 +46,22 @@ public class AttackAction extends Action {
 			return actor + " misses " + target + ".";
 		}
 
+		if (actor instanceof Dinosaur && target instanceof Dinosaur) {
+			if (((Dinosaur) target).isCurrentlyTimedOut(actor)) {
+				return actor + " cannot attack " + target + " because they are timed out";
+			}
+		}
+
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 
+		if (actor instanceof Allosaur) {
+			actor.heal(20);
+		}
+
 		target.hurt(damage);
 		if (!target.isConscious()) {
-			Item corpse = new PortableItem("dead " + target, '%');
+			Corpse corpse = new Corpse((target.toString()+" Corpse"), target);
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
@@ -57,8 +72,12 @@ public class AttackAction extends Action {
 			map.removeActor(target);	
 			
 			result += System.lineSeparator() + target + " is killed.";
+		} else {
+			if (target instanceof Dinosaur && actor instanceof Dinosaur){
+				Dinosaur dinosaur = (Dinosaur) actor;
+				((Dinosaur) target).addAttacker(dinosaur);
+			}
 		}
-
 		return result;
 	}
 

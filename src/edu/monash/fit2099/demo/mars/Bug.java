@@ -2,7 +2,7 @@ package edu.monash.fit2099.demo.mars;
 
 import java.util.*;
 
-import game.Behaviour;
+import game.behaviour.Behaviour;
 import edu.monash.fit2099.engine.*;
 
 
@@ -18,7 +18,7 @@ public class Bug extends Actor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		for (Behaviour factory : actionFactories) {
-			Action action = factory.getAction(this, map);
+			Action action = factory.getAction(this, map, actions);
 			if(action != null)
 				return action;
 		}

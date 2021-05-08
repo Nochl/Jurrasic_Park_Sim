@@ -1,6 +1,6 @@
 package edu.monash.fit2099.demo.mars;
 
-import game.Behaviour;
+import game.behaviour.Behaviour;
 import edu.monash.fit2099.engine.*;
 
 public class SpitBehaviour extends Action implements Behaviour{
@@ -18,7 +18,7 @@ public class SpitBehaviour extends Action implements Behaviour{
 	}
 	
 	@Override
-	public Action getAction(Actor actor, GameMap map) {
+	public Action getAction(Actor actor, GameMap map, Actions actions) {
 		Location here = map.locationOf(actor);
 		Location there = map.locationOf(target);
 
