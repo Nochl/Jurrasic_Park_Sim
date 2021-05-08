@@ -67,6 +67,6 @@ public class PickFruitAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return null;
+        return (actor.toString()+" picks fruit from tree/bush");
     }
 }

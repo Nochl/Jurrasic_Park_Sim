@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.*;
 import game.FindNearestLocation;
 import game.actions.MatingAction;
 import game.dinosaur.Dinosaur;
+import game.enums.DinosaurCapabilities;
 import game.enums.Gender;
 import game.enums.Mateable;
 
@@ -19,6 +20,7 @@ public class BreedingBehaviour implements Behaviour {
         if (actor.hasCapability(Mateable.MATEABLE)){
             return null;
         }
+
 
         ArrayList<Actor> actors = new ArrayList<>();
         Boolean hasMate = Boolean.FALSE;
@@ -43,11 +45,13 @@ public class BreedingBehaviour implements Behaviour {
                 for (int yvalue : y) {
                     Actor potential = map.getActorAt(map.at(xvalue, yvalue));
                     if (potential != null) {
-                        if (potential.hasCapability(Mateable.MATEABLE)) {
-                            if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
-                                actors.add(map.getActorAt(map.at(xvalue, yvalue)));
-                            else if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
-                                actors.add(map.getActorAt(map.at(xvalue, yvalue)));
+                        if (sameDinosaur(actor, potential)) {
+                            if (potential.hasCapability(Mateable.MATEABLE)) {
+                                if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
+                                    actors.add(map.getActorAt(map.at(xvalue, yvalue)));
+                                else if (actor.hasCapability(Gender.MALE) && potential.hasCapability(Gender.FEMALE))
+                                    actors.add(map.getActorAt(map.at(xvalue, yvalue)));
+                            }
                         }
                     }
                 }
@@ -58,5 +62,20 @@ public class BreedingBehaviour implements Behaviour {
             Behaviour behaviour = new FollowBehaviour(closest);
             return behaviour.getAction(actor, map, actions);
         }
+    }
+
+
+
+    public boolean sameDinosaur(Actor current, Actor potential){
+        if (current.hasCapability(DinosaurCapabilities.BRACHIOSAUR) && potential.hasCapability(DinosaurCapabilities.BRACHIOSAUR)){
+            return true;
+        }
+        else if (current.hasCapability(DinosaurCapabilities.STEGOSAUR) && potential.hasCapability(DinosaurCapabilities.STEGOSAUR)){
+            return true;
+        }
+        else if (current.hasCapability(DinosaurCapabilities.ALLOSAUR) && potential.hasCapability(DinosaurCapabilities.ALLOSAUR)){
+            return true;
+        }
+        return false;
     }
 }

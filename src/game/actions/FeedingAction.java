@@ -59,7 +59,7 @@ public class FeedingAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return "Feed Dinosaur";
+        return "Feed "+target.toString();
     }
 
 

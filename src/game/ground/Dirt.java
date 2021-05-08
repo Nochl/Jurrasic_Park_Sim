@@ -38,7 +38,8 @@ public class Dirt extends Ground {
 				}
 			}
 			else {
-				if (random <= 0.01) {
+				if (random <= 0.001) {
+					System.out.println(random);
 					location.setGround(new Bush());
 				}
 			}
