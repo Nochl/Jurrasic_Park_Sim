@@ -76,14 +76,14 @@ public class VendingItemFactory {
     }
 
     private Item createAllosaurEgg() {
-        return new AllosaurEgg(10);
+        return new AllosaurEgg();
     }
 
     private Item createBrachiosaurEgg() {
-        return new BrachiosaurEgg(15);
+        return new BrachiosaurEgg();
     }
 
     private Item createStegosaurEgg() {
-        return new StegosaurEgg(6);
+        return new StegosaurEgg();
     }
 }

@@ -12,8 +12,8 @@ import game.dinosaur.Dinosaur;
  * @see Egg
  */
 public class AllosaurEgg extends Egg {
-    public AllosaurEgg(int lifespan) {
-        super("allosaur egg", lifespan);
+    public AllosaurEgg() {
+        super("allosaur egg", 25);
     }
 
     @Override
