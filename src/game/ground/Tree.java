@@ -37,7 +37,7 @@ public class Tree extends Ground {
 				Fruit fruit = inTree.remove(0);
 				fruit.removeCapability(FruitCapabilities.IN_TREE);
 				fruit.addCapability(FruitCapabilities.ON_FLOOR);
-				location.addItem(inTree.remove(0));
+				location.addItem(fruit);
 			}
 		}
 
