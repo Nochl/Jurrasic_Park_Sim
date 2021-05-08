@@ -1,9 +1,10 @@
-package game;
+package game.behaviours;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.*;
+import game.Behaviour;
 
 public class WanderBehaviour implements Behaviour {
 	
@@ -19,7 +20,7 @@ public class WanderBehaviour implements Behaviour {
 	 * @return an Action, or null if no MoveAction is possible
 	 */
 	@Override
-	public Action getAction(Actor actor, GameMap map, Actions actions) {
+	public Action getAction(Actor actor, Actions actions, GameMap map) {
 		ArrayList<Action> actions2 = new ArrayList<Action>();
 		
 		for (Exit exit : map.locationOf(actor).getExits()) {
