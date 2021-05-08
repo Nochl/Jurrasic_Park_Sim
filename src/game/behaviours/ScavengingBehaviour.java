@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * Implements Scavenging Behaviour class that implements Behaviour interface.
  * Utilised by the Dinosaur class to find and get the closest item food source
  * within the game world
+ *
  * @author Tim Jordan
  * @author Enoch Leow
  * @version 1.0.0
@@ -39,14 +40,20 @@ public class ScavengingBehaviour implements Behaviour {
         NumberRange YRange = map.getYRange();
 
         ArrayList<Location> foodLocations = new ArrayList<>();
-        for (int x = 0; x < Xrange.max(); x++) {
-            for (int y = 0; y < YRange.max(); y++) {
+        for (int x : Xrange) {
+            for (int y : YRange) {
                 Location location = map.at(x, y);
                 if (containsSuitableItem(location)) {
                     foodLocations.add(location);
                 }
             }
         }
+        // Checks if there are no food items in the map
+        if (foodLocations.size() == 0) {
+            return new DoNothingAction();
+        }
+        // Determines the closest food location and creates a follow behaviour for
+        // dinosaur to move to the item
         Location closestFoodLocation = FindNearestLocation.closestLocation(actor, foodLocations, map);
         followTarget = new LocationFollowBehaviour(closestFoodLocation);
         return followTarget.getAction(actor, actions, map);
@@ -54,6 +61,7 @@ public class ScavengingBehaviour implements Behaviour {
 
     /**
      * Checks if the given location contains items that have VEGETABLE Food Type capability
+     *
      * @param location A Location class object
      * @return a boolean True if the location contains a VEGETABLE item, else False
      */
