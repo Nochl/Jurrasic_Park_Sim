@@ -19,8 +19,16 @@ import java.util.ArrayList;
  * @version 3.0.0
  */
 public class VendingItemFactory {
+    static VendingItemFactory factory = null;
 
-    public VendingItemFactory() {
+    public static VendingItemFactory getInstance(){
+        if (factory == null) {
+            factory = new VendingItemFactory();
+        }
+        return factory;
+    }
+
+    private VendingItemFactory() {
     }
 
     public ArrayList<VendingMachineItems> getPossibleVendingItems() {
@@ -32,30 +40,16 @@ public class VendingItemFactory {
     }
 
     public Item createVendingItem(VendingMachineItems vendingMachineItem) {
-        Item item = null;
-        switch (vendingMachineItem) {
-            case FRUIT:
-                item = createFruit();
-                break;
-            case VEGETARIAN_MEAL_KIT:
-                item = createVegetarianMealKit();
-                break;
-            case CARNIVORE_MEAL_KIT:
-                item = createCarnivoreMealKit();
-                break;
-            case STEGOSAUR_EGG:
-                item = createStegosaurEgg();
-                break;
-            case BRACHIOSAUR_EGG:
-                item = createBrachiosaurEgg();
-                break;
-            case ALLOSAUR_EGG:
-                item = createAllosaurEgg();
-                break;
-            case LASER_GUN:
-                item = createLaserGun();
-                break;
-        }
+        Item item = switch (vendingMachineItem) {
+            case FRUIT -> createFruit();
+            case VEGETARIAN_MEAL_KIT -> createVegetarianMealKit();
+            case CARNIVORE_MEAL_KIT -> createCarnivoreMealKit();
+            case STEGOSAUR_EGG -> createStegosaurEgg();
+            case BRACHIOSAUR_EGG -> createBrachiosaurEgg();
+            case ALLOSAUR_EGG -> createAllosaurEgg();
+            case LASER_GUN -> createLaserGun();
+            default -> null;
+        };
         return item;
     }
 
