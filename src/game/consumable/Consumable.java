@@ -19,7 +19,7 @@ public class Consumable extends PortableItem {
     protected int fedHealth;
     protected ArrayList<Integer> eatenHealth = new ArrayList<>();
 
-    public Consumable (String name, char character, int fedHealth, Integer steg, Integer brac, Integer allo) {
+    public Consumable (String name, char character, int fedHealth, int steg, int brac, int allo) {
         super(name, character);
         this.fedHealth = fedHealth;
         eatenHealth.add(steg);
