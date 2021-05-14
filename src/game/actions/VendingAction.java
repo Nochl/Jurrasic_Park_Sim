@@ -1,6 +1,7 @@
 package game.actions;
 
 import edu.monash.fit2099.engine.*;
+import game.EcoHold;
 import game.Ecopoints;
 import game.Player;
 import game.VendingItemFactory;
@@ -19,7 +20,13 @@ import java.util.ArrayList;
  * @see Player
  */
 public class VendingAction extends Action {
+    /**
+     * A VendingItemFactory object that handles creating instances of vending machine items
+     */
     private VendingItemFactory vendingItemFactory;
+    /**
+     * An ArrayList of VendingMachineItems that denotes all possible vending machine items and costs
+     */
     private ArrayList<VendingMachineItems> menuOptions;
 
     /**
@@ -40,7 +47,7 @@ public class VendingAction extends Action {
      * Allows the player actor to purchase a vending machine item
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
-     * @return a string describing the player's actions
+     * @return a string describing the player's actions of buying an item from the vending machine
      */
     @Override
     public String execute(Actor actor, GameMap map) {
@@ -48,15 +55,23 @@ public class VendingAction extends Action {
             return actor + " is not allowed to access Vending Machine!";
         }
         Display display = new Display();
-        displayVendingMachineMenu((Player)actor, display);
+        // access the current actor's ecopoints
+        Ecopoints playerEco = EcoHold.getPlayerEco(actor);
+        // checks if the actor has an ecopoints attributes
+        if (playerEco == null) {
+            return actor + " does not have a ecopoints implemented";
+        }
+        // Displays the vending machine menu
+        displayVendingMachineMenu(playerEco, display);
+        // Asks the player what item they want to purchase
         int key = getActorMenuOption(display);
         String description;
-        Ecopoints playerEcopoints = ((Player)actor).getEcopoints();
         int itemCost = menuOptions.get(key).getCost();
-        if (itemCost > playerEcopoints.getPoints()) {
+        // Checks if the player has enough ecopoints to purchase item
+        if (itemCost > playerEco.getPoints()) {
             description = actor + " does not have enough EcoPoints to purchase " + menuOptions.get(key).getName();
         } else {
-            playerEcopoints.removePoints(itemCost);
+            playerEco.removePoints(itemCost);
             Item item = vendingItemFactory.createVendingItem(menuOptions.get(key));
             actor.addItemToInventory(item);
             description = menuOptions.get(key).getName() + " has been added to " + actor + "'s inventory";
@@ -75,22 +90,28 @@ public class VendingAction extends Action {
     private int getActorMenuOption(Display display) {
         char key;
         boolean validKey = false;
+        int intKey = 0;
         do {
             key = display.readChar();
-            if (key > 0 && key <= menuOptions.size() && Character.isDigit(key)) {
-                validKey = true;
+            if (Character.isDigit(key)) {
+                intKey = Character.getNumericValue(key);
+                if (intKey > 0 && intKey < menuOptions.size()) {
+                    validKey = true;
+                }
             }
         } while (!validKey);
-        return Character.getNumericValue(key);
+        return intKey;
     }
 
     /**
      * Prints the display menu for vending machine
      *
+     * @param playerEco an Ecopoints objects that represents the player's current ecopoints
      * @param display A Display object that enables use to print an end line
      */
-    private void displayVendingMachineMenu(Player player, Display display) {
+    private void displayVendingMachineMenu(Ecopoints playerEco, Display display) {
         display.endLine();
+
         System.out.println("----------------------------------");
         System.out.println("          Vending Machine         ");
         System.out.println("----------------------------------");
@@ -100,7 +121,7 @@ public class VendingAction extends Action {
             System.out.println(i + ". " + itemName + " (" + itemCost + ")");
         }
         System.out.println("----------------------------------");
-        System.out.println("EcoPoints : " + player.getEcopoints().getPoints());
+        System.out.println("EcoPoints : " + playerEco.getPoints());
     }
 
     /**
