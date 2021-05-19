@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class EcoHold {
     public static HashMap<Actor, Ecopoints> ecopoints = new HashMap<>();
 
-    public EcoHold(Ecopoints eco) {}
+//    public EcoHold() {}
 
     public static void addWorldEco(int amount){
         for (Actor player : ecopoints.keySet()) {
