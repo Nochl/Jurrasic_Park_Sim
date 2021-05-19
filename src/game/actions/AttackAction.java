@@ -8,9 +8,10 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
+import game.DinosaurHold;
 import game.consumable.Corpse;
 import game.dinosaur.Dinosaur;
-import game.dinosaur.Allosaur;
+import game.enums.DinosaurCapabilities;
 
 /**
  * Special Action for attacking other Actors.
@@ -35,8 +36,12 @@ public class AttackAction extends Action {
 		this.target = target;
 	}
 
-	public AttackAction(Dinosaur target) {this.target = target; }
-
+	/**
+	 * Executes action for given actor to attack target Actor
+	 * @param actor The actor performing the action.
+	 * @param map The map the actor is on.
+	 * @return a description of how the actor has attacked the target actor
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
@@ -46,20 +51,28 @@ public class AttackAction extends Action {
 			return actor + " misses " + target + ".";
 		}
 
-		if (actor instanceof Dinosaur && target instanceof Dinosaur) {
-			if (((Dinosaur) target).isCurrentlyTimedOut(actor)) {
+		Dinosaur dinoTarget = DinosaurHold.getDinosaur(target);
+		Dinosaur dinoAttacker = DinosaurHold.getDinosaur(actor);
+		if (dinoTarget != null && dinoAttacker != null) {
+			if (dinoTarget.isCurrentlyTimedOut(dinoTarget)) {
 				return actor + " cannot attack " + target + " because they are timed out";
 			}
 		}
+//		if (actor instanceof Dinosaur && target instanceof Dinosaur) {
+//			if (((Dinosaur) target).isCurrentlyTimedOut(actor)) {
+//				return actor + " cannot attack " + target + " because they are timed out";
+//			}
+//		}
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 
-		if (actor instanceof Allosaur) {
+		target.hurt(damage);
+
+		if (actor.hasCapability(DinosaurCapabilities.ALLOSAUR)) {
 			actor.heal(20);
 		}
 
-		target.hurt(damage);
 		if (!target.isConscious()) {
 			Corpse corpse = new Corpse((target.toString()+" Corpse"), target);
 			map.locationOf(target).addItem(corpse);
@@ -73,9 +86,10 @@ public class AttackAction extends Action {
 			
 			result += System.lineSeparator() + target + " is killed.";
 		} else {
-			if (target instanceof Dinosaur && actor instanceof Dinosaur){
-				Dinosaur dinosaur = (Dinosaur) actor;
-				((Dinosaur) target).addAttacker(dinosaur);
+			if (dinoTarget != null){
+				dinoTarget.addAttacker(dinoAttacker);
+//				Dinosaur dinosaur = (Dinosaur) actor;
+//				((Dinosaur) target).addAttacker(dinosaur);
 			}
 		}
 		return result;
