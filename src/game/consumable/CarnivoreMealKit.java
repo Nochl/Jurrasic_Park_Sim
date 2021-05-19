@@ -8,12 +8,9 @@ import game.enums.FoodCapabilities;
 
 import java.util.List;
 
-public class CarnivoreMealKit extends PortableItem {
+public class CarnivoreMealKit extends Consumable {
 
     public CarnivoreMealKit() {
-        super("carnivore meal kit", '$');
-        addCapability(FoodCapabilities.FULL_HEALTH);
-        allowableActions.add(new EatMeatAction(this));
-
+        super("carnivore meal kit", '$', Integer.MAX_VALUE, 0, 0, Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 }
