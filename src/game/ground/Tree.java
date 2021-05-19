@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
+import game.EcoHold;
 import game.actions.PickFruitAction;
 import game.consumable.Fruit;
 import game.enums.FruitCapabilities;
@@ -30,6 +31,7 @@ public class Tree extends Ground {
 		double prob = Math.random();
 		super.tick(location);
 		if (prob < 0.5) {
+			EcoHold.addWorldEco(1);
 			inTree.add(new Fruit(FruitCapabilities.IN_TREE));
 		}
 		if (inTree.size() > 0) {
