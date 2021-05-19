@@ -3,10 +3,9 @@ package game.actions;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
+import game.EcoHold;
 import game.consumable.Fruit;
-import game.dinosaur.Stegosaur;
 import game.enums.ActorTypeCapabilities;
-import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ public class PickFruitAction extends Action {
             if (random < 0.6) {
                 Fruit added = fruitList.remove(0);
                 actor.addItemToInventory(added);
+                EcoHold.addWorldEco(10);
                 return ("You picked a "+added.toString()+"!");
             }
             else {

@@ -1,6 +1,7 @@
 package game.actions;
 
 import edu.monash.fit2099.engine.*;
+import game.EcoHold;
 import game.Player;
 import game.PortableItem;
 import game.consumable.Consumable;
@@ -48,6 +49,7 @@ public class FeedingAction extends Action {
         Consumable give = (Consumable)giveFood;
         target.heal(give.getFedHealth());
         actor.removeItemFromInventory(giveFood);
+        EcoHold.addWorldEco(10);
         return (target.toString()+" has been fed a "+give.toString()+" and has gained "+give.getEatenHealth(target)+" health!");
     }
 
