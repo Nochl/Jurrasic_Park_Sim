@@ -17,7 +17,7 @@ public class Corpse extends Consumable {
     private Counter lifespan;
 
     public Corpse(String name, Actor actor) {
-        super("dead " + name, '%', 0, 0, 0, 20);
+        super("dead " + name, '%', 0, 0, 0, 20, 10);
         corpseDespawn(actor);
         addCapability(FoodTypeCapabilities.MEAT);
         allowableActions.add(new EatMeatAction(this));

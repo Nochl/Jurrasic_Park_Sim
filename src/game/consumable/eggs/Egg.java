@@ -15,7 +15,7 @@ public abstract class Egg extends Consumable {
     Counter lifespan;
 
     public Egg(String name, int lifespan) {
-        super(name, 'e', 10, 0, 0, 10);
+        super(name, 'e', 10, 0, 0, 10, 0);
         this.lifespan = new Counter(lifespan);
         addCapability(FoodTypeCapabilities.MEAT);
         allowableActions.add(new EatMeatAction(this));

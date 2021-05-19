@@ -12,13 +12,13 @@ import game.enums.FruitCapabilities;
 public class Fruit extends Consumable {
 
     public Fruit(FruitCapabilities fruitCapability) {
-        super("Fruit", 'f', 20, 10, 5, 0);
+        super("Fruit", 'f', 20, 10, 5, 0, 0);
         addCapability(fruitCapability);
         addCapability(FoodTypeCapabilities.VEGETABLE);
     }
 
     public Fruit() {
-        super("Fruit", 'f', 20, 10, 5, 0);
+        super("Fruit", 'f', 20, 10, 5, 0, 0);
         addCapability(FoodTypeCapabilities.VEGETABLE);
         allowableActions.add(new EatFruitAction(this));
     }

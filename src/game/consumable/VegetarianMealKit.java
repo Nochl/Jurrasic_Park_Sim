@@ -11,7 +11,7 @@ import java.util.List;
 public class VegetarianMealKit extends Consumable {
 
     public VegetarianMealKit() {
-        super("vegetarian meal kit", '#', Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0);
+        super("vegetarian meal kit", '#', Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
         addCapability(FoodTypeCapabilities.VEGETABLE);
         allowableActions.add(new EatFruitAction(this));
     }

@@ -19,12 +19,13 @@ public class Consumable extends PortableItem {
     protected int fedHealth;
     protected ArrayList<Integer> eatenHealth = new ArrayList<>();
 
-    public Consumable (String name, char character, int fedHealth, int steg, int brac, int allo) {
+    public Consumable (String name, char character, int fedHealth, int steg, int brac, int allo, int ptero) {
         super(name, character);
         this.fedHealth = fedHealth;
         eatenHealth.add(steg);
         eatenHealth.add(brac);
         eatenHealth.add(allo);
+        eatenHealth.add(ptero);
     }
 
     public int getFedHealth() {
@@ -37,9 +38,10 @@ public class Consumable extends PortableItem {
         }
         else if (actor.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
             return eatenHealth.get(1);
-        }
-        else {
+        } else if (actor.hasCapability(DinosaurCapabilities.ALLOSAUR)) {
             return eatenHealth.get(2);
+        } else {
+            return eatenHealth.get(3);
         }
     }
 
