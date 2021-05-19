@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class HuntingBehaviour implements Behaviour {
     protected Behaviour followBehaviour;
-    HuntingBehaviour() {
+    public HuntingBehaviour() {
         followBehaviour = null;
     }
 
