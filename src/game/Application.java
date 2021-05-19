@@ -3,10 +3,7 @@ package game;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.FancyGroundFactory;
-import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.World;
+import edu.monash.fit2099.engine.*;
 import game.dinosaur.*;
 import game.consumable.Fruit;
 import game.dinosaur.Stegosaur;
@@ -19,6 +16,7 @@ import game.ground.*;
 public class Application {
 
 	public static void main(String[] args) {
+
 		World world = new World(new Display());
 
 		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Tree(), new Bush(), new VendingMachine());
@@ -57,11 +55,13 @@ public class Application {
 		EcoHold.addPlayerEco(player);
 
 
-
 		// Place a pair of stegosaurs in the middle of the map
-		gameMap.at(30, 12).addActor(new Stegosaur("Stegosaur",Boolean.FALSE, 'm'));
-		gameMap.at(32, 12).addActor(new Stegosaur("Stegosaur",Boolean.FALSE, 'f'));
-			
+		Dinosaur dinosaur1 = new Stegosaur("Stegosaur", false, 'm');
+		Dinosaur dinosaur2 = new Stegosaur("Stegosaur",false, 'f');
+		gameMap.at(30, 12).addActor(dinosaur1);
+		gameMap.at(32, 12).addActor(dinosaur2);
+		DinosaurHold.addDinosaur(dinosaur1);
+		DinosaurHold.addDinosaur(dinosaur2);
 		world.run();
 	}
 }
