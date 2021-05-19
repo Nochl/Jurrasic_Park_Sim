@@ -2,6 +2,7 @@ package game.dinosaur;
 
 import edu.monash.fit2099.engine.*;
 import game.Counter;
+import game.behaviour.HuntingBehaviour;
 import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
@@ -40,6 +41,7 @@ public class Allosaur extends Dinosaur{
      */
     public Allosaur(String name, Boolean baby, char gender) {
         super(name, 'A', 100, baby, gender);
+        behaviours.add(new HuntingBehaviour());
         maxunconsciousTime = 20;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);
@@ -83,6 +85,7 @@ public class Allosaur extends Dinosaur{
      */
     @Override
     void setBabyAttributes() {
+        hitPoints = 25;
         maxHitPoints = 50;
         hungryHealth = 25;
         breedingHealth = Integer.MAX_VALUE;
