@@ -5,7 +5,7 @@ package game.enums;
  * how much each one costs
  * @author Tim Jordan
  * @author Enoch Leow
- * @version 1.0.2
+ * @version 1.0.3
  */
 public enum VendingMachineItems {
     FRUIT (30, "fruit"), VEGETARIAN_MEAL_KIT(100, "vegetarian meal kit"),
