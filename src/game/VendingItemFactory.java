@@ -68,6 +68,7 @@ public class VendingItemFactory {
             case BRACHIOSAUR_EGG -> createBrachiosaurEgg();
             case ALLOSAUR_EGG -> createAllosaurEgg();
             case LASER_GUN -> createLaserGun();
+            case PTERODACTYL_EGG -> createPterodactylEgg();
         };
         return item;
     }
@@ -126,5 +127,13 @@ public class VendingItemFactory {
      */
     private Item createStegosaurEgg() {
         return new StegosaurEgg();
+    }
+
+    /**
+     * Creates and instance of Item Pterodactyl Egg
+     * @return a Pterodactyl egg item
+     */
+    private Item createPterodactylEgg() {
+        return null;
     }
 }
