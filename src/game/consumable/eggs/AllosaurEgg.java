@@ -10,17 +10,28 @@ import game.dinosaur.Dinosaur;
  * @author Enoch Leow
  * @version 3.0.0
  * @see Egg
+ * @see Allosaur
  */
 public class AllosaurEgg extends Egg {
+    /**
+     * Constructor method for allosaurus egg
+     */
     public AllosaurEgg() {
         super("allosaur egg", 25);
     }
 
+    /**
+     * Creates an instance of allosaur dinosaur
+     * @return a new instance of Allosaur class object
+     */
     @Override
     Dinosaur createDinosaur() {
-        return new Allosaur("allosaur", Boolean.TRUE);
+        return new Allosaur("allosaur", true);
     }
 
+    /**
+     * Increments ecopoints in the world
+     */
     @Override
     void increaseEcoPoints() {
         EcoHold.addWorldEco(1000);

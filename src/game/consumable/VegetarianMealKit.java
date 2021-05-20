@@ -8,6 +8,14 @@ import game.enums.FoodTypeCapabilities;
 
 import java.util.List;
 
+/**
+ * Implements a vegetarian meal kit consumable item that fully heals herbivores
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 3.0.0
+ * @see Consumable
+ * @see FoodTypeCapabilities
+ */
 public class VegetarianMealKit extends Consumable {
 
     public VegetarianMealKit() {
