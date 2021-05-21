@@ -7,6 +7,15 @@ import edu.monash.fit2099.engine.Location;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Implements a class that determines the closest actor and closest location
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 5.0.0
+ * @see Actor
+ * @see Location
+ * @see Location
+ */
 public class FindNearestLocation {
     public static Actor closestActor(Actor thisActor, ArrayList<Actor> actorList, GameMap map) {
         Actor closeActor = null;
