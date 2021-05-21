@@ -27,9 +27,9 @@ public class Tree extends Ground {
 			actions.add(new PickFruitAction(inTree));
 		}
 
-		if (hasCapability(MapCapabilities.EDGEMAP)){
-			actions.add(new NextMapAction());
-		}
+//		if (hasCapability(MapCapabilities.EDGEMAP)){
+//			actions.add(new NextMapAction());
+//		}
 		return actions;
 	}
 

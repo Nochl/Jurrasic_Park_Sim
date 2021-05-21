@@ -3,7 +3,9 @@ package game.actions;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.Location;
 import game.Application;
+import game.MapHolder;
 
 public class NextMapAction extends Action {
     private GameMap nextmap;
@@ -20,19 +22,28 @@ public class NextMapAction extends Action {
      * @return a description of what happened that can be displayed to the user.
      */
 
-
-
     @Override
     public String execute(Actor actor, GameMap map) {
-        int x = map.locationOf(actor).x();
-        int y = map.locationOf(actor).y();
+        int oldx = map.locationOf(actor).x();
+        int oldy = map.locationOf(actor).y();
+        int newy;
+
+        nextmap = MapHolder.getOtherMap(map);
+
+        if (oldy != 0){
+            newy = 0;
+        }
+        else {
+            newy = nextmap.getYRange().max();
+        }
+
+        Location nextlocation = nextmap.at(oldx, newy);
 
 
+        map.removeActor(actor);
+        nextmap.addActor(actor, nextlocation);
 
-
-
-
-        return null;
+        return "Actor moved to next map";
     }
 
     /**

@@ -1,9 +1,11 @@
 package game;
 
 import edu.monash.fit2099.engine.*;
+import game.actions.NextMapAction;
 import game.consumable.Consumable;
 import game.enums.ActorTypeCapabilities;
 import game.enums.FoodTypeCapabilities;
+import game.enums.MapCapabilities;
 
 import java.util.ArrayList;
 
@@ -30,10 +32,14 @@ public class Player extends Actor {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		Actions actions2 = actions;
+		if (map.locationOf(this).getGround().hasCapability(MapCapabilities.EDGEMAP)){
+			actions2.add(new NextMapAction());
+		}
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
-		return menu.showMenu(this, actions, display);
+		return menu.showMenu(this, actions2, display);
 	}
 
 	public Ecopoints getEcopoints() {
