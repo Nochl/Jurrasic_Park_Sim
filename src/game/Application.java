@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.monash.fit2099.engine.*;
 import game.dinosaur.*;
-import game.consumable.Fruit;
 import game.dinosaur.Stegosaur;
 import game.ground.*;
 
