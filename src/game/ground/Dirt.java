@@ -1,8 +1,9 @@
 package game.ground;
 
-import edu.monash.fit2099.engine.Exit;
-import edu.monash.fit2099.engine.Ground;
-import edu.monash.fit2099.engine.Location;
+import edu.monash.fit2099.engine.*;
+import game.actions.NextMapAction;
+import game.actions.PickFruitAction;
+import game.enums.MapCapabilities;
 
 /**
  * A class that represents bare dirt.
@@ -45,6 +46,14 @@ public class Dirt extends Ground {
 
 		}
 
+	}
 
+	@Override
+	public Actions allowableActions(Actor actor, Location location, String direction){
+		Actions actions = new Actions();
+		if (hasCapability(MapCapabilities.EDGEMAP)) {
+			actions.add(new NextMapAction());
+		}
+		return actions;
 	}
 }

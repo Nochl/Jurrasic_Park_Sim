@@ -4,12 +4,15 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
+import game.actions.NextMapAction;
 import game.actions.PickFruitAction;
 import game.consumable.Fruit;
 import game.enums.DinosaurCapabilities;
 import game.enums.FruitCapabilities;
+import game.enums.MapCapabilities;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Bush extends Ground{
     private ArrayList<Fruit> inBush = new ArrayList<>();
@@ -39,6 +42,10 @@ public class Bush extends Ground{
 
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction){
-        return new Actions(new PickFruitAction(inBush));
+        Actions actions = new Actions(new PickFruitAction(inBush));
+        if (hasCapability(MapCapabilities.EDGEMAP)) {
+            actions.add(new NextMapAction());
+        }
+        return actions;
     }
 }

@@ -4,8 +4,11 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
+import game.actions.NextMapAction;
+import game.actions.PickFruitAction;
 import game.consumable.Fish;
 import game.enums.ActorMobilityCapabilities;
+import game.enums.MapCapabilities;
 import game.utils.RandomNumberGenerator;
 
 import java.util.ArrayList;
@@ -39,7 +42,6 @@ public class Lake extends Ground {
      */
     public Lake() {
         super('~');
-        capacity = 25;
         initialFishAmount = 5;
         seaCreatures = new ArrayList<>();
         for (int i = 0; i < initialFishAmount; i++) {
@@ -49,15 +51,13 @@ public class Lake extends Ground {
 
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction) {
-        return super.allowableActions(actor, location, direction);
+        Actions actions = new Actions();
+        if (hasCapability(MapCapabilities.EDGEMAP)){
+            actions.add(new NextMapAction());
+        }
+        //      actions.add(new DrinkLakeAction());
+        return actions;
     }
-
-    //    @Override
-//    public Actions allowableActions(Actor actor, Location location, String direction) {
-
-//        return new DrinkLakeAction();
-//        return null;
-//    }
 
     @Override
     public void tick(Location location) {

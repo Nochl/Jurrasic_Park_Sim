@@ -7,5 +7,5 @@ package game.enums;
  * @version 1.0.0
  */
 public enum DietCapabilities {
-    HERBIVORE, CARNIVORE
+    HERBIVORE, CARNIVORE, SEAFOOD
 }
