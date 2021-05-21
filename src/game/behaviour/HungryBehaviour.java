@@ -7,9 +7,9 @@ import game.enums.FoodTypeCapabilities;
 import game.enums.FruitCapabilities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HungryBehaviour {
-    protected Behaviour followBehaviour = null;
 
     protected static ArrayList<Actor> getSuitableDinosaurs(Actor thisActor, GameMap map, DinosaurCapabilities dinosaurCapability) {
         ArrayList<Actor> suitableActors = new ArrayList<>();
@@ -80,4 +80,24 @@ public class HungryBehaviour {
         return false;
     }
 
+    protected static Item CheckStandingOnSuitableFood(Location actorLocation, FoodTypeCapabilities foodTypeCapability) {
+        List<Item> items = actorLocation.getItems();
+        for (Item item : items) {
+            if (item.hasCapability(foodTypeCapability)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    protected static Actor checkSurroundingSuitableDinosaurs(Location actorLocation, DinosaurCapabilities dinosaurCapability) {
+        for (Exit exit : actorLocation.getExits()) {
+            Location nearbyLocation = exit.getDestination();
+            Actor actor = nearbyLocation.getActor();
+            if (actor != null && actor.hasCapability(dinosaurCapability)) {
+                return actor;
+            }
+        }
+        return null;
+    }
 }
