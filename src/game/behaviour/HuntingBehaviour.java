@@ -19,20 +19,42 @@ import java.util.List;
  * @see FindNearestLocation
  */
 public class HuntingBehaviour implements Behaviour {
-    protected Behaviour followBehaviour;
+
+    /**
+     * A Behaviour object that is used to follow a certain food source
+     */
+    private Behaviour followBehaviour;
+
+    /**
+     * Constructor
+     */
     public HuntingBehaviour() {
         followBehaviour = null;
     }
 
+    /**
+     * Tries to find/attack a suitable food source around it's vicinity. If not able to find one around
+     * it will find and go to the nearest food source.
+     * @param actor the Actor acting
+     * @param map the GameMap containing the Actor
+     * @param actions an Actions object that determines the surrounding actions available
+     * @return an Action instance that denotes the action the actor can currently do
+     */
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
-        for (Action action : actions.getUnmodifiableActionList()) {
-            if (action instanceof EatMeatAction || action instanceof AttackAction) {
-
-                followBehaviour = null;
-                return action;
-            }
+        // Checks if the Allosaur Dinosaur is near a stegosaur
+        Actor closePrey = HungryBehaviour.checkSurroundingSuitableDinosaurs(map.locationOf(actor), DinosaurCapabilities.STEGOSAUR);
+        if (closePrey != null) {
+            followBehaviour = null;
+            return new AttackAction(closePrey);
         }
+        // Checks if the Allosaur Dinosaur is standing on a food item
+        Item closeFood = HungryBehaviour.CheckStandingOnSuitableFood(map.locationOf(actor), FoodTypeCapabilities.MEAT);
+        if (closeFood != null) {
+            followBehaviour = null;
+            return new EatMeatAction(closeFood);
+        }
+
         if (followBehaviour != null) {
             return followBehaviour.getAction(actor, map, actions);
         }
@@ -45,6 +67,14 @@ public class HuntingBehaviour implements Behaviour {
         return followBehaviour.getAction(actor, map, actions);
     }
 
+    /**
+     * Initialises a FollowBehaviour class object that follows the closest suitable food source for actor
+     * @param actor An Actor class object
+     * @param map a GameMap object that is the current game map the actor is in
+     * @param preys an Array list of Actors that the Dinosaur can attack
+     * @param foodLocations an Array list of Locations that contain suitable food items
+     * @return a Behaviour class object that the actor will follow
+     */
     private Behaviour getFollowBehaviour(Actor actor, GameMap map,
                                          ArrayList<Actor> preys, ArrayList<Location> foodLocations) {
         boolean foundPrey = false;
@@ -52,19 +82,28 @@ public class HuntingBehaviour implements Behaviour {
         Actor prey = null;
         Location foodLocation = null;
 
+        // Checks if there are suitable prey. If so, get the closest suitable prey
         if (preys.size() > 0) {
             prey = FindNearestLocation.closestActor(actor, preys, map);
             foundPrey = true;
         }
+
+        // Checks if there are suitable food locations. If so, get the closest one
         if (foodLocations.size() > 0) {
             foodLocation = FindNearestLocation.closestLocation(actor, foodLocations, map);
             foundFood = true;
         }
+
+        // Check if there is a food location
         if (!foundPrey && foundFood) {
             return new LocationFollowBehaviour(foodLocation);
-        } else if (foundPrey && !foundFood) {
+        }
+        // Checks if there is a suitable prey
+        else if (foundPrey && !foundFood) {
             return new FollowBehaviour(prey);
         }
+
+        // Determine whether the prey or food item is the closest food source
         ArrayList<Location> allFoodLocations = new ArrayList<>();
         allFoodLocations.add(map.locationOf(prey));
         allFoodLocations.add(foodLocation);
@@ -74,29 +113,5 @@ public class HuntingBehaviour implements Behaviour {
         } else {
             return new FollowBehaviour(closestFoodSource.getActor());
         }
-    }
-
-    private Item checkSurroundingSuitableFoods(Location actorLocation, FoodTypeCapabilities foodTypeCapability) {
-        for (Exit exit : actorLocation.getExits()) {
-            Location nearbyLocation = exit.getDestination();
-            List<Item> items = nearbyLocation.getItems();
-            for (Item meat : items) {
-                if (meat.hasCapability(FoodTypeCapabilities.MEAT)) {
-                    return meat;
-                }
-            }
-        }
-        return null;
-    }
-
-    private Actor checkSurroundingSuitableDinosaurs(Location actorLocation, DinosaurCapabilities dinosaurCapability) {
-        for (Exit exit : actorLocation.getExits()) {
-            Location nearbyLocation = exit.getDestination();
-            Actor actor = nearbyLocation.getActor();
-            if (actor != null && actor.hasCapability(dinosaurCapability)) {
-                return actor;
-            }
-        }
-        return null;
     }
 }
