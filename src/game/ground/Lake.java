@@ -39,6 +39,7 @@ public class Lake extends Ground {
      */
     public Lake() {
         super('~');
+        capacity = 25;
         initialFishAmount = 5;
         seaCreatures = new ArrayList<>();
         for (int i = 0; i < initialFishAmount; i++) {
@@ -48,9 +49,15 @@ public class Lake extends Ground {
 
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction) {
-//        return new DrinkLakeAction();
-        return null;
+        return super.allowableActions(actor, location, direction);
     }
+
+    //    @Override
+//    public Actions allowableActions(Actor actor, Location location, String direction) {
+
+//        return new DrinkLakeAction();
+//        return null;
+//    }
 
     @Override
     public void tick(Location location) {
