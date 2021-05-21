@@ -36,10 +36,8 @@ public class Lake extends Ground {
     int initialFishAmount;
     /**
      * Constructor.
-     *
-     * @param displayChar character to display for this type of terrain
      */
-    public Lake(char displayChar) {
+    public Lake() {
         super('~');
         initialFishAmount = 5;
         seaCreatures = new ArrayList<>();
