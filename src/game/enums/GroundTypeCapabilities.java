@@ -7,5 +7,5 @@ package game.enums;
  * @version 1.0.0
  */
 public enum GroundTypeCapabilities {
-    BUSH, DIRT, FLOOR, TREE, WALL
+    BUSH, DIRT, FLOOR, TREE, WALL, LAKE
 }
