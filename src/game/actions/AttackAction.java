@@ -51,6 +51,7 @@ public class AttackAction extends Action {
 			return actor + " misses " + target + ".";
 		}
 
+		// Checks if the target and actor have a Dinosaur counterpart
 		Dinosaur dinoTarget = DinosaurHold.getDinosaur(target);
 		Dinosaur dinoAttacker = DinosaurHold.getDinosaur(actor);
 		if (dinoTarget != null && dinoAttacker != null) {
@@ -58,11 +59,6 @@ public class AttackAction extends Action {
 				return actor + " cannot attack " + target + " because they are timed out";
 			}
 		}
-//		if (actor instanceof Dinosaur && target instanceof Dinosaur) {
-//			if (((Dinosaur) target).isCurrentlyTimedOut(actor)) {
-//				return actor + " cannot attack " + target + " because they are timed out";
-//			}
-//		}
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
