@@ -8,7 +8,16 @@ import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Implements a hunting behaviour that is used by Allosaurs to hunt and attack other dinosaurs
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 5.0.0
+ * @see game.dinosaur.Allosaur
+ * @see FindNearestLocation
+ */
 public class HuntingBehaviour implements Behaviour {
     protected Behaviour followBehaviour;
     public HuntingBehaviour() {
@@ -19,6 +28,7 @@ public class HuntingBehaviour implements Behaviour {
     public Action getAction(Actor actor, GameMap map, Actions actions) {
         for (Action action : actions.getUnmodifiableActionList()) {
             if (action instanceof EatMeatAction || action instanceof AttackAction) {
+
                 followBehaviour = null;
                 return action;
             }
@@ -64,5 +74,29 @@ public class HuntingBehaviour implements Behaviour {
         } else {
             return new FollowBehaviour(closestFoodSource.getActor());
         }
+    }
+
+    private Item checkSurroundingSuitableFoods(Location actorLocation, FoodTypeCapabilities foodTypeCapability) {
+        for (Exit exit : actorLocation.getExits()) {
+            Location nearbyLocation = exit.getDestination();
+            List<Item> items = nearbyLocation.getItems();
+            for (Item meat : items) {
+                if (meat.hasCapability(FoodTypeCapabilities.MEAT)) {
+                    return meat;
+                }
+            }
+        }
+        return null;
+    }
+
+    private Actor checkSurroundingSuitableDinosaurs(Location actorLocation, DinosaurCapabilities dinosaurCapability) {
+        for (Exit exit : actorLocation.getExits()) {
+            Location nearbyLocation = exit.getDestination();
+            Actor actor = nearbyLocation.getActor();
+            if (actor != null && actor.hasCapability(dinosaurCapability)) {
+                return actor;
+            }
+        }
+        return null;
     }
 }
