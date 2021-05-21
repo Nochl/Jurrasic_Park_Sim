@@ -13,14 +13,14 @@ public class MapSwitch {
         int y = 0;
         int x = startmap.getXRange().max();
 
-        if (position.equals("bottom")) {
+        if (position.equals("top")) {
             y = 0;
-        } else if (position.equals("top")) {
+        } else if (position.equals("bottom")) {
             y = startmap.getYRange().max();
         }
 
         for (int i = 0; i < x; i++) {
-            startmap.at(x, y).getGround().addCapability(MapCapabilities.EDGEMAP);
+            startmap.at(i, y).getGround().addCapability(MapCapabilities.EDGEMAP);
 
         }
     }
