@@ -43,7 +43,7 @@ public class Sky {
      * Gets the amount of sips added to lakes. If isRaining is false, returns 0
      * @return an int denoting the amount of sips added to lake
      */
-    public int getRainAmount() {
+    public static int getRainAmount() {
         return addedSips;
     }
 }
