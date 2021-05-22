@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 import game.Sky;
+import game.actions.DrinkLakeAction;
 import game.consumable.Fish;
 import game.enums.ActorMobilityCapabilities;
 import game.utils.RandomNumberGenerator;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Tim Jordan
  * @author Enoch Leow
- * @version 1.0.0
+ * @version 1.0.3
  * @see Ground
  */
 public class Lake extends Ground {
@@ -50,9 +51,7 @@ public class Lake extends Ground {
 
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction) {
-        Actions actions = new Actions();
-        //      actions.add(new DrinkLakeAction());
-        return actions;
+        return new Actions(new DrinkLakeAction(this));
     }
 
     @Override
@@ -68,5 +67,21 @@ public class Lake extends Ground {
     @Override
     public boolean canActorEnter(Actor actor) {
         return actor.hasCapability(ActorMobilityCapabilities.FLY);
+    }
+
+    /**
+     * Gets the sip capacity of lake
+     * @return an int denoting sip capacity
+     */
+    public int getSipCapacity() {
+        return sipCapacity;
+    }
+
+    /**
+     * Reduces sip capacity by given amount
+     * @param amount an int denoting amount of sips to remove
+     */
+    public void reduceSipCapacity(int amount) {
+        sipCapacity -= amount;
     }
 }
