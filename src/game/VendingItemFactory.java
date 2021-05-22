@@ -6,6 +6,7 @@ import game.consumable.Fruit;
 import game.consumable.VegetarianMealKit;
 import game.consumable.eggs.AllosaurEgg;
 import game.consumable.eggs.BrachiosaurEgg;
+import game.consumable.eggs.PterodactylEgg;
 import game.consumable.eggs.StegosaurEgg;
 import game.enums.VendingMachineItems;
 
@@ -134,6 +135,6 @@ public class VendingItemFactory {
      * @return a Pterodactyl egg item
      */
     private Item createPterodactylEgg() {
-        return null;
+        return new PterodactylEgg();
     }
 }
