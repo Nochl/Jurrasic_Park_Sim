@@ -4,11 +4,9 @@ import edu.monash.fit2099.engine.Actions;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
-import game.actions.NextMapAction;
-import game.actions.PickFruitAction;
+import game.Sky;
 import game.consumable.Fish;
 import game.enums.ActorMobilityCapabilities;
-import game.enums.MapCapabilities;
 import game.utils.RandomNumberGenerator;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class Lake extends Ground {
     /**
      *  an int denoting the amount of sips an actor can take from lake
      */
-    int SipCapacity;
+    int sipCapacity;
 
     /**
      * An array list of fish in the lake
@@ -42,7 +40,7 @@ public class Lake extends Ground {
      */
     public Lake() {
         super('~');
-        SipCapacity = 25;
+        sipCapacity = 25;
         initialFishAmount = 5;
         seaCreatures = new ArrayList<>();
         for (int i = 0; i < initialFishAmount; i++) {
@@ -64,6 +62,7 @@ public class Lake extends Ground {
         if (randomNumber <= 0.6) {
             seaCreatures.add(new Fish());
         }
+        sipCapacity =  Sky.getRainAmount();
     }
 
     @Override
