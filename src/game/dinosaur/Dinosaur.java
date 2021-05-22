@@ -9,11 +9,7 @@ import game.behaviour.BreedingBehaviour;
 import game.behaviour.ScavengingBehaviour;
 import game.behaviour.WanderBehaviour;
 import game.consumable.Corpse;
-import game.enums.DinosaurCapabilities;
-import game.enums.Gender;
-import game.enums.GroundTypeCapabilities;
-import game.enums.DinosaurState;
-import game.enums.Mateable;
+import game.enums.*;
 import game.ground.Dirt;
 
 import java.util.ArrayList;
@@ -38,6 +34,9 @@ public abstract class Dinosaur extends Actor {
     protected int mateTime;
     protected int maxunconsciousTime = Integer.MAX_VALUE;
     protected Counter matureCounter = null;
+    protected int maxThirst;
+    protected int thirst;
+
 
     /**
      * Constructor.
@@ -79,16 +78,18 @@ public abstract class Dinosaur extends Actor {
 
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+        if (hitPoints < hungryHealth && !hasCapability(HungryCapabilities.HUNGRY)) {
+            addCapability(HungryCapabilities.HUNGRY);
+            display.println(this.toString()+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is hungry!");
+        }
+
+        if (hitPoints > hungryHealth && hasCapability(HungryCapabilities.HUNGRY)) {
+            removeCapability(HungryCapabilities.HUNGRY);
+        }
+
 
         checkCanMate();
-        if (this.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
-            double random = Math.random();
-            if (random < 0.5) {
-                if (map.locationOf(this).getGround().hasCapability(GroundTypeCapabilities.BUSH)) {
-                    map.locationOf(this).setGround(new Dirt());
-                }
-            }
-        }
+
         if (isConscious()) {
             unconsciousTime = null;
             this.hurt(1);
@@ -108,13 +109,7 @@ public abstract class Dinosaur extends Actor {
                     dinosaurAttackers.remove(dinosaur);
                 }
             }
-            for (Actor dinosaur : dinosaurAttackers.keySet()) {
-                Counter attackTimer = dinosaurAttackers.get(dinosaur);
-                attackTimer.dec();
-                if (attackTimer.getValue() == 0) {
-                    dinosaurAttackers.remove(dinosaur);
-                }
-            }
+
 
             for (Behaviour thisbehaviour : behaviours) {
                 Action action = thisbehaviour.getAction(this, map, actions);

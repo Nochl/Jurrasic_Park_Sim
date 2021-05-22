@@ -19,15 +19,20 @@ public class Stegosaur extends Dinosaur{
     public Stegosaur(String name, Boolean baby) {
         super(name, 'S', 50, baby);
         maxunconsciousTime = 20;
+        maxThirst = 100;
+        thirst = 60;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.STEGOSAUR);
         if (baby) {setBabyAttributes();}
         else {growUp();}
     }
 
+
     public Stegosaur(String name, Boolean baby, char gender) {
         super(name, 'S', 50, baby, gender);
         maxunconsciousTime = 20;
+        maxThirst = 100;
+        thirst = 60;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.STEGOSAUR);
         if (baby) {setBabyAttributes();}
@@ -40,6 +45,9 @@ public class Stegosaur extends Dinosaur{
         return new Counter(30);
     }
 
+    /**
+     * Sets the attributes of the dinosaur object to those of an adult Stegosaur
+     */
     @Override
     void growUp() {
         maxHitPoints = 100;
@@ -48,6 +56,9 @@ public class Stegosaur extends Dinosaur{
         mateTime = 10;
     }
 
+    /**
+     * Sets the attributes of the dinosaur object to those of a baby Stegosaur
+     */
     @Override
     void setBabyAttributes() {
         maxHitPoints = 50;

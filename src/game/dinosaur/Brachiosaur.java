@@ -29,6 +29,8 @@ public class Brachiosaur extends Dinosaur{
     public Brachiosaur(String name, Boolean baby) {
         super(name, 'B', 100, baby);
         maxunconsciousTime = 20;
+        maxThirst = 200;
+        thirst = 60;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
         if (baby) {setBabyAttributes();}
@@ -44,6 +46,8 @@ public class Brachiosaur extends Dinosaur{
     public Brachiosaur(String name, Boolean baby, char gender) {
         super(name, 'B', 100, baby, gender);
         maxunconsciousTime = 20;
+        maxThirst = 200;
+        thirst = 60;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
         if (baby) {setBabyAttributes();}
@@ -51,7 +55,7 @@ public class Brachiosaur extends Dinosaur{
     }
 
     /**
-     * Changes the attributes of the dinosaur into those of a adult brachiosaur
+     * Changes the attributes of the dinosaur into those of a baby brachiosaur
      */
     @Override
     void setBabyAttributes() {
@@ -69,7 +73,7 @@ public class Brachiosaur extends Dinosaur{
     }
 
     /**
-     * Sets the attributes of the dinosaur object to those of a child brachiosaur
+     * Sets the attributes of the dinosaur object to those of a Adult brachiosaur
      */
     @Override
     void growUp() {

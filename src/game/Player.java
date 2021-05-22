@@ -14,7 +14,14 @@ import java.util.ArrayList;
  */
 public class Player extends Actor {
 
+	/**
+	 * Ecopoints object which stores the amount of ecopoints the player has
+	 */
 	private Ecopoints ecopoints;
+
+	/**
+	 * Menu object for displaying the players possible actions
+	 */
 	private Menu menu = new Menu();
 
 	/**

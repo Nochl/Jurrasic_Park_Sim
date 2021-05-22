@@ -17,6 +17,14 @@ import java.util.Map;
  * @see Location
  */
 public class FindNearestLocation {
+
+    /**
+     * Method which finds the closest Actor in a given list
+     * @param thisActor Current actor in focus
+     * @param actorList List of other actors
+     * @param map Current gamemap
+     * @return closest Actor to thisActor from actorLost
+     */
     public static Actor closestActor(Actor thisActor, ArrayList<Actor> actorList, GameMap map) {
         Actor closeActor = null;
         int minDistance = Integer.MAX_VALUE;
@@ -32,6 +40,13 @@ public class FindNearestLocation {
         return closeActor;
     }
 
+    /**
+     * Method which finds the closest Location to thisActor in a given list
+     * @param thisActor Current actor in focus
+     * @param locationList List of Locations
+     * @param map Current gamemap
+     * @return closest Locaiton to thisActor from locationList
+     */
     public static Location closestLocation(Actor thisActor, ArrayList<Location> locationList, GameMap map) {
         Location closeLocation = null;
         int minDistance = Integer.MAX_VALUE;
