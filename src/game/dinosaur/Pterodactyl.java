@@ -29,6 +29,8 @@ public class Pterodactyl extends Dinosaur{
     public Pterodactyl(String name, Boolean baby) {
         super(name, 'P', 100, baby);
         maxunconsciousTime = 20;
+        maxThirst = 100;
+        thirst = 60;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DietCapabilities.SEAFOOD);
         addCapability(DinosaurCapabilities.PTERODACTYL);
@@ -45,6 +47,8 @@ public class Pterodactyl extends Dinosaur{
     public Pterodactyl(String name, Boolean baby, char gender) {
         super(name, 'P', 100, baby, gender);
         maxunconsciousTime = 20;
+        maxThirst = 100;
+        thirst = 60;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DietCapabilities.SEAFOOD);
         addCapability(DinosaurCapabilities.PTERODACTYL);
@@ -53,7 +57,7 @@ public class Pterodactyl extends Dinosaur{
     }
 
     /**
-     * Changes the attributes of the dinosaur into those of a adult Pterodactyl
+     * Changes the attributes of the dinosaur into those of a baby Pterodactyl
      */
     @Override
     void setBabyAttributes() {
@@ -71,7 +75,7 @@ public class Pterodactyl extends Dinosaur{
     }
 
     /**
-     * Sets the attributes of the dinosaur object to those of a child Pterodactyl
+     * Sets the attributes of the dinosaur object to those of an adult Pterodactyl
      */
     @Override
     void growUp() {

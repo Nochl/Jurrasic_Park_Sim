@@ -7,12 +7,17 @@ import edu.monash.fit2099.engine.Location;
 import game.Application;
 import game.MapHolder;
 
+/**
+ * Action to move the player from one GameMap to Another
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.2.0
+ */
 public class NextMapAction extends Action {
+    /**
+     * Holder of the destination GameMap for the Actor
+     */
     private GameMap nextmap;
-    private Application application;
-
-    public NextMapAction() {
-    }
 
     /**
      * Perform the Action.
