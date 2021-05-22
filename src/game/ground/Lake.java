@@ -26,7 +26,7 @@ public class Lake extends Ground {
     /**
      *  an int denoting the amount of sips an actor can take from lake
      */
-    int capacity;
+    int SipCapacity;
 
     /**
      * An array list of fish in the lake
@@ -42,6 +42,7 @@ public class Lake extends Ground {
      */
     public Lake() {
         super('~');
+        SipCapacity = 25;
         initialFishAmount = 5;
         seaCreatures = new ArrayList<>();
         for (int i = 0; i < initialFishAmount; i++) {
@@ -52,9 +53,6 @@ public class Lake extends Ground {
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction) {
         Actions actions = new Actions();
-//        if (hasCapability(MapCapabilities.EDGEMAP)){
-//            actions.add(new NextMapAction());
-//        }
         //      actions.add(new DrinkLakeAction());
         return actions;
     }
