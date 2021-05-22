@@ -42,11 +42,4 @@ public class MapHolder {
         return null;
     }
 
-    /**
-     * Gets a list of all of Game Maps
-     * @return an Array list of Game Maps
-     */
-    public static ArrayList<GameMap> getMaps() {
-        return maps;
-    }
 }
