@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * @see Behaviour
  */
 public class ScavengingBehaviour implements Behaviour {
-    protected Behaviour followBehaviour;
+    private Behaviour followBehaviour;
     public ScavengingBehaviour() {
         followBehaviour = null;
     }
