@@ -37,18 +37,29 @@ public class Player extends Actor {
 		addCapability(ActorTypeCapabilities.PLAYER);
 	}
 
+	/**
+	 * Determines what the player's actions are for current game turn
+	 * @param actions    collection of possible Actions for this Actor
+	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+	 * @param map        the map containing the Actor
+	 * @param display    the I/O object to which messages may be written
+	 * @return an Action class object denoting the action that the player will take in this turn
+	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		Actions actions2 = actions;
 		if (map.locationOf(this).getGround().hasCapability(MapCapabilities.EDGEMAP)){
-			actions2.add(new NextMapAction());
+			actions.add(new NextMapAction());
 		}
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
-		return menu.showMenu(this, actions2, display);
+		return menu.showMenu(this, actions, display);
 	}
 
+	/**
+	 * Gets the player's ecopints
+	 * @return an Ecopoints object
+	 */
 	public Ecopoints getEcopoints() {
 		return ecopoints;
 	}
