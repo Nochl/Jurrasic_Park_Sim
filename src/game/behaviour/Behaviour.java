@@ -22,6 +22,7 @@ public interface Behaviour {
 	 *
 	 * @param actor the Actor acting
 	 * @param map the GameMap containing the Actor
+	 * @param actions an Actions object denoting all the allowable actions near the player
 	 * @return an Action that actor can perform, or null if actor can't do this.
 	 * @see Actor#playTurn(Actions, Action, GameMap, Display)
 	 */
