@@ -78,7 +78,7 @@ public class VendingItemFactory {
      * Creates an instance of Item fruit
      * @return a fruit Item
      */
-    private Item createFruit() {
+    private Fruit createFruit() {
         return new Fruit();
     }
 

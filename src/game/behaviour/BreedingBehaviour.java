@@ -17,10 +17,11 @@ public class BreedingBehaviour implements Behaviour {
 
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
-        if (actor.hasCapability(Mateable.MATEABLE)){
+        if (!actor.hasCapability(Mateable.MATEABLE)){
             return null;
         }
 
+        System.out.println("Breeding Behaviour");
 
         ArrayList<Actor> actors = new ArrayList<>();
         Boolean hasMate = Boolean.FALSE;

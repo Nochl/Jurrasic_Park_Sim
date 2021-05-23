@@ -6,6 +6,7 @@ import game.actions.AttackAction;
 import game.actions.EatMeatAction;
 import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
+import game.enums.HungryCapabilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +43,24 @@ public class HuntingBehaviour implements Behaviour {
      */
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
+        // Returns null if Dinosaur is not hungry
+        if (!actor.hasCapability(HungryCapabilities.HUNGRY)) {
+            return null;
+        }
+
+        // Checks if Dinosaur is an Allosaur
+        if (!actor.hasCapability(DinosaurCapabilities.ALLOSAUR)) {
+            return null;
+        }
         // Checks if the Allosaur Dinosaur is near a stegosaur
         Actor closePrey = HungryBehaviour.checkSurroundingSuitableDinosaurs(map.locationOf(actor), DinosaurCapabilities.STEGOSAUR);
         if (closePrey != null) {
             followBehaviour = null;
             return new AttackAction(closePrey);
         }
+
+        System.out.println("Hunting Behaviour");
+
         // Checks if the Allosaur Dinosaur is standing on a food item
         Item closeFood = HungryBehaviour.CheckStandingOnSuitableFood(map.locationOf(actor), FoodTypeCapabilities.MEAT);
         if (closeFood != null) {

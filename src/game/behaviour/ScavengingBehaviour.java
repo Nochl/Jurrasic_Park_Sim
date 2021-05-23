@@ -4,9 +4,7 @@ import edu.monash.fit2099.engine.*;
 import game.FindNearestLocation;
 import game.actions.EatFruitAction;
 import game.actions.PickFruitAction;
-import game.enums.DinosaurCapabilities;
-import game.enums.FoodTypeCapabilities;
-import game.enums.FruitCapabilities;
+import game.enums.*;
 
 import java.util.ArrayList;
 
@@ -32,6 +30,17 @@ public class ScavengingBehaviour implements Behaviour {
 
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
+        // Returns null if Dinosaur is not hungry
+        if (!actor.hasCapability(HungryCapabilities.HUNGRY)) {
+            return null;
+        }
+
+        // Checks if Dinosaur is a Stegosaur or Brachiosaur
+        if (!actor.hasCapability(DinosaurCapabilities.STEGOSAUR) && !actor.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
+            return null;
+        }
+
+        System.out.println("Scavenging Behaviour");
 
         for (Action action : actions.getUnmodifiableActionList()) {
             if (action instanceof EatFruitAction || action instanceof PickFruitAction) {
@@ -39,6 +48,7 @@ public class ScavengingBehaviour implements Behaviour {
                 return action;
             }
         }
+
         if (followBehaviour != null) {
             return followBehaviour.getAction(actor, map, actions);
         }
@@ -49,7 +59,7 @@ public class ScavengingBehaviour implements Behaviour {
         }
         // Checks if there are no food items in the map
         if (foodLocations == null || foodLocations.size() == 0) {
-            return new DoNothingAction();
+            return null;
         }
 
         // Determines the closest food location and creates a follow behaviour for
