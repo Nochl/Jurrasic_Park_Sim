@@ -4,6 +4,10 @@ import edu.monash.fit2099.engine.Display;
 
 /**
  * Implements a static class that helps get user inputs
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.2.0
+ * @see Display
  */
 public class GetUserInput {
     /**
@@ -13,7 +17,7 @@ public class GetUserInput {
      * @param maximum maximum value that the input can be
      * @return a user input in range minimum-maximum
      */
-    public static int getInputInRange(Display display, int minimum, int maximum) {
+    public static int askForIntInRange(Display display, int minimum, int maximum) {
         display.println("Please input a integer between " + minimum + " and " + maximum);
         char key;
         boolean validKey = false;
