@@ -93,10 +93,13 @@ public class Application {
 		// Place a pair of stegosaurs in the middle of the map
 		Dinosaur dinosaur1 = new Stegosaur("Stegosaur", false, 'm');
 		Dinosaur dinosaur2 = new Stegosaur("Stegosaur",false, 'f');
+		Dinosaur dinosaur3 = new Pterodactyl("Pterodactyl",false, 'm');
 		gameMap.at(30, 12).addActor(dinosaur1);
 		gameMap.at(32, 12).addActor(dinosaur2);
+		gameMap.at(10, 10).addActor(dinosaur3);
 		DinosaurHold.addDinosaur(dinosaur1);
 		DinosaurHold.addDinosaur(dinosaur2);
+		DinosaurHold.addDinosaur(dinosaur3);
 		world.run();
 	}
 
