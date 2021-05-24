@@ -28,55 +28,44 @@ public abstract class Dinosaur extends Actor {
      * dinosaur do
      */
     protected ArrayList<Behaviour> behaviours = new ArrayList<>();
-
     /**
-     * an int denoting the amount health level in which dinosaur will be hungry
+     * HP threshold when dinosaur is hungry
      */
     protected int hungryHealth;
-
     /**
-     * an int denoting the minimum health points needed for dinosaur to breed
+     *  HP threshold when dinosaur can breed
      */
     protected int breedingHealth;
-
     /**
-     * a hash map that has Actor object as key and Counter object as value. This denotes
-     * the dinosaurs that have attacked this dinosaur, and their current timeout counter
+     * Hashmap of other dinosaurs who have attacked this dinosaur
      */
     protected HashMap<Actor, Counter> dinosaurAttackers;
-
     /**
-     * A counter object that denotes the number of turns until dinosaur can breed
+     * Cooldown timer for when dinosaur can breed again
      */
     protected Counter canBreed;
-
     /**
-     * A counter object that denotes the number of turns dinosaur is unconscious
+     * Counter which records how long dinosaur has been unconcious
      */
     protected Counter unconsciousTime;
-
     /**
-     * an int denoting that represents the initial amount of turns for dinosaur to breed
+     * Dinosaur mating cooldown amount
      */
     protected int mateTime;
-
     /**
-     *
+     * Max time dinosaur can be unconscious until it dies
      */
-    protected int maxunconsciousTime = Integer.MAX_VALUE;
-
+    protected int maxunconsciousTime;
     /**
-     * A counter object denoting the amount of turns until the dinosaur becomes an adult
+     * Countdown until baby dinosaur matures
      */
     protected Counter matureCounter = null;
-
     /**
-     * an int denoting the maximum water level of dinosaur
+     * Dinosaur Max water capacity
      */
     protected int maxWater;
-
     /**
-     * an int denoting the current water level of dinosaur
+     * Dinosaur current water level
      */
     protected int water;
 
@@ -310,7 +299,7 @@ public abstract class Dinosaur extends Actor {
      * Adds all the behaviours of dinosaur
      */
     public void addBehaviours() {
-
+        behaviours.add(new ThirstyBehaviour());
         behaviours.add(new ScavengingBehaviour());
         behaviours.add(new HuntingBehaviour());
         behaviours.add(new BreedingBehaviour());
@@ -344,8 +333,6 @@ public abstract class Dinosaur extends Actor {
     public void thirst(int points) {
         water -= points;
     }
-
-
 
 }
 

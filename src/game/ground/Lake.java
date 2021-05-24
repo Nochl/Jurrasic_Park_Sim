@@ -8,6 +8,7 @@ import game.Sky;
 import game.actions.DrinkLakeAction;
 import game.consumable.Fish;
 import game.enums.ActorMobilityCapabilities;
+import game.enums.GroundTypeCapabilities;
 import game.utils.RandomNumberGenerator;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class Lake extends Ground {
      */
     public Lake() {
         super('~');
+        addCapability(GroundTypeCapabilities.LAKE);
         sipCapacity = 25;
         maxSipCapacity = sipCapacity;
         minSipCapacity = 0;

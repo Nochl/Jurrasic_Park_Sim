@@ -42,10 +42,10 @@ public class Bush extends Ground{
 
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction){
-        Actions actions = new Actions(new PickFruitAction(inBush));
-//        if (hasCapability(MapCapabilities.EDGEMAP)) {
-//            actions.add(new NextMapAction());
-//        }
+        Actions actions = new Actions();
+        if (inBush.size() > 0) {
+            new PickFruitAction(inBush);
+        }
         return actions;
     }
 }

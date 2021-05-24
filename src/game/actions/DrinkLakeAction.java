@@ -64,6 +64,6 @@ public class DrinkLakeAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return actor + "drinks from lake";
+        return actor + " drinks from lake";
     }
 }
