@@ -22,6 +22,9 @@ import java.util.ArrayList;
  * @see Behaviour
  */
 public class ThirstyBehaviour implements Behaviour{
+    /**
+     * Holds all location of lakes
+     */
     ArrayList<Location> lakeLocation = new ArrayList<>();
 
     /**
@@ -51,10 +54,10 @@ public class ThirstyBehaviour implements Behaviour{
                 lake = next.getDestination();
             }
         }
-        if (lake != null) {
+
+        if (lake != null && !actor.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
             return new DrinkLakeAction((Lake) lake.getGround());
         }
-
 
         // Look for all lakes on the map
         for (int i = 0; i < map.getXRange().max(); i++){

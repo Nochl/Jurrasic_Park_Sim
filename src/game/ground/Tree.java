@@ -9,6 +9,7 @@ import game.actions.NextMapAction;
 import game.actions.PickFruitAction;
 import game.consumable.Fruit;
 import game.enums.FruitCapabilities;
+import game.enums.GroundTypeCapabilities;
 import game.enums.MapCapabilities;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Tree extends Ground {
 	private ArrayList<Fruit> inTree = new ArrayList<>();
 	public Tree() {
 		super('+');
+		addCapability(GroundTypeCapabilities.TREE);
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class Player extends Actor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-
+		Sky.tick();
 		actions.add(new EndGameAction());
 
 		if (map.locationOf(this).getGround().hasCapability(MapCapabilities.EDGEMAP)){

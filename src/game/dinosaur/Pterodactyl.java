@@ -1,9 +1,12 @@
 package game.dinosaur;
 
+import edu.monash.fit2099.engine.Action;
+import edu.monash.fit2099.engine.Actions;
+import edu.monash.fit2099.engine.Display;
+import edu.monash.fit2099.engine.GameMap;
 import game.Counter;
-import game.enums.DietCapabilities;
-import game.enums.DinosaurCapabilities;
-import game.enums.DinosaurState;
+import game.behaviour.GotoTreeBehaviour;
+import game.enums.*;
 
 /**
  * Implements Pterodactyl that extends from Dinosaur Class,
@@ -15,6 +18,11 @@ import game.enums.DinosaurState;
  * @see Counter
  */
 public class Pterodactyl extends Dinosaur{
+    /**
+     * Stamina for Pterodactyl's flight before they have to land
+     */
+    Counter stamina = new Counter(30);
+
     /**
      * Constructor method for Pterodactyl
      *
@@ -29,6 +37,7 @@ public class Pterodactyl extends Dinosaur{
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DietCapabilities.SEAFOOD);
         addCapability(DinosaurCapabilities.PTERODACTYL);
+        addCapability(ActorMobilityCapabilities.FLY);
         if (baby) {setBabyAttributes();}
         else {growUp();}
     }
@@ -47,6 +56,7 @@ public class Pterodactyl extends Dinosaur{
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DietCapabilities.SEAFOOD);
         addCapability(DinosaurCapabilities.PTERODACTYL);
+        addCapability(ActorMobilityCapabilities.FLY);
         if (baby) {setBabyAttributes();}
         else {growUp();}
     }
@@ -78,5 +88,35 @@ public class Pterodactyl extends Dinosaur{
         hungryHealth = 140;
         breedingHealth = 70;
         mateTime = 30;
+    }
+
+    /**
+     * Runs the Dinosaurs functionality and behaviours each turn
+     * @param actions    collection of possible Actions for this Actor
+     * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+     * @param map        the map containing the Actor
+     * @param display    the I/O object to which messages may be written
+     * @return an Action describing what the dinosaur does in the round
+     */
+    @Override
+    public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+        // if its flying
+        if (stamina != null && !hasCapability(ActorMobilityCapabilities.WALK)) {
+            stamina.dec();
+            if (stamina.getValue() < 1) {
+                stamina = null;
+                removeCapability(ActorMobilityCapabilities.FLY);
+                addCapability(ActorMobilityCapabilities.WALK);
+            }
+        }
+
+        // if it has reached a tree
+        if (map.locationOf(this).getGround().hasCapability(GroundTypeCapabilities.TREE)) {
+            removeCapability(ActorMobilityCapabilities.WALK);
+            addCapability(ActorMobilityCapabilities.FLY);
+            stamina = new Counter(30);
+        }
+
+        return super.playTurn(actions, lastAction, map, display);
     }
 }

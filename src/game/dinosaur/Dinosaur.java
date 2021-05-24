@@ -3,6 +3,7 @@ package game.dinosaur;
 import com.sun.source.doctree.HiddenTree;
 import edu.monash.fit2099.engine.*;
 
+import game.Sky;
 import game.actions.*;
 import game.behaviour.*;
 import game.Counter;
@@ -11,6 +12,8 @@ import game.enums.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static edu.monash.fit2099.engine.Display.*;
 
 /**
  * Implements a Dinosaur class that extends from actor.
@@ -117,7 +120,7 @@ public abstract class Dinosaur extends Actor {
     }
 
     /**
-     *
+     * Runs the Dinosaurs functionality and behaviours each turn
      * @param actions    collection of possible Actions for this Actor
      * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
      * @param map        the map containing the Actor
@@ -130,7 +133,7 @@ public abstract class Dinosaur extends Actor {
         // Display if Dinosaur is Hungry
         if (hitPoints < hungryHealth && !hasCapability(HungryCapabilities.HUNGRY)) {
             addCapability(HungryCapabilities.HUNGRY);
-            display.println(this+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is hungry!");
+            display.println(this+" at "+map.locationOf(this).x()+","+map.locationOf(this).y()+" is hungry!");
         }
 
         // Removes hungry status (if hunger above an amount)
@@ -141,7 +144,7 @@ public abstract class Dinosaur extends Actor {
         // Check/Display if Dinosaur is Thirsty
         if (water < 40 && !hasCapability(ThirstCapabilities.THIRSTY)) {
             addCapability(ThirstCapabilities.THIRSTY);
-            display.println(this+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is thirsty!");
+            display.println(this+" at "+map.locationOf(this).x()+","+map.locationOf(this).y()+" is thirsty!");
         }
 
         // Removes thirsty status (if water above 40)
@@ -156,6 +159,13 @@ public abstract class Dinosaur extends Actor {
         // Check to remove mating status
         } else if (hasCapability(Mateable.MATEABLE) && canBreed != null) {
             removeCapability(Mateable.MATEABLE);
+        }
+
+        // Check if its raining to revive dinosaur
+        if (!isConscious() && Sky.getRainAmount() > 0) {
+            water = 10;
+            hitPoints = 50;
+            display.println(this.toString()+" has been revived by the rain!");
         }
 
         // Running dinosaur functions (if its conscious)
@@ -255,12 +265,14 @@ public abstract class Dinosaur extends Actor {
     /**
      * checks if unconscious time has run out, and if true, kills the dinosaur and
      * creates a corpse and returns true. if unsconciousTime is still over 0, returns false
+     * If it rains, Dinosaur gets revived
      * @param map map in which the dinosaur is in
      * @return a boolean true if dinosaur is still unconscious. false if dinosaur is dead
      */
     public boolean unconsciousCheck(GameMap map) {
         if (unconsciousTime == null) {
             unconsciousTime = new Counter(maxunconsciousTime);
+
         } else {
             unconsciousTime.dec();
         }
@@ -299,6 +311,7 @@ public abstract class Dinosaur extends Actor {
      * Adds all the behaviours of dinosaur
      */
     public void addBehaviours() {
+        behaviours.add(new GotoTreeBehaviour());
         behaviours.add(new ThirstyBehaviour());
         behaviours.add(new ScavengingBehaviour());
         behaviours.add(new HuntingBehaviour());
