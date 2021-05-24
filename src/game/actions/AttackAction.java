@@ -84,8 +84,6 @@ public class AttackAction extends Action {
 		} else {
 			if (dinoTarget != null){
 				dinoTarget.addAttacker(dinoAttacker);
-//				Dinosaur dinosaur = (Dinosaur) actor;
-//				((Dinosaur) target).addAttacker(dinosaur);
 			}
 		}
 		return result;
