@@ -22,11 +22,11 @@ public class BreedingBehaviour implements Behaviour {
         }
 
         ArrayList<Actor> actors = new ArrayList<>();
-        Boolean hasMate = Boolean.FALSE;
+        boolean hasMate = false;
         Action mateAction = null;
         for (Action act:actions) {
             if (act instanceof MatingAction){
-                hasMate = Boolean.TRUE;
+                hasMate = true;
                 mateAction = act;
             }
         }
