@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Timothy Jordan, Enoch Leow
  * @author Enoch Leow
- * @version 3.0.0
+ * @version 3.1.0
  * @see VendingItemFactory
  * @see VendingMachineItems
  * @see Player
@@ -66,7 +66,7 @@ public class VendingAction extends Action {
         // Displays the vending machine menu
         displayVendingMachineMenu(playerEco, display);
         // Asks the player what item they want to purchase
-        int key = GetUserInput.getInputInRange(display, 1, menuOptions.size() - 1);
+        int key = GetUserInput.askForIntInRange(display, 1, menuOptions.size() - 1);
         String description;
         int itemCost = menuOptions.get(key).getCost();
         // Checks if the player has enough ecopoints to purchase item
