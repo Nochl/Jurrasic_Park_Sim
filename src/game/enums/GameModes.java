@@ -6,7 +6,15 @@ package game.enums;
 public enum GameModes {
     SANDBOX("Sandbox"), CHALLENGE("Challenge");
 
+    /**
+     * a string containing name
+     */
     private final String name;
+
+    /**
+     * Private constructor of GameModes
+     * @param name name of game mode
+     */
     GameModes(String name) {
         this.name = name;
     }
