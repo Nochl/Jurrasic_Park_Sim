@@ -18,12 +18,12 @@ public class Player extends Actor {
 	/**
 	 * A Counter object that denotes the amount of moves the player can take
 	 */
-	Counter targetMoves;
+	private Counter targetMoves;
 
 	/**
 	 * An int object denoting the amount of ecopoints required to win the game
 	 */
-	int targetEcopoints;
+	private int targetEcopoints;
 
 	/**
 	 * Ecopoints object which stores the amount of ecopoints the player has
@@ -44,6 +44,8 @@ public class Player extends Actor {
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
+		targetMoves = new Counter(Integer.MAX_VALUE);
+		targetEcopoints = Integer.MAX_VALUE;
 		ecopoints = new Ecopoints();
 		addCapability(ActorTypeCapabilities.PLAYER);
 	}
@@ -76,5 +78,21 @@ public class Player extends Actor {
 	 */
 	public Ecopoints getEcopoints() {
 		return ecopoints;
+	}
+
+	/**
+	 * Sets the number of target moves of player
+	 * @param moves an int denoting the number of target moves until game ends
+	 */
+	public void setTargetMoves(int moves) {
+		this.targetMoves = new Counter(moves);
+	}
+
+	/**
+	 * Sets the target ecopoints of player
+	 * @param targetEcopoints an int denoting the target eco points
+	 */
+	public void setTargetEcopoints(int targetEcopoints) {
+		this.targetEcopoints = targetEcopoints;
 	}
 }
