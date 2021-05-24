@@ -5,7 +5,9 @@ import game.EcoHold;
 import game.Ecopoints;
 import game.Player;
 import game.VendingItemFactory;
+import game.enums.ActorTypeCapabilities;
 import game.enums.VendingMachineItems;
+import game.utils.GetUserInput;
 
 import java.util.ArrayList;
 
@@ -51,7 +53,7 @@ public class VendingAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        if (!(actor instanceof Player)) {
+        if (!actor.hasCapability(ActorTypeCapabilities.PLAYER)) {
             return actor + " is not allowed to access Vending Machine!";
         }
         Display display = new Display();
@@ -64,7 +66,7 @@ public class VendingAction extends Action {
         // Displays the vending machine menu
         displayVendingMachineMenu(playerEco, display);
         // Asks the player what item they want to purchase
-        int key = getActorMenuOption(display);
+        int key = GetUserInput.getInputInRange(display, 1, menuOptions.size() - 1);
         String description;
         int itemCost = menuOptions.get(key).getCost();
         // Checks if the player has enough ecopoints to purchase item
@@ -73,34 +75,12 @@ public class VendingAction extends Action {
         } else {
             playerEco.removePoints(itemCost);
             Item item = vendingItemFactory.createVendingItem(menuOptions.get(key));
+            System.out.println(item);
             actor.addItemToInventory(item);
             description = menuOptions.get(key).getName() + " has been added to " + actor + "'s inventory";
         }
 
         return description;
-    }
-
-    /**
-     * Processes the player's input and checks if they chosen a valid number
-     * and that they have enough ecopoints.
-     *
-     * @param display a Display object that enable I/O operations
-     * @return a int value that represents a menu option
-     */
-    private int getActorMenuOption(Display display) {
-        char key;
-        boolean validKey = false;
-        int intKey = 0;
-        do {
-            key = display.readChar();
-            if (Character.isDigit(key)) {
-                intKey = Character.getNumericValue(key);
-                if (intKey > 0 && intKey < menuOptions.size()) {
-                    validKey = true;
-                }
-            }
-        } while (!validKey);
-        return intKey;
     }
 
     /**
