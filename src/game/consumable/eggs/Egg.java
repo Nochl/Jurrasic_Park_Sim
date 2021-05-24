@@ -50,9 +50,11 @@ public abstract class Egg extends Consumable {
         if (lifespan.getValue() == 0) {
             increaseEcoPoints();
             currentLocation.removeItem(this);
+            if (!currentLocation.containsAnActor()) {
+                Dinosaur dinosaur = createDinosaur();
+                currentLocation.addActor(dinosaur);
+            }
         }
-        Dinosaur dinosaur = createDinosaur();
-        currentLocation.addActor(dinosaur);
     }
 
     /**
