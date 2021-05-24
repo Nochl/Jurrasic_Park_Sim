@@ -59,8 +59,6 @@ public class HuntingBehaviour implements Behaviour {
             return new AttackAction(closePrey);
         }
 
-        System.out.println("Hunting Behaviour");
-
         // Checks if the Allosaur Dinosaur is standing on a food item
         Item closeFood = HungryBehaviour.CheckStandingOnSuitableFood(map.locationOf(actor), FoodTypeCapabilities.MEAT);
         if (closeFood != null) {

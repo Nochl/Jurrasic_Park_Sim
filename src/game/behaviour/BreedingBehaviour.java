@@ -21,8 +21,6 @@ public class BreedingBehaviour implements Behaviour {
             return null;
         }
 
-        System.out.println("Breeding Behaviour");
-
         ArrayList<Actor> actors = new ArrayList<>();
         Boolean hasMate = Boolean.FALSE;
         Action mateAction = null;

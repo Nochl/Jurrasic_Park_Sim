@@ -40,8 +40,6 @@ public class ScavengingBehaviour implements Behaviour {
             return null;
         }
 
-        System.out.println("Scavenging Behaviour");
-
         for (Action action : actions.getUnmodifiableActionList()) {
             if (action instanceof EatFruitAction || action instanceof PickFruitAction) {
                 followBehaviour = null;
