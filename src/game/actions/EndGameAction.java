@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.GameMap;
 import game.Player;
 
 /**
- * An action taken by player when they want the game to end
+ * An action taken by player when they want the game to end. Removes the player from the game world
  * @author Tim Jordan
  * @author Enoch Leow
  * @version 1.0.0
@@ -29,6 +29,6 @@ public class EndGameAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return "end game";
+        return "";
     }
 }
