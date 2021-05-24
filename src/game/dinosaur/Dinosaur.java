@@ -17,21 +17,67 @@ import java.util.HashMap;
  *
  * @author Tim Jordan
  * @author Enoch Leow
- * @version 4.1.0
+ * @version 6.1.0
  * @see Actor
  * @see Counter
+ * @see Behaviour
  */
 public abstract class Dinosaur extends Actor {
+    /**
+     * An Array list containing Behaviour objects that denote the different behaviours
+     * dinosaur do
+     */
     protected ArrayList<Behaviour> behaviours = new ArrayList<>();
+
+    /**
+     * an int denoting the amount health level in which dinosaur will be hungry
+     */
     protected int hungryHealth;
+
+    /**
+     * an int denoting the minimum health points needed for dinosaur to breed
+     */
     protected int breedingHealth;
+
+    /**
+     * a hash map that has Actor object as key and Counter object as value. This denotes
+     * the dinosaurs that have attacked this dinosaur, and their current timeout counter
+     */
     protected HashMap<Actor, Counter> dinosaurAttackers;
+
+    /**
+     * A counter object that denotes the number of turns until dinosaur can breed
+     */
     protected Counter canBreed;
+
+    /**
+     * A counter object that denotes the number of turns dinosaur is unconscious
+     */
     protected Counter unconsciousTime;
+
+    /**
+     * an int denoting that represents the initial amount of turns for dinosaur to breed
+     */
     protected int mateTime;
+
+    /**
+     *
+     */
     protected int maxunconsciousTime = Integer.MAX_VALUE;
+
+    /**
+     * A counter object denoting the amount of turns until the dinosaur becomes an adult
+     */
     protected Counter matureCounter = null;
+
+    /**
+     * an int denoting the maximum water level of dinosaur
+     */
     protected int maxWater;
+
+    /**
+     * an int denoting the current water level of dinosaur
+     */
     protected int water;
 
 
@@ -59,6 +105,14 @@ public abstract class Dinosaur extends Actor {
 
     }
 
+    /**
+     * Constructor for dinosaur
+     * @param name name of actor
+     * @param displayChar a char denoting display character
+     * @param hitPoints an int denoting dinosaur's hit points
+     * @param baby a boolean denoting if the dinosaur initialised should be a baby version
+     * @param gender a char denoting the gender of the dinosaur
+     */
     public Dinosaur(String name, char displayChar, int hitPoints, Boolean baby, char gender) {
         super(name, displayChar, hitPoints);
         addBehaviours();
@@ -73,15 +127,21 @@ public abstract class Dinosaur extends Actor {
         }
     }
 
-
+    /**
+     *
+     * @param actions    collection of possible Actions for this Actor
+     * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+     * @param map        the map containing the Actor
+     * @param display    the I/O object to which messages may be written
+     * @return an Action describing what the dinosaur does in the round
+     */
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-        System.out.println(hitPoints);
 
         // Display if Dinosaur is Hungry
         if (hitPoints < hungryHealth && !hasCapability(HungryCapabilities.HUNGRY)) {
             addCapability(HungryCapabilities.HUNGRY);
-            display.println(this.toString()+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is hungry!");
+            display.println(this+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is hungry!");
         }
 
         // Removes hungry status (if hunger above an amount)
@@ -92,7 +152,7 @@ public abstract class Dinosaur extends Actor {
         // Check/Display if Dinosaur is Thirsty
         if (water < 40 && !hasCapability(ThirstCapabilities.THIRSTY)) {
             addCapability(ThirstCapabilities.THIRSTY);
-            display.println(this.toString()+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is thirsty!");
+            display.println(this+" at "+map.locationOf(this).x()+","+map.locationOf(this).x()+" is thirsty!");
         }
 
         // Removes thirsty status (if water above 40)
@@ -172,23 +232,43 @@ public abstract class Dinosaur extends Actor {
         return new UnconsciousAction();
     }
 
+    /**
+     * Adds a dinosaur into the hash map of dinosaurs actors that have attacked this dinosaur
+     * @param dinosaur a Dinosaur object that has attacked this dinosaur
+     */
     public void addAttacker(Dinosaur dinosaur) {
         dinosaurAttackers.put(dinosaur, getAttackTimeoutCounter());
     }
 
-
+    /**
+     * returns true if the given dinosaur is able to attack this dinosaur. Else, false
+     * @param dinosaur a Dinosaur object
+     * @return a boolean denoting if the dinosaur has attacked this dinosaur
+     */
     public boolean isCurrentlyTimedOut(Actor dinosaur) {
         Counter attackTimeout = dinosaurAttackers.get(dinosaur);
         return attackTimeout != null;
     }
 
+    /**
+     * create's and gets a counter for the specific dinosaur's attack timeout
+     * @return a Counter of attack timeout
+     */
     abstract Counter getAttackTimeoutCounter();
 
+    /**
+     * Resets the counter in which the dinosaur is able to breed
+     */
     public void resetMateTime() {
         canBreed = new Counter(mateTime);
     }
 
-
+    /**
+     * checks if unconscious time has run out, and if true, kills the dinosaur and
+     * creates a corpse and returns true. if unsconciousTime is still over 0, returns false
+     * @param map map in which the dinosaur is in
+     * @return a boolean true if dinosaur is still unconscious. false if dinosaur is dead
+     */
     public boolean unconsciousCheck(GameMap map) {
         if (unconsciousTime == null) {
             unconsciousTime = new Counter(maxunconsciousTime);
@@ -205,6 +285,13 @@ public abstract class Dinosaur extends Actor {
         return false;
     }
 
+    /**
+     * Gets all the allowable actions that can be done to the dinosaur
+     * @param otherActor the Actor that might be performing attack
+     * @param direction  String representing the direction of the other Actor
+     * @param map        current GameMap
+     * @return an Actions object denoting the allowable actions
+     */
     @Override
     public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
         Actions action = new Actions();
@@ -215,11 +302,13 @@ public abstract class Dinosaur extends Actor {
         return action;
     }
 
-
     abstract void growUp();
 
     abstract void setBabyAttributes();
 
+    /**
+     * Adds all the behaviours of dinosaur
+     */
     public void addBehaviours() {
 
         behaviours.add(new ScavengingBehaviour());
