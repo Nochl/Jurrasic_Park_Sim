@@ -90,8 +90,6 @@ public class Application {
 		MapSwitch.addSwitch(gameMap, "top");
 		MapSwitch.addSwitch(gameMap2, "bottom");
 
-		EcoHold.addWorldEco(500);
-
 		// Place a pair of stegosaurs in the middle of the map
 		Dinosaur dinosaur1 = new Stegosaur("Stegosaur", false, 'm');
 		Dinosaur dinosaur2 = new Stegosaur("Stegosaur",false, 'f');
