@@ -15,6 +15,16 @@ import java.util.ArrayList;
 public class Player extends Actor {
 
 	/**
+	 * A Counter object that denotes the amount of moves the player can take
+	 */
+	Counter targetMoves;
+
+	/**
+	 * An int object denoting the amount of ecopoints required to win the game
+	 */
+	int targetEcopoints;
+
+	/**
 	 * Ecopoints object which stores the amount of ecopoints the player has
 	 */
 	private Ecopoints ecopoints;
