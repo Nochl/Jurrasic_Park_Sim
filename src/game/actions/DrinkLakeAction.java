@@ -47,12 +47,8 @@ public class DrinkLakeAction extends Action {
         // reduce the sip capacity in lake
         lake.reduceSipCapacity(actualSipsGiven);
 
-        ///////////////////////////////////////////
-        /////// NOT FINISHED
-        ///////////////////////////////////////////
-
         // increase thirst level in dinosaur
-//        dino.RaiseThirstLevel(actualSipsGiven);
+        dino.drink(actualSipsGiven);
 
         return menuDescription(actor);
     }
