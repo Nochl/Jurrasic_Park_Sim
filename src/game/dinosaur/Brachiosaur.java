@@ -1,11 +1,6 @@
 package game.dinosaur;
 
-import edu.monash.fit2099.engine.Actions;
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.GameMap;
 import game.Counter;
-import game.actions.AttackAction;
-import game.actions.FeedingAction;
 import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
@@ -29,8 +24,8 @@ public class Brachiosaur extends Dinosaur{
     public Brachiosaur(String name, Boolean baby) {
         super(name, 'B', 100, baby);
         maxunconsciousTime = 20;
-        maxThirst = 200;
-        thirst = 60;
+        maxWater = 200;
+        water = 60;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
         if (baby) {setBabyAttributes();}
@@ -46,8 +41,8 @@ public class Brachiosaur extends Dinosaur{
     public Brachiosaur(String name, Boolean baby, char gender) {
         super(name, 'B', 100, baby, gender);
         maxunconsciousTime = 20;
-        maxThirst = 200;
-        thirst = 60;
+        maxWater = 200;
+        water = 60;
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.BRACHIOSAUR);
         if (baby) {setBabyAttributes();}

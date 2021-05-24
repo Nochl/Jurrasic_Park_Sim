@@ -27,8 +27,8 @@ public class Allosaur extends Dinosaur{
     public Allosaur(String name, Boolean baby) {
         super(name, 'A', 100, baby);
         maxunconsciousTime = 20;
-        maxThirst = 100;
-        thirst = 60;
+        maxWater = 100;
+        water = 60;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);
         if (baby) {setBabyAttributes();}
@@ -45,8 +45,8 @@ public class Allosaur extends Dinosaur{
         super(name, 'A', 100, baby, gender);
         behaviours.add(new HuntingBehaviour());
         maxunconsciousTime = 20;
-        maxThirst = 100;
-        thirst = 60;
+        maxWater = 100;
+        water = 60;
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);
         if (baby) {setBabyAttributes();}
