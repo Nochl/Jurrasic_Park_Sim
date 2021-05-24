@@ -9,8 +9,26 @@ import game.enums.FruitCapabilities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements a static Hungry Behaviour class that contains useful methods
+ * for Dinosaur Behaviours that relate to finding food
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 4.0.0
+ * @see game.dinosaur.Dinosaur
+ * @see GameMap
+ * @see Actor
+ * @see Behaviour
+ */
 public class HungryBehaviour {
 
+    /**
+     * Gets all the dinosaurs in the game map that have a certain dinosaur capability
+     * @param thisActor an actor that is an instance of dinosaur
+     * @param map a GameMap object that in which the actor is in
+     * @param dinosaurCapability a DinosaurCapabilities instance
+     * @return an Array List contains dinosaurs that have the capability
+     */
     protected static ArrayList<Actor> getSuitableDinosaurs(Actor thisActor, GameMap map, DinosaurCapabilities dinosaurCapability) {
         ArrayList<Actor> suitableActors = new ArrayList<>();
         NumberRange Xrange = map.getXRange();
@@ -27,6 +45,13 @@ public class HungryBehaviour {
         return suitableActors;
     }
 
+    /**
+     * Gets all the locations that contain fruit items that have a certain capability
+     * @param map a GameMap object that in which the actor is in
+     * @param foodType a FoodTypeCapabilities
+     * @param fruitCapability a FruitCapabilities
+     * @return an Array list of locations that contains suitable fruits
+     */
     protected static ArrayList<Location> getSuitableFruitLocations(GameMap map, FoodTypeCapabilities foodType, FruitCapabilities fruitCapability) {
         ArrayList<Location> foodLocations = new ArrayList<>();
         NumberRange Xrange = map.getXRange();
