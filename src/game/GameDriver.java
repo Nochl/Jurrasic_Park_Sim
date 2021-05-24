@@ -1,15 +1,18 @@
 package game;
 
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.World;
+import edu.monash.fit2099.engine.*;
 import game.enums.GameModes;
+import game.ground.*;
 import game.utils.GetUserInput;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Runs the game and allows the player to choose different game modes
+ *
  * @author Tim Jordan
  * @author Enoch Leow
  * @version 1.0.0
@@ -19,29 +22,14 @@ import java.util.Collections;
 public class GameDriver {
 
     /**
-     * Denotes the world the player is set in
-     */
-    private World world;
-
-    /**
-     * Denotes the player character
-     */
-    private Player player;
-
-    /**
-     * An
+     * An array list of different game modes
      */
     private ArrayList<GameModes> gameModes;
 
     /**
      * Constructor
-     * @param world World the player is set in
-     * @param player a Player object
      */
-
-    public GameDriver(World world, Player player) {
-        this.world = world;
-        this.player = player;
+    public GameDriver() {
         gameModes = new ArrayList<>();
         gameModes.add(null);
         Collections.addAll(gameModes, GameModes.values());
@@ -51,11 +39,31 @@ public class GameDriver {
      * Starts the game
      */
     public void startGame() {
-        Display display = new Display();
         boolean continueGame = true;
         do {
+            Display display = new Display();
+
+            World world = new World(display);
+
+            FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Tree(), new Bush(), new VendingMachine());
+
+            List<String> map = Arrays.asList(
+                    ".....#######....................................................................",
+                    ".....#.....#....................................................................",
+                    ".....#....!#....................................................................",
+                    ".....###.###....................................................................",
+                    "................................................................................");
+            GameMap gameMap = new GameMap(groundFactory, map);
+            world.addGameMap(gameMap);
+
+            Player player = new Player("Player", '@', 100);
+            world.addPlayer(player, gameMap.at(9, 2));
+            EcoHold.addPlayerEco(player);
+
+            player.getEcopoints().addPoints(10000);
+
             showGameMenu(display);
-            setGameMode(display);
+            setGameMode(display, player);
             display.println("Starting Game");
             display.endLine();
             world.run();
@@ -65,13 +73,15 @@ public class GameDriver {
                 continueGame = false;
             }
         } while (continueGame);
+
     }
 
     /**
      * Sets the game mode of the game world
+     *
      * @param display a Display object
      */
-    private void setGameMode(Display display) {
+    private void setGameMode(Display display, Player player) {
         int gameOption = GetUserInput.askForIntInRange(display, 1, gameModes.size() - 1);
         switch (gameModes.get(gameOption)) {
             case SANDBOX:
@@ -95,6 +105,7 @@ public class GameDriver {
 
     /**
      * Displays the game start menu where player can see game mode options
+     *
      * @param display a Display object that handles I/O
      */
     private void showGameMenu(Display display) {
