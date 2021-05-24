@@ -28,6 +28,16 @@ public class Lake extends Ground {
     int sipCapacity;
 
     /**
+     * an int denoting the minimum sip capacity
+     */
+    int minSipCapacity;
+
+    /**
+     * an int denoting the maximum sip capacity
+     */
+    int maxSipCapacity;
+
+    /**
      * An array list of fish in the lake
      */
     ArrayList<Fish> seaCreatures;
@@ -36,12 +46,15 @@ public class Lake extends Ground {
      * Ini
      */
     int initialFishAmount;
+
     /**
      * Constructor.
      */
     public Lake() {
         super('~');
         sipCapacity = 25;
+        maxSipCapacity = sipCapacity;
+        minSipCapacity = 0;
         initialFishAmount = 5;
         seaCreatures = new ArrayList<>();
         for (int i = 0; i < initialFishAmount; i++) {
@@ -49,11 +62,22 @@ public class Lake extends Ground {
         }
     }
 
+    /**
+     * returns all the actions that can be done to lake
+     * @param actor the Actor acting
+     * @param location the current Location
+     * @param direction the direction of the Ground from the Actor
+     * @return an Actions object containing all allowable actions to lake object
+     */
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction) {
         return new Actions(new DrinkLakeAction(this));
     }
 
+    /**
+     * ticks the lake object in game world
+     * @param location The location of the Ground
+     */
     @Override
     public void tick(Location location) {
         super.tick(location);
@@ -61,9 +85,14 @@ public class Lake extends Ground {
         if (randomNumber <= 0.6) {
             seaCreatures.add(new Fish());
         }
-        sipCapacity =  Sky.getRainAmount();
+        increaseSipCapacity(Sky.getRainAmount());
     }
 
+    /**
+     * Checks if the given actor is allowed to enter the ground
+     * @param actor the Actor to check
+     * @return true if the actor has the capability to FLY, else false
+     */
     @Override
     public boolean canActorEnter(Actor actor) {
         return actor.hasCapability(ActorMobilityCapabilities.FLY);
@@ -78,10 +107,22 @@ public class Lake extends Ground {
     }
 
     /**
-     * Reduces sip capacity by given amount
+     * Reduces sip capacity by given amount. If new amount is less than minSipCapacity,
+     * sipCapacity will be set to minSipCapacity
      * @param amount an int denoting amount of sips to remove
      */
     public void reduceSipCapacity(int amount) {
-        sipCapacity -= amount;
+        int value = sipCapacity + amount;
+        sipCapacity = Math.max(value, minSipCapacity);
+    }
+
+    /**
+     * Increases sip capacity by given amount. If new amount is greater than
+     * maxSipCapacity, sipCapacity will be set to maxSipCapacity
+     * @param amount an int denoting the amount of sips to add
+     */
+    public void increaseSipCapacity(int amount) {
+        int value = sipCapacity + amount;
+        sipCapacity = Math.min(value, maxSipCapacity);
     }
 }
