@@ -27,6 +27,7 @@ public class StegosaurEgg extends Egg {
      */
     @Override
     Dinosaur createDinosaur() {
+        pic.println("A Stegosaur has hatched!!!");
         return new Stegosaur("stegosaur", true);
     }
 

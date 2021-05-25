@@ -28,6 +28,7 @@ public class PterodactylEgg extends Egg {
      */
     @Override
     Dinosaur createDinosaur() {
+        pic.println("A Pterodactyl has hatched!!!");
         return new Pterodactyl("Pterodactyl", true);
     }
 
