@@ -1,6 +1,7 @@
 package game.dinosaur;
 
 import game.Counter;
+import game.enums.ActorMobilityCapabilities;
 import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
@@ -16,6 +17,7 @@ public class Stegosaur extends Dinosaur{
         maxunconsciousTime = 20;
         maxWater = 100;
         water = 60;
+        addCapability(ActorMobilityCapabilities.WALK);
         addCapability(DietCapabilities.HERBIVORE);
         addCapability(DinosaurCapabilities.STEGOSAUR);
         if (baby) {setBabyAttributes();}

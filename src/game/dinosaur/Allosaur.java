@@ -3,6 +3,7 @@ package game.dinosaur;
 import edu.monash.fit2099.engine.*;
 import game.Counter;
 import game.behaviour.HuntingBehaviour;
+import game.enums.ActorMobilityCapabilities;
 import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
@@ -47,6 +48,7 @@ public class Allosaur extends Dinosaur{
         maxunconsciousTime = 20;
         maxWater = 100;
         water = 60;
+        addCapability(ActorMobilityCapabilities.WALK);
         addCapability(DietCapabilities.CARNIVORE);
         addCapability(DinosaurCapabilities.ALLOSAUR);
         if (baby) {setBabyAttributes();}
