@@ -100,7 +100,7 @@ public class BreedingBehaviour implements Behaviour {
 
 
     /**
-     * A check to see if 2 dinosaurs are compatible (same species & opposite sex)
+     * A check to see if 2 dinosaurs are compatible (same species and opposite sex)
      * @param current An Actor object
      * @param potential An Actor object
      * @return a boolean true if actors are compatible, else false
