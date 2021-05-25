@@ -14,8 +14,13 @@ import game.dinosaur.Dinosaur;
 import game.enums.CorpseFactory;
 import game.enums.DinosaurCapabilities;
 
+
 /**
  * Special Action for attacking other Actors.
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.0.0
+ * @see Action
  */
 public class AttackAction extends Action {
 

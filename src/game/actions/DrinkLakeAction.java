@@ -17,7 +17,6 @@ import game.ground.Lake;
  * @see Action
  */
 public class DrinkLakeAction extends Action {
-
     private Lake lake;
 
     public DrinkLakeAction(Lake lake) {
