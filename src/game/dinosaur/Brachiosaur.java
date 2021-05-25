@@ -55,7 +55,7 @@ public class Brachiosaur extends Dinosaur{
      * Changes the attributes of the dinosaur into those of a baby brachiosaur
      */
     @Override
-    void setBabyAttributes() {
+    protected void setBabyAttributes() {
         maxHitPoints = 80;
         hungryHealth = 40;
         breedingHealth = Integer.MAX_VALUE;
@@ -64,8 +64,12 @@ public class Brachiosaur extends Dinosaur{
         addCapability(DinosaurState.BABY);
     }
 
+    /**
+     * Gets the amount of time it take for dinosaur to attack again
+     * @return A Counter denoting attack timeout
+     */
     @Override
-    Counter getAttackTimeoutCounter() {
+    protected Counter getAttackTimeoutCounter() {
         return new Counter(50);
     }
 
@@ -73,7 +77,7 @@ public class Brachiosaur extends Dinosaur{
      * Sets the attributes of the dinosaur object to those of a Adult brachiosaur
      */
     @Override
-    void growUp() {
+    protected void growUp() {
         maxHitPoints = 160;
         hungryHealth = 140;
         breedingHealth = 70;

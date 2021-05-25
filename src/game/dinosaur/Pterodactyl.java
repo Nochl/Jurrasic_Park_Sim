@@ -22,7 +22,7 @@ public class Pterodactyl extends Dinosaur{
     /**
      * Stamina for Pterodactyl's flight before they have to land
      */
-    Counter stamina = new Counter(30);
+    private Counter stamina = new Counter(30);
 
     /**
      * Constructor method for Pterodactyl
@@ -66,7 +66,7 @@ public class Pterodactyl extends Dinosaur{
      * Changes the attributes of the dinosaur into those of a baby Pterodactyl
      */
     @Override
-    void setBabyAttributes() {
+    protected void setBabyAttributes() {
         maxHitPoints = 80;
         hungryHealth = 40;
         breedingHealth = Integer.MAX_VALUE;
@@ -76,7 +76,7 @@ public class Pterodactyl extends Dinosaur{
     }
 
     @Override
-    Counter getAttackTimeoutCounter() {
+    protected Counter getAttackTimeoutCounter() {
         return new Counter(50);
     }
 
@@ -84,7 +84,7 @@ public class Pterodactyl extends Dinosaur{
      * Sets the attributes of the dinosaur object to those of an adult Pterodactyl
      */
     @Override
-    void growUp() {
+    protected void growUp() {
         maxHitPoints = 160;
         hungryHealth = 140;
         breedingHealth = 70;
