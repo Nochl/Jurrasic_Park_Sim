@@ -1,6 +1,7 @@
 package game.consumable.eggs;
 
 import edu.monash.fit2099.engine.Action;
+import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.Location;
 import game.Counter;
 import game.actions.EatFruitAction;
@@ -27,6 +28,10 @@ public abstract class Egg extends Consumable {
      * A Counter class object that denotes the amount of turns it takes for the egg to hatch
      */
     Counter lifespan;
+    /**
+     * Display object to print when an egg has hatched
+     */
+    Display pic = new Display();
 
     /**
      * Constructor for Egg class

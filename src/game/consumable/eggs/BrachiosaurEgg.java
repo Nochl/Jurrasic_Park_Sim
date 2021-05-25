@@ -28,6 +28,7 @@ public class BrachiosaurEgg extends Egg {
      */
     @Override
     Dinosaur createDinosaur() {
+        pic.println("A Brachiosaur has hatched!!!");
         return new Brachiosaur("brachiosaur", true);
     }
 

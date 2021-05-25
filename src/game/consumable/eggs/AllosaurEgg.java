@@ -26,6 +26,7 @@ public class AllosaurEgg extends Egg {
      */
     @Override
     Dinosaur createDinosaur() {
+        pic.println("An Allosaur has hatched!!!");
         return new Allosaur("allosaur", true);
     }
 
