@@ -27,7 +27,7 @@ public class PterodactylEgg extends Egg {
      * @return a new instance of Pterodactyl class object
      */
     @Override
-    Dinosaur createDinosaur() {
+    protected Dinosaur createDinosaur() {
         pic.println("A Pterodactyl has hatched!!!");
         return new Pterodactyl("Pterodactyl", true);
     }
@@ -36,7 +36,7 @@ public class PterodactylEgg extends Egg {
      * Increments world ecopoints
      */
     @Override
-    void increaseEcoPoints() {
+    protected void increaseEcoPoints() {
         EcoHold.addWorldEco(1000);
     }
 }

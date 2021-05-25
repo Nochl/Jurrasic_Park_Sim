@@ -28,11 +28,11 @@ public abstract class Egg extends Consumable {
     /**
      * A Counter class object that denotes the amount of turns it takes for the egg to hatch
      */
-    Counter lifespan;
+    private Counter lifespan;
     /**
      * Display object to print when an egg has hatched
      */
-    Display pic = new Display();
+    protected Display pic = new Display();
 
     /**
      * Constructor for Egg class
@@ -70,10 +70,10 @@ public abstract class Egg extends Consumable {
      * abstract class method that creates an instance of a Dinosaur
      * @return a new instance of Dinosaur class object
      */
-    abstract Dinosaur createDinosaur();
+    protected abstract Dinosaur createDinosaur();
 
     /**
      * abstract class method that increments ecopoints
      */
-    abstract void increaseEcoPoints();
+    protected abstract void increaseEcoPoints();
 }

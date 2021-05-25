@@ -26,7 +26,7 @@ public class StegosaurEgg extends Egg {
      * @return a new instance of Stegosaur class object
      */
     @Override
-    Dinosaur createDinosaur() {
+    protected Dinosaur createDinosaur() {
         pic.println("A Stegosaur has hatched!!!");
         return new Stegosaur("stegosaur", true);
     }
@@ -35,7 +35,7 @@ public class StegosaurEgg extends Egg {
      * increments ecopoints
      */
     @Override
-    void increaseEcoPoints() {
+    protected void increaseEcoPoints() {
         EcoHold.addWorldEco(100);
     }
 }

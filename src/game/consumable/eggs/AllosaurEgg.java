@@ -25,7 +25,7 @@ public class AllosaurEgg extends Egg {
      * @return a new instance of Allosaur class object
      */
     @Override
-    Dinosaur createDinosaur() {
+    protected Dinosaur createDinosaur() {
         pic.println("An Allosaur has hatched!!!");
         return new Allosaur("allosaur", true);
     }
@@ -34,7 +34,7 @@ public class AllosaurEgg extends Egg {
      * Increments ecopoints in the world
      */
     @Override
-    void increaseEcoPoints() {
+    protected void increaseEcoPoints() {
         EcoHold.addWorldEco(1000);
     }
 }

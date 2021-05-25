@@ -27,7 +27,7 @@ public class BrachiosaurEgg extends Egg {
      * @return a new instance of Brachiosaur class object
      */
     @Override
-    Dinosaur createDinosaur() {
+    protected Dinosaur createDinosaur() {
         pic.println("A Brachiosaur has hatched!!!");
         return new Brachiosaur("brachiosaur", true);
     }
@@ -36,7 +36,7 @@ public class BrachiosaurEgg extends Egg {
      * Increments world ecopoints
      */
     @Override
-    void increaseEcoPoints() {
+    protected void increaseEcoPoints() {
         EcoHold.addWorldEco(1000);
     }
 }
