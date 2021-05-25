@@ -24,7 +24,7 @@ import java.util.List;
  * @see Dinosaur
  * @see DinosaurCapabilities
  */
-public class Consumable extends PortableItem {
+public abstract class Consumable extends PortableItem {
     /**
      * Denots the amount of health gained if item is fed to a dinosaur
      */
