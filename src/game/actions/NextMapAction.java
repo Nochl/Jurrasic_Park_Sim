@@ -48,7 +48,7 @@ public class NextMapAction extends Action {
         map.removeActor(actor);
         nextmap.addActor(actor, nextlocation);
 
-        return "Actor moved to next map";
+        return  actor + " moved to next map";
     }
 
     /**
