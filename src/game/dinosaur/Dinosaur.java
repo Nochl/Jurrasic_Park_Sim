@@ -8,6 +8,7 @@ import game.actions.*;
 import game.behaviour.*;
 import game.Counter;
 import game.consumable.Corpse;
+import game.consumable.eggs.Egg;
 import game.enums.*;
 
 import java.util.ArrayList;
@@ -71,6 +72,10 @@ public abstract class Dinosaur extends Actor {
      * Dinosaur current water level
      */
     protected int water;
+    /**
+     * Dinosaur pregnancy timer before they can lay the egg
+     */
+    protected Counter pregTime = null;
 
 
     /**
@@ -209,6 +214,31 @@ public abstract class Dinosaur extends Actor {
                 }
             }
 
+
+            // Lays egg if there is one
+            if (pregTime != null) {
+                if (pregTime.getValue() < 0) {
+
+                    // if dinosaur is Pterodactyl
+                    if (this.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
+                        if (!map.locationOf(this).getGround().hasCapability(GroundTypeCapabilities.TREE)) {
+                            return new GotoTreeBehaviour().getAction(this, map, actions);
+                        }
+                        else {
+                            pregTime = null;
+                            return new LayEggAction();
+                        }
+                    }
+                    else {
+                        pregTime = null;
+                        return new LayEggAction();
+                    }
+                }
+                else {
+                    pregTime.dec();
+                }
+            }
+
             // Runs all behaviours, uses the one which is not null
             for (Behaviour thisbehaviour : behaviours) {
                 Action action = thisbehaviour.getAction(this, map, actions);
@@ -300,6 +330,11 @@ public abstract class Dinosaur extends Actor {
         if (isConscious()) {
             action.add(new AttackAction(this));
         }
+
+        if (hasCapability(Mateable.MATEABLE)) {
+            action.add(new MatingAction(this));
+        }
+
         return action;
     }
 
@@ -345,6 +380,18 @@ public abstract class Dinosaur extends Actor {
      */
     public void thirst(int points) {
         water -= points;
+    }
+
+    /**
+     * Gets the Egg from the dinosaur
+     * @return Item egg
+     */
+    public Item getEgg() {
+        for (Item item:this.getInventory()) {
+            if (item.hasCapability(ItemTypeCapabilities.EGG)) {
+                return item;
+            }
+        } return null;
     }
 
 }

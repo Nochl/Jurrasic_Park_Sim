@@ -1,10 +1,11 @@
 package game.dinosaur;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actions;
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.GameMap;
+import edu.monash.fit2099.engine.*;
 import game.Counter;
+import game.actions.AttackAction;
+import game.actions.EatMeatAction;
+import game.actions.FeedingAction;
+import game.actions.MatingAction;
 import game.behaviour.GotoTreeBehaviour;
 import game.enums.*;
 
@@ -118,5 +119,21 @@ public class Pterodactyl extends Dinosaur{
         }
 
         return super.playTurn(actions, lastAction, map, display);
+    }
+
+    /**
+     * Gets all the allowable actions that can be done to the dinosaur
+     * @param otherActor the Actor that might be performing attack
+     * @param direction  String representing the direction of the other Actor
+     * @param map        current GameMap
+     * @return an Actions object denoting the allowable actions
+     */
+    @Override
+    public Actions getAllowableActions(Actor otherActor, String direction, GameMap map) {
+        Actions action = super.getAllowableActions(otherActor, direction, map);
+        if (hasCapability(ActorMobilityCapabilities.WALK)) {
+            action.add(new AttackAction(this));
+        }
+        return action;
     }
 }

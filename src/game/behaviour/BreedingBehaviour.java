@@ -4,30 +4,52 @@ import edu.monash.fit2099.engine.*;
 import game.FindNearestLocation;
 import game.actions.MatingAction;
 import game.dinosaur.Dinosaur;
-import game.enums.DinosaurCapabilities;
-import game.enums.Gender;
-import game.enums.Mateable;
+import game.enums.*;
 
 import java.util.ArrayList;
 
+/**
+ * Implements Breeding Behaviour for Dinosaurs to find a mate and create an egg in the female
+ *
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 2.0.0
+ * @see game.dinosaur.Dinosaur
+ * @see FindNearestLocation
+ * @see Behaviour
+ */
 public class BreedingBehaviour implements Behaviour {
-
-    public BreedingBehaviour() {
-    }
+    /**
+     * Holds all location of actors
+     */
+    private ArrayList<Actor> actors = new ArrayList<>();
 
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
+        // Sees if dinosaur is capable of mating
         if (!actor.hasCapability(Mateable.MATEABLE)){
             return null;
         }
 
-        ArrayList<Actor> actors = new ArrayList<>();
+        // Checks if there is a MateAction available
         boolean hasMate = false;
         Action mateAction = null;
         for (Action act:actions) {
             if (act instanceof MatingAction){
-                hasMate = true;
-                mateAction = act;
+                // extra check if dinosaur is a Pterodactyl
+                if (actor.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
+                    // check if both actors are on a tree
+                    if (map.locationOf(actor).getGround().hasCapability(GroundTypeCapabilities.TREE) &&
+                            map.locationOf(((MatingAction) act).getTarget()).getGround().hasCapability(GroundTypeCapabilities.TREE)) {
+                        hasMate = true;
+                        mateAction = act;
+                    }
+                }
+
+                else {
+                    hasMate = true;
+                    mateAction = act;
+                }
             }
         }
 
@@ -64,7 +86,12 @@ public class BreedingBehaviour implements Behaviour {
     }
 
 
-
+    /**
+     * A check to see if 2 dinosaurs are compatible (same species & opposite sex)
+     * @param current
+     * @param potential
+     * @return
+     */
     public boolean sameDinosaur(Actor current, Actor potential){
         if (current.hasCapability(DinosaurCapabilities.BRACHIOSAUR) && potential.hasCapability(DinosaurCapabilities.BRACHIOSAUR)){
             return true;
@@ -73,6 +100,9 @@ public class BreedingBehaviour implements Behaviour {
             return true;
         }
         else if (current.hasCapability(DinosaurCapabilities.ALLOSAUR) && potential.hasCapability(DinosaurCapabilities.ALLOSAUR)){
+            return true;
+        }
+        else if (current.hasCapability(DinosaurCapabilities.PTERODACTYL) && potential.hasCapability(DinosaurCapabilities.PTERODACTYL)){
             return true;
         }
         return false;

@@ -3,10 +3,8 @@ package game.actions;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
-import game.consumable.eggs.AllosaurEgg;
-import game.consumable.eggs.BrachiosaurEgg;
-import game.consumable.eggs.Egg;
-import game.consumable.eggs.StegosaurEgg;
+import game.consumable.eggs.*;
+import game.enums.DinosaurCapabilities;
 import game.enums.Gender;
 import game.enums.Mateable;
 import game.dinosaur.Allosaur;
@@ -40,15 +38,23 @@ public class MatingAction extends Action {
     }
 
     public Egg eggFactory(Dinosaur dinosaur) {
-        if (dinosaur instanceof Allosaur) {
+        if (dinosaur.hasCapability(DinosaurCapabilities.ALLOSAUR)) {
             return new AllosaurEgg();
-        }
-        else if (dinosaur instanceof Brachiosaur) {
+        } else if (dinosaur.hasCapability(DinosaurCapabilities.BRACHIOSAUR)) {
             return new BrachiosaurEgg();
-        }
-        else {
+        } else if (dinosaur.hasCapability(DinosaurCapabilities.STEGOSAUR)) {
             return new StegosaurEgg();
+        } else {
+            return new PterodactylEgg();
         }
+    }
+
+    /**
+     * Gets the target Actor
+     * @return Actor target
+     */
+    public Actor getTarget() {
+        return target;
     }
 
     @Override

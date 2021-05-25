@@ -8,6 +8,7 @@ import game.actions.EatMeatAction;
 import game.consumable.Consumable;
 import game.dinosaur.Dinosaur;
 import game.enums.FoodTypeCapabilities;
+import game.enums.ItemTypeCapabilities;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public abstract class Egg extends Consumable {
     public Egg(String name, int lifespan) {
         super(name, 'e', 10, 0, 0, 10, 0);
         this.lifespan = new Counter(lifespan);
+        addCapability(ItemTypeCapabilities.EGG);
         addCapability(FoodTypeCapabilities.MEAT);
         allowableActions.add(new EatMeatAction(this));
     }
