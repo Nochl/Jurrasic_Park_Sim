@@ -3,6 +3,7 @@ package game.actions;
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
+import game.DinosaurHold;
 import game.consumable.eggs.*;
 import game.enums.DinosaurCapabilities;
 import game.enums.Gender;
@@ -29,9 +30,11 @@ public class MatingAction extends Action {
         target.removeCapability(Mateable.MATEABLE);
         if (actor.hasCapability(Gender.FEMALE)) {
             actor.addItemToInventory(eggFactory(target));
+            DinosaurHold.getDinosaur(actor).setPregTime();
         }
         else {
             target.addItemToInventory(eggFactory(target));
+            DinosaurHold.getDinosaur(target).setPregTime();
         }
 
         return (actor.toString()+" has mated with "+target.toString()+"!!!");

@@ -41,14 +41,20 @@ public class BreedingBehaviour implements Behaviour {
                     // check if both actors are on a tree
                     if (map.locationOf(actor).getGround().hasCapability(GroundTypeCapabilities.TREE) &&
                             map.locationOf(((MatingAction) act).getTarget()).getGround().hasCapability(GroundTypeCapabilities.TREE)) {
-                        hasMate = true;
-                        mateAction = act;
+                        // check if same species
+                        if (sameDinosaur(actor, ((MatingAction) act).getTarget())) {
+                            hasMate = true;
+                            mateAction = act;
+                        }
                     }
                 }
 
                 else {
-                    hasMate = true;
-                    mateAction = act;
+                    // check if same species
+                    if (sameDinosaur(actor, ((MatingAction) act).getTarget())) {
+                        hasMate = true;
+                        mateAction = act;
+                    }
                 }
             }
         }

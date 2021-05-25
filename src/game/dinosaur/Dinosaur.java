@@ -390,5 +390,9 @@ public abstract class Dinosaur extends Actor {
         } return null;
     }
 
+    public void setPregTime() {
+        pregTime = new Counter(20);
+    }
+
 }
 
