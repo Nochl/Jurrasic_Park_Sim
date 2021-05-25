@@ -3,9 +3,8 @@ package game;
 import edu.monash.fit2099.engine.*;
 import game.actions.EndGameAction;
 import game.actions.NextMapAction;
-import game.consumable.Consumable;
 import game.enums.ActorTypeCapabilities;
-import game.enums.FoodTypeCapabilities;
+import game.enums.GameModes;
 import game.enums.MapCapabilities;
 
 import java.util.ArrayList;
@@ -60,8 +59,27 @@ public class Player extends Actor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		int movesLeft = targetMoves.getValue();
+		// Checks if the challenge mode
+		if (hasCapability(GameModes.CHALLENGE)) {
+			targetMoves.dec();
+			if (targetMoves.getValue() <= 0) {
+				String description;
+				if (ecopoints.getPoints() >= targetEcopoints) {
+					description = "Player was able to reach the target number of ecopoints!\nYou have won!";
+				} else {
+					description = "Player did not have enough ecopoints within the given time.\nYou have lost";
+				}
+				return new EndGameAction(description);
+			}
+			display.println((movesLeft - 1) + " moves left");
+			display.endLine();
+		}
+
+		// Ticks sky class
 		Sky.tick();
-		actions.add(new EndGameAction());
+
+		actions.add(new EndGameAction(""));
 
 		if (map.locationOf(this).getGround().hasCapability(MapCapabilities.EDGEMAP)){
 			actions.add(new NextMapAction());
@@ -85,6 +103,9 @@ public class Player extends Actor {
 	 * @param moves an int denoting the number of target moves until game ends
 	 */
 	public void setTargetMoves(int moves) {
+		if (moves != Integer.MAX_VALUE) {
+			moves += 1;
+		}
 		this.targetMoves = new Counter(moves);
 	}
 
