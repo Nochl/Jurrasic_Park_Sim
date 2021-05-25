@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Display;
 import edu.monash.fit2099.engine.Location;
 import game.Counter;
+import game.DinosaurHold;
 import game.actions.EatFruitAction;
 import game.actions.EatMeatAction;
 import game.consumable.Consumable;
@@ -59,6 +60,7 @@ public abstract class Egg extends Consumable {
             currentLocation.removeItem(this);
             if (!currentLocation.containsAnActor()) {
                 Dinosaur dinosaur = createDinosaur();
+                DinosaurHold.addDinosaur(dinosaur);
                 currentLocation.addActor(dinosaur);
             }
         }
