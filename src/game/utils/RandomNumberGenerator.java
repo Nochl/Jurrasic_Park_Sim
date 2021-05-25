@@ -27,4 +27,15 @@ public class RandomNumberGenerator {
         Random random = new Random();
         return random.nextDouble() * (high - low) + low;
     }
+
+    /**
+     * Generates a random int between ranges low and high
+     * @param low an int denoting lowest value
+     * @param high an int denoting highest value
+     * @return an int between low and high
+     */
+    public static int randomIntInRange(int low, int high) {
+        Random random = new Random();
+        return random.nextInt((high - low) + 1) + low;
+    }
 }
