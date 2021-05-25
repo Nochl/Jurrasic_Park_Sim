@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Location;
 import game.Sky;
 import game.actions.DrinkLakeAction;
+import game.actions.EatFishAction;
 import game.consumable.Fish;
 import game.enums.ActorMobilityCapabilities;
 import game.enums.GroundTypeCapabilities;
@@ -41,7 +42,7 @@ public class Lake extends Ground {
     /**
      * An array list of fish in the lake
      */
-    ArrayList<Fish> seaCreatures;
+    ArrayList<Fish> fishes;
 
     /**
      * Ini
@@ -58,9 +59,9 @@ public class Lake extends Ground {
         maxSipCapacity = sipCapacity;
         minSipCapacity = 0;
         initialFishAmount = 5;
-        seaCreatures = new ArrayList<>();
+        fishes = new ArrayList<>();
         for (int i = 0; i < initialFishAmount; i++) {
-            seaCreatures.add(new Fish());
+            fishes.add(new Fish());
         }
     }
 
@@ -73,7 +74,14 @@ public class Lake extends Ground {
      */
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction) {
-        return new Actions(new DrinkLakeAction(this));
+        Actions actions = new Actions();
+        if (sipCapacity > 0) {
+            actions.add(new DrinkLakeAction(this));
+        }
+        if (fishes.size() > 0) {
+            actions.add(new EatFishAction(fishes));
+        }
+        return actions;
     }
 
     /**
@@ -85,7 +93,7 @@ public class Lake extends Ground {
         super.tick(location);
         Double randomNumber = RandomNumberGenerator.randomDouble();
         if (randomNumber <= 0.6) {
-            seaCreatures.add(new Fish());
+            fishes.add(new Fish());
         }
         increaseSipCapacity(Sky.getRainAmount());
     }
