@@ -1,20 +1,16 @@
 package game.dinosaur;
 
-import com.sun.source.doctree.HiddenTree;
 import edu.monash.fit2099.engine.*;
 
 import game.Sky;
 import game.actions.*;
 import game.behaviour.*;
 import game.Counter;
-import game.consumable.Corpse;
-import game.consumable.eggs.Egg;
+import game.consumable.corpse.Corpse;
 import game.enums.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static edu.monash.fit2099.engine.Display.*;
 
 /**
  * Implements a Dinosaur class that extends from actor.
@@ -310,7 +306,7 @@ public abstract class Dinosaur extends Actor {
         if (unconsciousTime.getValue() <= 0) {
             Location location = map.locationOf(this);
             map.removeActor(this);
-            location.addItem(new Corpse((this.name + " Corpse"), this));
+            location.addItem(CorpseFactory.getCorpse(this));
             return true;
         }
         return false;

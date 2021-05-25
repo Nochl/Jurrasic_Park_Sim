@@ -54,10 +54,19 @@ public class Consumable extends PortableItem {
         eatenHealth.add(ptero);
     }
 
+    /**
+     * Amount of HP dinosaur gains if it is fed this consumable
+     * @return int amount to add to HP
+     */
     public int getFedHealth() {
         return fedHealth;
     }
 
+    /**
+     * Amount of HP dinosaur gains if it eats this consumable
+     * @param actor dinosaur eats food
+     * @return int amount to add to HP
+     */
     public int getEatenHealth(Actor actor) {
         if (actor.hasCapability(DinosaurCapabilities.STEGOSAUR)) {
             return eatenHealth.get(0);

@@ -1,5 +1,5 @@
 package game.enums;
 
 public enum ItemTypeCapabilities {
-    EGG
+    EGG, CORPSE, CORPSEDONE
 }

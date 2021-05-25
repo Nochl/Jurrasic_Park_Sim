@@ -1,4 +1,4 @@
-package game.consumable;
+package game.consumable.corpse;
 
 import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
@@ -8,6 +8,9 @@ import game.actions.EatMeatAction;
 import game.consumable.Consumable;
 import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
+import game.enums.ItemTypeCapabilities;
+
+import static java.lang.Math.min;
 
 /**
  * Implements a corpse of a dinosaur in game world. Corpse can only be eaten by Carnivores
@@ -18,8 +21,11 @@ import game.enums.FoodTypeCapabilities;
  * @see FoodTypeCapabilities
  * @see EatMeatAction
  */
-public class Corpse extends Consumable {
-
+public abstract class Corpse extends Consumable {
+    /**
+     * Amount of foodPoints left (for when Pterodactyls are slowly eating)
+     */
+    int remaining;
     /**
      * A counter class that represents the amount of turns left until item disappears
      */
@@ -27,11 +33,12 @@ public class Corpse extends Consumable {
 
     /**
      * Constructor for Corpse class
-     * @param name name of the corpse
+     * @param character display character of corpse
      * @param actor an Actor object that denotes a dinosaur instance object
      */
-    public Corpse(String name, Actor actor) {
-        super("dead " + name, '%', 0, 0, 0, 20, 10);
+    public Corpse(Actor actor, int foodPoints, char character) {
+        super("dead " + actor.toString(), character, 0, 0, 0, 20, 10);
+        remaining = foodPoints;
         corpseDespawn(actor);
         addCapability(FoodTypeCapabilities.MEAT);
         allowableActions.add(new EatMeatAction(this));
@@ -63,4 +70,30 @@ public class Corpse extends Consumable {
             lifespan = new Counter(20);
         }
     }
+
+    /**
+     * Amount of HP dinosaur gains if it eats a corpse
+     * @param actor dinosaur eats food
+     * @return int amount to add to HP
+     */
+    @Override
+    public int getEatenHealth(Actor actor) {
+        // Feeds whole points to Allosaur
+        if (actor.hasCapability(DinosaurCapabilities.ALLOSAUR)) {
+            remaining = 0;
+            addCapability(ItemTypeCapabilities.CORPSEDONE);
+            return remaining;
+
+        // If Pterodactyl, feed it 10 or remaining points
+        } else if (actor.hasCapability(DinosaurCapabilities.PTERODACTYL)){
+            int heal = min(remaining, 10);
+            remaining = remaining-10;
+            //set it to be DONE if there is no more remaining points
+            if (remaining < 0) {addCapability(ItemTypeCapabilities.CORPSEDONE);}
+            return heal;
+
+        // if its neither dinosaur, return nothing (they shouldn't be able to access this anyway)
+        } return 0;
+    }
+
 }

@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.Item;
 import game.consumable.Consumable;
 import game.dinosaur.Brachiosaur;
 import game.dinosaur.Stegosaur;
+import game.enums.ItemTypeCapabilities;
 
 public abstract class EatingAction extends Action {
     protected Item item;
@@ -25,7 +26,15 @@ public abstract class EatingAction extends Action {
 
    public void healActor(Actor dinosaur, GameMap map){
         dinosaur.heal(food.getEatenHealth(dinosaur));
-        map.locationOf(dinosaur).removeItem(food);
+
+        // Checks if food is corpse
+        if (food.hasCapability(ItemTypeCapabilities.CORPSE)) {
+           // Only removes corpse if it has no more points (has capability corpse done)
+            if (food.hasCapability(ItemTypeCapabilities.CORPSEDONE)) {
+                {map.locationOf(dinosaur).removeItem(food);}
+            }
+        // if its not a corpse, it immediately removes it
+       } else {map.locationOf(dinosaur).removeItem(food);}
 
    }
 
