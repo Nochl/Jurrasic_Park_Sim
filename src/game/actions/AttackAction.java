@@ -46,7 +46,9 @@ public class AttackAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
+		// Check if the target is a pterodactyl
 		if (target.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
+			actor.heal(Integer.MAX_VALUE);
 			Corpse corpse = CorpseFactory.getCorpse(target);
 			map.locationOf(target).addItem(corpse);
 			DropDeadActorInventory(map);
@@ -107,7 +109,7 @@ public class AttackAction extends Action {
 	}
 
 	/**
-	 * Drops all of the actors items in the game map
+	 * Drops all of the actors items in the game map and removes the actor
 	 * @param map a GameMap object
 	 */
 	private void DropDeadActorInventory(GameMap map) {
