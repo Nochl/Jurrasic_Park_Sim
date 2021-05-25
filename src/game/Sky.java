@@ -15,8 +15,14 @@ public class Sky {
      */
     private static Counter rainTurns = new Counter(20);
 
+    /**
+     * a boolean value denoting if it is raining or not
+     */
     private static boolean isRaining = false;
 
+    /**
+     * an int value denoting the amount of sips to add to lakes and dinosaurs
+     */
     private static int addedSips = 0;
 
     /**
