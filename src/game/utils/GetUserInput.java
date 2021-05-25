@@ -2,6 +2,9 @@ package game.utils;
 
 import edu.monash.fit2099.engine.Display;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Implements a static class that helps get user inputs
  * @author Tim Jordan
@@ -19,18 +22,19 @@ public class GetUserInput {
      */
     public static int askForIntInRange(Display display, int minimum, int maximum) {
         display.println("Please input a integer between " + minimum + " and " + maximum);
-        char key;
+        Scanner scanner = new Scanner(System.in);
+        int key = 0;
         boolean validKey = false;
-        int intKey = 0;
         do {
-            key = display.readChar();
-            if (Character.isDigit(key)) {
-                intKey = Character.getNumericValue(key);
-                if (intKey >= minimum && intKey <= maximum) {
+            try {
+                key = scanner.nextInt();
+                if (key >= minimum && key <= maximum) {
                     validKey = true;
                 }
+            } catch (InputMismatchException e) {
+                validKey = false;
             }
         } while (!validKey);
-        return intKey;
+        return key;
     }
 }
