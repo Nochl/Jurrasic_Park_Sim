@@ -16,19 +16,24 @@ import game.Player;
 public class EndGameAction extends Action {
 
     /**
+     * A string containing a description of how the player ended the game
+     */
+    String description;
+    /**
      * Constructor
      */
-    public EndGameAction() {
+    public EndGameAction(String description) {
+        this.description = description;
     }
 
     @Override
     public String execute(Actor actor, GameMap map) {
         map.removeActor(actor);
-        return menuDescription(actor);
+        return description;
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return "";
+        return "End game";
     }
 }
