@@ -49,8 +49,6 @@ public class AttackAction extends Action {
 		// Check if the target is a pterodactyl
 		if (target.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
 			actor.heal(Integer.MAX_VALUE);
-			Corpse corpse = CorpseFactory.getCorpse(target);
-			map.locationOf(target).addItem(corpse);
 			DropDeadActorInventory(map);
 			return System.lineSeparator() + target + " is killed instantly by " + actor;
 		}
