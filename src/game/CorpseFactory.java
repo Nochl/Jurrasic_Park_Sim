@@ -18,7 +18,7 @@ import game.enums.DinosaurCapabilities;
 public class CorpseFactory {
     /**
      * Create a new Corpse with a specific type dependent on the dinosaur species
-     * @param actor
+     * @param actor An Dinosaur actor
      * @return Corpse object
      */
     public static Corpse getCorpse(Actor actor) {
