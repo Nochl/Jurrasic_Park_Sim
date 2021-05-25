@@ -2,6 +2,7 @@ package game.behaviour;
 
 import edu.monash.fit2099.engine.*;
 import game.actions.PickFruitAction;
+import game.enums.ActorMobilityCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
 import game.enums.FruitCapabilities;
@@ -14,7 +15,7 @@ import java.util.List;
  * for Dinosaur Behaviours that relate to finding food
  * @author Tim Jordan
  * @author Enoch Leow
- * @version 4.0.0
+ * @version 6.0.0
  * @see game.dinosaur.Dinosaur
  * @see GameMap
  * @see Actor
@@ -29,7 +30,8 @@ public class HungryBehaviour {
      * @param dinosaurCapability a DinosaurCapabilities instance
      * @return an Array List contains dinosaurs that have the capability
      */
-    protected static ArrayList<Actor> getSuitableDinosaurs(Actor thisActor, GameMap map, DinosaurCapabilities dinosaurCapability) {
+    protected static ArrayList<Actor> getSuitableDinosaurs(
+            Actor thisActor, GameMap map, DinosaurCapabilities dinosaurCapability, ActorMobilityCapabilities mobilityCapabily) {
         ArrayList<Actor> suitableActors = new ArrayList<>();
         NumberRange Xrange = map.getXRange();
         NumberRange YRange = map.getYRange();
@@ -37,7 +39,7 @@ public class HungryBehaviour {
         for (int x : Xrange) {
             for (int y : YRange) {
                 Actor actor = map.getActorAt(map.at(x, y));
-                if (actor != null && actor != thisActor && actor.hasCapability(dinosaurCapability)) {
+                if (actor != null && actor != thisActor && actor.hasCapability(dinosaurCapability) && actor.hasCapability(mobilityCapabily)) {
                     suitableActors.add(actor);
                 }
             }
@@ -48,11 +50,10 @@ public class HungryBehaviour {
     /**
      * Gets all the locations that contain fruit items that have a certain capability
      * @param map a GameMap object that in which the actor is in
-     * @param foodType a FoodTypeCapabilities
-     * @param fruitCapability a FruitCapabilities
-     * @return an Array list of locations that contains suitable fruits
+     * @param fruitCapability capability of fruit item
+     * @return an array list of locations that contain a suitable fruit item
      */
-    protected static ArrayList<Location> getSuitableFruitLocations(GameMap map, FoodTypeCapabilities foodType, FruitCapabilities fruitCapability) {
+    protected static ArrayList<Location> getSuitableFruitLocations(GameMap map, FruitCapabilities fruitCapability) {
         ArrayList<Location> foodLocations = new ArrayList<>();
         NumberRange Xrange = map.getXRange();
         NumberRange YRange = map.getYRange();
@@ -66,7 +67,7 @@ public class HungryBehaviour {
                             foodLocations.add(location);
                         }
                     }
-                } else if (containsSuitableItem(location, foodType)) {
+                } else if (containsSuitableItem(location, FoodTypeCapabilities.VEGETABLE)) {
                     foodLocations.add(location);
                 }
             }
