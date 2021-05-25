@@ -18,6 +18,8 @@ import java.util.ArrayList;
  * @author Tim Jordan
  * @author Enoch Leow
  * @version 3.0.0
+ * @see VendingMachine
+ * @see VendingItemFactory
  */
 public class VendingItemFactory {
     /**

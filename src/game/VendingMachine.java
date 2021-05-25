@@ -5,6 +5,11 @@ import game.actions.VendingAction;
 
 /**
  * Implements a Vending Machine class object that extends from Ground
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 3.0.0
+ * @see Ground
+ * @see VendingAction
  */
 public class VendingMachine extends Ground {
 
