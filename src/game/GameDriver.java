@@ -36,7 +36,7 @@ public class GameDriver {
     }
 
     /**
-     * Starts the game
+     * Initialises and starts the game
      */
     public void startGame() {
         boolean continueGame = true;
@@ -67,6 +67,7 @@ public class GameDriver {
             display.println("Starting Game");
             display.endLine();
             world.run();
+            display.endLine();
             display.println("1) Restart\n2) End Game");
             int input = GetUserInput.askForIntInRange(display, 1, 2);
             if (input == 2) {
@@ -93,9 +94,9 @@ public class GameDriver {
             case CHALLENGE:
                 display.println("Challenge Mode Has Been Chosen");
                 display.println("Number of Moves Limit");
-                int targetMoves = GetUserInput.askForIntInRange(display, 1, 1000);
+                int targetMoves = GetUserInput.askForIntInRange(display, 1, 10000);
                 display.println("Target Ecopoints");
-                int targetEcopoints = GetUserInput.askForIntInRange(display, 1, 5000);
+                int targetEcopoints = GetUserInput.askForIntInRange(display, 1, 100000);
                 player.setTargetMoves(targetMoves);
                 player.setTargetEcopoints(targetEcopoints);
                 player.addCapability(GameModes.CHALLENGE);
