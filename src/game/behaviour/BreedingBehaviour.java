@@ -24,6 +24,13 @@ public class BreedingBehaviour implements Behaviour {
      */
     private ArrayList<Actor> actors = new ArrayList<>();
 
+    /**
+     * gets an actions according to breeding behaviour
+     * @param actor the Actor acting
+     * @param map the GameMap containing the Actor
+     * @param actions an Actions object denoting all the allowable actions near the player
+     * @return an Action according to breeding behaviour
+     */
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
         // Sees if dinosaur is capable of mating
@@ -94,9 +101,9 @@ public class BreedingBehaviour implements Behaviour {
 
     /**
      * A check to see if 2 dinosaurs are compatible (same species & opposite sex)
-     * @param current
-     * @param potential
-     * @return
+     * @param current An Actor object
+     * @param potential An Actor object
+     * @return a boolean true if actors are compatible, else false
      */
     public boolean sameDinosaur(Actor current, Actor potential){
         if (current.hasCapability(DinosaurCapabilities.BRACHIOSAUR) && potential.hasCapability(DinosaurCapabilities.BRACHIOSAUR)){
