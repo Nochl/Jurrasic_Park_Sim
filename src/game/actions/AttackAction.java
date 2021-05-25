@@ -45,6 +45,12 @@ public class AttackAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
+		if (target.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
+			Corpse corpse = new Corpse((target + " Corpse"), target);
+			map.locationOf(target).addItem(corpse);
+			DropDeadActorInventory(map);
+			return System.lineSeparator() + target + " is killed instantly by " + actor;
+		}
 		Weapon weapon = actor.getWeapon();
 
 		if (rand.nextBoolean()) {
@@ -78,7 +84,7 @@ public class AttackAction extends Action {
 				dropActions.add(item.getDropAction());
 			for (Action drop : dropActions)		
 				drop.execute(target, map);
-			map.removeActor(target);	
+			map.removeActor(target);
 			
 			result += System.lineSeparator() + target + " is killed.";
 		} else {
@@ -89,8 +95,26 @@ public class AttackAction extends Action {
 		return result;
 	}
 
+	/**
+	 * Provides a description of the action
+	 * @param actor The actor performing the action.
+	 * @return a string describing the action
+	 */
 	@Override
 	public String menuDescription(Actor actor) {
 		return actor + " attacks " + target;
+	}
+
+	/**
+	 * Drops all of the actors items in the game map
+	 * @param map a GameMap object
+	 */
+	private void DropDeadActorInventory(GameMap map) {
+		Actions dropActions = new Actions();
+		for (Item item : target.getInventory())
+			dropActions.add(item.getDropAction());
+		for (Action drop : dropActions)
+			drop.execute(target, map);
+		map.removeActor(target);
 	}
 }
