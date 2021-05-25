@@ -4,34 +4,30 @@ import edu.monash.fit2099.engine.*;
 import game.FindNearestLocation;
 import game.actions.AttackAction;
 import game.actions.EatMeatAction;
+import game.enums.ActorMobilityCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.FoodTypeCapabilities;
 import game.enums.HungryCapabilities;
 
+import java.util.AbstractCollection;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 
 /**
  * Implements a hunting behaviour that is used by Allosaurs to hunt and attack other dinosaurs
  * @author Tim Jordan
  * @author Enoch Leow
- * @version 5.0.0
+ * @version 7.0.0
  * @see game.dinosaur.Allosaur
  * @see FindNearestLocation
  */
 public class HuntingBehaviour implements Behaviour {
 
     /**
-     * A Behaviour object that is used to follow a certain food source
-     */
-    private Behaviour followBehaviour;
-
-    /**
      * Constructor
      */
-    public HuntingBehaviour() {
-        followBehaviour = null;
-    }
+    public HuntingBehaviour() {}
 
     /**
      * Tries to find/attack a suitable food source around it's vicinity. If not able to find one around
@@ -55,26 +51,23 @@ public class HuntingBehaviour implements Behaviour {
         // Checks if the Allosaur Dinosaur is near a stegosaur
         Actor closePrey = HungryBehaviour.checkSurroundingSuitableDinosaurs(map.locationOf(actor), DinosaurCapabilities.STEGOSAUR);
         if (closePrey != null) {
-            followBehaviour = null;
             return new AttackAction(closePrey);
         }
 
         // Checks if the Allosaur Dinosaur is standing on a food item
         Item closeFood = HungryBehaviour.CheckStandingOnSuitableFood(map.locationOf(actor), FoodTypeCapabilities.MEAT);
         if (closeFood != null) {
-            followBehaviour = null;
             return new EatMeatAction(closeFood);
         }
 
-        if (followBehaviour != null) {
-            return followBehaviour.getAction(actor, map, actions);
-        }
-        ArrayList<Actor> suitableActors = HungryBehaviour.getSuitableDinosaurs(actor, map, DinosaurCapabilities.STEGOSAUR);
+        ArrayList<Actor> suitableActors1 = HungryBehaviour.getSuitableDinosaurs(actor, map, DinosaurCapabilities.PTERODACTYL, ActorMobilityCapabilities.WALK);
+        ArrayList<Actor> suitableActors2 = HungryBehaviour.getSuitableDinosaurs(actor, map, DinosaurCapabilities.STEGOSAUR, ActorMobilityCapabilities.WALK);
+        suitableActors1.addAll(suitableActors2);
         ArrayList<Location> suitableFoodLocations = HungryBehaviour.getSuitableMeatLocations(map, FoodTypeCapabilities.MEAT);
-        if (suitableActors.size() == 0 && suitableFoodLocations.size() == 0) {
+        if (suitableActors1.size() == 0 && suitableFoodLocations.size() == 0) {
             return new DoNothingAction();
         }
-        followBehaviour = getFollowBehaviour(actor, map, suitableActors, suitableFoodLocations);
+        Behaviour followBehaviour = getFollowBehaviour(actor, map, suitableActors1, suitableFoodLocations);
         return followBehaviour.getAction(actor, map, actions);
     }
 
