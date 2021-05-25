@@ -1,0 +1,14 @@
+edu.monash.fit2099.demo.conwayslife
+edu.monash.fit2099.demo.mars
+edu.monash.fit2099.engine
+edu.monash.fit2099.interfaces
+game
+game.actions
+game.behaviour
+game.consumable
+game.consumable.corpse
+game.consumable.eggs
+game.dinosaur
+game.enums
+game.ground
+game.utils
