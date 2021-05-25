@@ -9,8 +9,9 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Weapon;
 import game.DinosaurHold;
-import game.consumable.Corpse;
+import game.consumable.corpse.Corpse;
 import game.dinosaur.Dinosaur;
+import game.enums.CorpseFactory;
 import game.enums.DinosaurCapabilities;
 
 /**
@@ -46,7 +47,7 @@ public class AttackAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 
 		if (target.hasCapability(DinosaurCapabilities.PTERODACTYL)) {
-			Corpse corpse = new Corpse((target + " Corpse"), target);
+			Corpse corpse = CorpseFactory.getCorpse(target);
 			map.locationOf(target).addItem(corpse);
 			DropDeadActorInventory(map);
 			return System.lineSeparator() + target + " is killed instantly by " + actor;
@@ -76,7 +77,7 @@ public class AttackAction extends Action {
 		}
 
 		if (!target.isConscious()) {
-			Corpse corpse = new Corpse((target.toString()+" Corpse"), target);
+			Corpse corpse = CorpseFactory.getCorpse(target);
 			map.locationOf(target).addItem(corpse);
 			
 			Actions dropActions = new Actions();
