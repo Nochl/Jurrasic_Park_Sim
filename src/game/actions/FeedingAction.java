@@ -11,10 +11,28 @@ import game.enums.FoodTypeCapabilities;
 
 import java.util.ArrayList;
 
+/**
+ * Implements a feeding action
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 3.0.0
+ * @see Action
+ */
 public class FeedingAction extends Action {
+    /**
+     * a Dinosaur object
+     */
     private Dinosaur target;
+
+    /**
+     * An array list of items
+     */
     private ArrayList<Item> food = new ArrayList<>();
 
+    /**
+     * Constructor
+     * @param target the Dinosaur we want to target
+     */
     public FeedingAction(Dinosaur target) {
         this.target = target;
     }
@@ -50,7 +68,7 @@ public class FeedingAction extends Action {
         target.heal(give.getFedHealth());
         actor.removeItemFromInventory(giveFood);
         EcoHold.addWorldEco(10);
-        return (target.toString()+" has been fed a "+give.toString()+" and has gained "+give.getEatenHealth(target)+" health!");
+        return (target.toString()+" has been fed a "+give+" and has gained "+give.getEatenHealth(target)+" health!");
     }
 
     /**
