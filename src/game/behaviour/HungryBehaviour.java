@@ -91,10 +91,10 @@ public class HungryBehaviour {
     }
 
     /**
-     * Checks if the given location contains items that have VEGETABLE Food Type capability
-     *
+     * Checks if the given location contains items that have Food Type capability
      * @param location A Location class object
-     * @return a boolean True if the location contains a VEGETABLE item, else False
+     * @param foodType A FoodTypeCapabilities object
+     * @return a boolean True if the location contains a FoodTypeCapabilities item, else False
      */
     protected static boolean containsSuitableItem(Location location, FoodTypeCapabilities foodType) {
 
