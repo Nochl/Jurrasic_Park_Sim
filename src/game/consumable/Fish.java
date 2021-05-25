@@ -9,7 +9,7 @@ import game.enums.FoodTypeCapabilities;
  * @author Enoch Leow
  * @version 1.0.0
  * @see FoodTypeCapabilities
- * @see Pterodactyl
+ * @see game.dinosaur.Pterodactyl
  */
 public class Fish extends Consumable{
     /**
