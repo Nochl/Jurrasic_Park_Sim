@@ -7,13 +7,24 @@ import game.enums.MapCapabilities;
 
 /**
  * A class that represents bare dirt.
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.0.0
+ * @see Ground
  */
 public class Dirt extends Ground {
 
+	/**
+	 * Constructor
+	 */
 	public Dirt() {
 		super('.');
 	}
 
+	/**
+	 * ticks the Dirt object
+	 * @param location The location of the Ground
+	 */
 	@Override
 	public void tick(Location location) {
 		double random = Math.random();
@@ -48,13 +59,4 @@ public class Dirt extends Ground {
 
 	}
 
-	@Override
-	public Actions allowableActions(Actor actor, Location location, String direction){
-		Actions actions = new Actions();
-//		if (hasCapability(MapCapabilities.EDGEMAP)) {
-//			actions.add(new NextMapAction());
-//		}
-//		else {System.out.println("rip");}
-		return actions;
-	}
 }

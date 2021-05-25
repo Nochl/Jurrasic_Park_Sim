@@ -14,7 +14,18 @@ import game.enums.MapCapabilities;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Implements a ground Bush that can bear and grow fruit
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.0.0
+ * @see Ground
+ * @see Fruit
+ */
 public class Bush extends Ground{
+    /**
+     * An Array list of fruit denoting all the fruit in bush
+     */
     private ArrayList<Fruit> inBush = new ArrayList<>();
     /**
      * Constructor.
@@ -25,6 +36,10 @@ public class Bush extends Ground{
 
     }
 
+    /**
+     * ticks the bush ground object
+     * @param location The location of the Ground
+     */
     public void tick(Location location) {
         double prob = Math.random();
         super.tick(location);
@@ -40,6 +55,13 @@ public class Bush extends Ground{
         }
     }
 
+    /**
+     * Gets all the allowable actions that can be done to bush
+     * @param actor the Actor acting
+     * @param location the current Location
+     * @param direction the direction of the Ground from the Actor
+     * @return A Actions object denoting all actions that can be done to bush object
+     */
     @Override
     public Actions allowableActions(Actor actor, Location location, String direction){
         Actions actions = new Actions();
