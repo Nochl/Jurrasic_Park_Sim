@@ -34,7 +34,7 @@ public class DrinkLakeAction extends Action {
     public String execute(Actor actor, GameMap map) {
         Dinosaur dino = DinosaurHold.getDinosaur(actor);
         if (dino == null) {
-            return actor + "is not capable of drinking from lake";
+            return actor + " is not capable of drinking from lake";
         }
         int lakeSipCapacity = lake.getSipCapacity();
         int maxSipsGiven;
