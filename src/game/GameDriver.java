@@ -120,18 +120,18 @@ public class GameDriver {
             MapSwitch.addSwitch(gameMap2, "bottom");
 
             // Initialise Dinosaurs
-            Dinosaur stegosaur1 = new Stegosaur("Stegosaur", false, 'm');
-            Dinosaur stegosaur2 = new Stegosaur("Stegosaur",false, 'f');
-            Dinosaur stegosaur3 = new Stegosaur("Stegosaur",false, 'f');
-            Dinosaur stegosaur4 = new Stegosaur("Stegosaur",false, 'm');
-            Dinosaur pterodactyl1 = new Pterodactyl("Pterodactyl",false, 'm');
-            Dinosaur pterodactyl2 = new Pterodactyl("Pterodactyl",false, 'f');
-            Dinosaur pterodactyl3 = new Pterodactyl("Pterodactyl",false, 'm');
-            Dinosaur pterodactyl4 = new Pterodactyl("Pterodactyl",false, 'f');
-            Dinosaur brachiosaur1 = new Brachiosaur("Brachiosaur", false, 'm');
-            Dinosaur brachiosaur2 = new Brachiosaur("Brachiosaur", false, 'f');
-            Dinosaur brachiosaur3 = new Brachiosaur("Brachiosaur", false, 'm');
-            Dinosaur brachiosaur4 = new Brachiosaur("Brachiosaur", false, 'f');
+            Dinosaur stegosaur1 = new Stegosaur("Stegosaur1", false, 'm');
+            Dinosaur stegosaur2 = new Stegosaur("Stegosaur2",false, 'f');
+            Dinosaur stegosaur3 = new Stegosaur("Stegosaur3",false, 'f');
+            Dinosaur stegosaur4 = new Stegosaur("Stegosaur4",false, 'm');
+            Dinosaur pterodactyl1 = new Pterodactyl("Pterodactyl1",false, 'm');
+            Dinosaur pterodactyl2 = new Pterodactyl("Pterodactyl2",false, 'f');
+            Dinosaur pterodactyl3 = new Pterodactyl("Pterodactyl3",false, 'm');
+            Dinosaur pterodactyl4 = new Pterodactyl("Pterodactyl4",false, 'f');
+            Dinosaur brachiosaur1 = new Brachiosaur("Brachiosaur1", false, 'm');
+            Dinosaur brachiosaur2 = new Brachiosaur("Brachiosaur2", false, 'f');
+            Dinosaur brachiosaur3 = new Brachiosaur("Brachiosaur3", false, 'm');
+            Dinosaur brachiosaur4 = new Brachiosaur("Brachiosaur4", false, 'f');
 
             // Add Dinosaurs to game map
             initialiseDinosaur(gameMap, 30, 12, stegosaur1);
