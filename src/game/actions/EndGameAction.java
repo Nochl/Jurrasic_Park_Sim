@@ -18,7 +18,7 @@ public class EndGameAction extends Action {
     /**
      * A string containing a description of how the player ended the game
      */
-    String description;
+    private String description;
     /**
      * Constructor
      */
