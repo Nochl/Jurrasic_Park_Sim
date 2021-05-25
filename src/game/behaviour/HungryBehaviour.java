@@ -75,6 +75,12 @@ public class HungryBehaviour {
         return foodLocations;
     }
 
+    /**
+     * Gets all the locations in game map that have items that have foodType FoodTypeCapabilities
+     * @param map a GameMap object in which the actor is in
+     * @param foodType a FoodTypeCapabilities object
+     * @return an Arraylist of locations that have suitable items
+     */
     protected static ArrayList<Location> getSuitableMeatLocations(GameMap map, FoodTypeCapabilities foodType) {
         ArrayList<Location> foodLocations = new ArrayList<>();
         NumberRange Xrange = map.getXRange();
@@ -106,6 +112,12 @@ public class HungryBehaviour {
         return false;
     }
 
+    /**
+     * Looks at the actor's location and checks if there are items that have the given capability
+     * @param actorLocation a Location denoting location of actor
+     * @param foodTypeCapability a FoodTypeCapabilities object that we want
+     * @return an Item object that has the FoodTypeCapabilities we want
+     */
     protected static Item CheckStandingOnSuitableFood(Location actorLocation, FoodTypeCapabilities foodTypeCapability) {
         List<Item> items = actorLocation.getItems();
         for (Item item : items) {
@@ -116,6 +128,12 @@ public class HungryBehaviour {
         return null;
     }
 
+    /**
+     * Checks the surrounding locations of the actor if there are Dinosaurs with a certain DinosaurCapabilities
+     * @param actorLocation Location denoting actor location
+     * @param dinosaurCapability a DinosaurCapabilities object that we're looking for
+     * @return An actors that has the DinosaurCapabilities object
+     */
     protected static Actor checkSurroundingSuitableDinosaurs(Location actorLocation, DinosaurCapabilities dinosaurCapability) {
         for (Exit exit : actorLocation.getExits()) {
             Location nearbyLocation = exit.getDestination();

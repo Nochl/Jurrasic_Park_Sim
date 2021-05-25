@@ -25,7 +25,7 @@ public abstract class Corpse extends Consumable {
     /**
      * Amount of foodPoints left (for when Pterodactyls are slowly eating)
      */
-    int remaining;
+    private int remaining;
     /**
      * A counter class that represents the amount of turns left until item disappears
      */

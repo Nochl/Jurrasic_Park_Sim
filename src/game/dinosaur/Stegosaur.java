@@ -6,6 +6,13 @@ import game.enums.DietCapabilities;
 import game.enums.DinosaurCapabilities;
 import game.enums.DinosaurState;
 
+/**
+ * Implements a Stegosaur Dinosaur in game
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 4.0.0
+ * @see Dinosaur
+ */
 public class Stegosaur extends Dinosaur{
     /**
      * Constructor.
@@ -24,7 +31,12 @@ public class Stegosaur extends Dinosaur{
         else {growUp();}
     }
 
-
+    /**
+     * Constructor
+     * @param name name of dinosaur
+     * @param baby true if initialise as baby, else false
+     * @param gender gender of dinosaur ('f' - female and 'm' for male)
+     */
     public Stegosaur(String name, Boolean baby, char gender) {
         super(name, 'S', 50, baby, gender);
         maxunconsciousTime = 20;
@@ -36,9 +48,12 @@ public class Stegosaur extends Dinosaur{
         else {growUp();}
     }
 
-
+    /**
+     * Gets the amount of time for stegosaur to be in timeout
+     * @return A Counter object denoting attack timeout
+     */
     @Override
-    Counter getAttackTimeoutCounter() {
+    protected Counter getAttackTimeoutCounter() {
         return new Counter(30);
     }
 
@@ -46,7 +61,7 @@ public class Stegosaur extends Dinosaur{
      * Sets the attributes of the dinosaur object to those of an adult Stegosaur
      */
     @Override
-    void growUp() {
+    protected void growUp() {
         maxHitPoints = 100;
         hungryHealth = 90;
         breedingHealth = 50;
@@ -57,7 +72,7 @@ public class Stegosaur extends Dinosaur{
      * Sets the attributes of the dinosaur object to those of a baby Stegosaur
      */
     @Override
-    void setBabyAttributes() {
+    protected void setBabyAttributes() {
         maxHitPoints = 50;
         hungryHealth = 25;
         breedingHealth = Integer.MAX_VALUE;

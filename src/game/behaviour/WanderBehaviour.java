@@ -6,8 +6,19 @@ import java.util.Random;
 import edu.monash.fit2099.engine.*;
 import game.behaviour.Behaviour;
 
+/**
+ * Implements a Behaviour in which actor will randomly move around the map
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.0.0
+ * @see Behaviour
+ * @see Random
+ */
 public class WanderBehaviour implements Behaviour {
-	
+
+	/**
+	 * A Random object
+	 */
 	private Random random = new Random();
 
 

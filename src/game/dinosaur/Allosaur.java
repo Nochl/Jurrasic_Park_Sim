@@ -71,7 +71,7 @@ public class Allosaur extends Dinosaur{
      * @return a Counter object of amount of turns in timeout
      */
     @Override
-    Counter getAttackTimeoutCounter() {
+    public Counter getAttackTimeoutCounter() {
         return new Counter(20);
     }
 
@@ -79,7 +79,7 @@ public class Allosaur extends Dinosaur{
      * Changes the attributes of the dinosaur into those of a adult dinosaur
      */
     @Override
-    void growUp() {
+    protected void growUp() {
         maxHitPoints = 100;
         hungryHealth = 70;
         breedingHealth = 50;
@@ -90,7 +90,7 @@ public class Allosaur extends Dinosaur{
      * Sets the attributes of the dinosaur object to those of a child dinosaur
      */
     @Override
-    void setBabyAttributes() {
+    protected void setBabyAttributes() {
         hitPoints = 25;
         maxHitPoints = 50;
         hungryHealth = 25;

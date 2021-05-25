@@ -280,7 +280,7 @@ public abstract class Dinosaur extends Actor {
      * create's and gets a counter for the specific dinosaur's attack timeout
      * @return a Counter of attack timeout
      */
-    abstract Counter getAttackTimeoutCounter();
+    protected abstract Counter getAttackTimeoutCounter();
 
     /**
      * Resets the counter in which the dinosaur is able to breed
@@ -335,9 +335,9 @@ public abstract class Dinosaur extends Actor {
         return action;
     }
 
-    abstract void growUp();
+    protected abstract void growUp();
 
-    abstract void setBabyAttributes();
+    protected abstract void setBabyAttributes();
 
     /**
      * Adds all the behaviours of dinosaur

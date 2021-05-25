@@ -24,9 +24,20 @@ import java.util.ArrayList;
  * @see Behaviour
  */
 public class ScavengingBehaviour implements Behaviour {
+
+    /**
+     * Constructor
+     */
     public ScavengingBehaviour() {
     }
 
+    /**
+     * Gets an action for actor to eat a nearby food source or go to a closest location
+     * @param actor the Actor acting
+     * @param map the GameMap containing the Actor
+     * @param actions an Actions object denoting all the allowable actions near the player
+     * @return An Action object
+     */
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
         // Returns null if Dinosaur is not hungry

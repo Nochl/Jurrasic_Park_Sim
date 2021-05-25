@@ -10,9 +10,27 @@ import game.enums.DinosaurCapabilities;
 
 import java.util.ArrayList;
 
+/**
+ * Implements action for actors to pick a fruit
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 3.0.0
+ * @see game.ground.Bush
+ * @see Action
+ * @see Actor
+ * @see Fruit
+ */
 public class PickFruitAction extends Action {
+
+    /**
+     * an Array list containing Fruit items
+     */
     private ArrayList<Fruit> fruitList;
 
+    /**
+     * Constructor
+     * @param fruitList an Array list containing fruit items
+     */
     public PickFruitAction(ArrayList<Fruit> fruitList) {
         this.fruitList = fruitList;
     }
@@ -28,7 +46,7 @@ public class PickFruitAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        Double random = Math.random();
+        double random = Math.random();
         if (actor.hasCapability(ActorTypeCapabilities.PLAYER)){
             if (random < 0.6) {
                 Fruit added = fruitList.remove(0);
@@ -44,7 +62,7 @@ public class PickFruitAction extends Action {
         else if (actor.hasCapability(DinosaurCapabilities.STEGOSAUR)){
             Fruit added = fruitList.remove(0);
             actor.heal(added.getEatenHealth(actor));
-            return (actor.toString()+" has eaten a "+added.toString()+"!");
+            return (actor+" has eaten a "+added+"!");
 
         }
 
@@ -53,7 +71,7 @@ public class PickFruitAction extends Action {
             for (int i = 0; i < size; i++){
                 actor.heal(fruitList.remove(0).getEatenHealth(actor));
             }
-            return (actor.toString()+" has eaten all fruits in the tree!");
+            return (actor+" has eaten all fruits in the tree!");
 
         }
     }

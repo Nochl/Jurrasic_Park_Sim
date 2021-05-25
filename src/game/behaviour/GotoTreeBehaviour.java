@@ -25,6 +25,13 @@ public class GotoTreeBehaviour implements Behaviour  {
      */
     private ArrayList<Location> treeLocations = new ArrayList<>();
 
+    /**
+     * Gets an action for actor to move to the closest tree
+     * @param actor the Actor acting
+     * @param map the GameMap containing the Actor
+     * @param actions an Actions object denoting all the allowable actions near the player
+     * @return An Action that allows the actor to move to closest tree
+     */
     @Override
     public Action getAction(Actor actor, GameMap map, Actions actions) {
         // Returns null if dinosaur isn't a Pterodactyl or is flying

@@ -9,6 +9,9 @@ import game.behaviour.Behaviour;
  */
 public class FollowBehaviour implements Behaviour {
 
+	/**
+	 * An Actor object that will be followed
+	 */
 	private Actor target;
 
 	/**
@@ -20,6 +23,13 @@ public class FollowBehaviour implements Behaviour {
 		this.target = subject;
 	}
 
+	/**
+	 * Gets an action for given actor to follow the target
+	 * @param actor the Actor acting
+	 * @param map the GameMap containing the Actor
+	 * @param actions an Actions object denoting all the allowable actions near the player
+	 * @return An Action that denotes actor following target
+	 */
 	@Override
 	public Action getAction(Actor actor, GameMap map, Actions actions) {
 		if(!map.contains(target) || !map.contains(actor))
@@ -45,7 +55,6 @@ public class FollowBehaviour implements Behaviour {
 
 	/**
 	 * Compute the Manhattan distance between two locations.
-	 * 
 	 * @param a the first location
 	 * @param b the first location
 	 * @return the number of steps between a and b if you only move in the four cardinal directions.
