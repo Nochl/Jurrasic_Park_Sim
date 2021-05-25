@@ -14,14 +14,39 @@ import game.enums.MapCapabilities;
 
 import java.util.ArrayList;
 
+/**
+ * Implements a tree ground object
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 2.0.0
+ * @see Ground
+ */
 public class Tree extends Ground {
+	/**
+	 * an int denoting age of tree
+	 */
 	private int age = 0;
+
+	/**
+	 * An array list of Fruit denoting the fruits in tree
+	 */
 	private ArrayList<Fruit> inTree = new ArrayList<>();
+
+	/**
+	 * Constructor
+	 */
 	public Tree() {
 		super('+');
 		addCapability(GroundTypeCapabilities.TREE);
 	}
 
+	/**
+	 * gets all the allowable actions that can be done to tree object
+	 * @param actor the Actor acting
+	 * @param location the current Location
+	 * @param direction the direction of the Ground from the Actor
+	 * @return an Actions containing all the allowable actions that can be done to tree object
+	 */
 	@Override
 	public Actions allowableActions(Actor actor, Location location, String direction){
 		Actions actions = new Actions();
@@ -35,6 +60,10 @@ public class Tree extends Ground {
 		return actions;
 	}
 
+	/**
+	 * Ticks tree object
+	 * @param location The location of the Ground
+	 */
 	@Override
 	public void tick(Location location) {
 		double prob = Math.random();

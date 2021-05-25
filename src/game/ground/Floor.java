@@ -9,19 +9,18 @@ import game.enums.MapCapabilities;
 
 /**
  * A class that represents the floor inside a building.
+ * @author Tim Jordan
+ * @author Enoch Leow
+ * @version 1.0.0
+ * @see Ground
  */
 public class Floor extends Ground {
 
+	/**
+	 * Constructor
+	 */
 	public Floor() {
 		super('_');
 	}
 
-	@Override
-	public Actions allowableActions(Actor actor, Location location, String direction){
-		Actions actions = new Actions();
-//		if (hasCapability(MapCapabilities.EDGEMAP)) {
-//			actions.add(new NextMapAction());
-//		}
-		return actions;
-	}
 }
