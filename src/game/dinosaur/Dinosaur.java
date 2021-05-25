@@ -6,7 +6,6 @@ import game.Sky;
 import game.actions.*;
 import game.behaviour.*;
 import game.Counter;
-import game.consumable.corpse.Corpse;
 import game.enums.*;
 
 import java.util.ArrayList;
@@ -166,7 +165,7 @@ public abstract class Dinosaur extends Actor {
         if (!isConscious() && Sky.getRainAmount() > 0) {
             water = 10;
             hitPoints = 50;
-            display.println(this.toString()+" has been revived by the rain!");
+            display.println(this + " has been revived by the rain!");
         }
 
         // Running dinosaur functions (if its conscious)
@@ -207,6 +206,7 @@ public abstract class Dinosaur extends Actor {
                     removeCapability(DinosaurState.BABY);
                     addCapability(DinosaurState.ADULT);
                     growUp();
+                    return new GrowUpAction();
                 }
             }
 
