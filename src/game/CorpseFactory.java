@@ -1,4 +1,4 @@
-package game.enums;
+package game;
 
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.World;
@@ -6,6 +6,7 @@ import game.Player;
 import game.consumable.corpse.*;
 import game.consumable.eggs.*;
 import game.dinosaur.Dinosaur;
+import game.enums.DinosaurCapabilities;
 
 /**
  * Creates a new corpse dependent on Dinosaur Species

@@ -11,7 +11,7 @@ import edu.monash.fit2099.engine.Weapon;
 import game.DinosaurHold;
 import game.consumable.corpse.Corpse;
 import game.dinosaur.Dinosaur;
-import game.enums.CorpseFactory;
+import game.CorpseFactory;
 import game.enums.DinosaurCapabilities;
 
 

@@ -2,6 +2,7 @@ package game.dinosaur;
 
 import edu.monash.fit2099.engine.*;
 
+import game.CorpseFactory;
 import game.Sky;
 import game.actions.*;
 import game.behaviour.*;
